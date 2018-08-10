@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<title>LinkedIn Clone - Register</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/w3-theme-blue-grey.css">
+<link rel="stylesheet" href="fonts/open_sans.ttf" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Open Sans", sans-serif
+    }
+</style>
+
+<body class="w3-theme-l5">
+
+    <!-- Page Container -->
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:160px">
+        <!-- The Grid -->
+        <div class="w3-row">
+
+            <!-- Left Column -->
+            <div class="w3-col m8">
+                <h1>LOGO</h1>
+            </div>
+            <!-- End Left Column -->
+
+            <!-- Middle Column -->
+            <div class="w3-col m4">
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container w3-padding">
+                        <table style="width:100%">
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <a href="login.html">
+                                        <i class="fa fa-arrow-left"></i>
+                                        Return
+                                    </a>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input type="text" placeholder="Name" class="w3-border w3-padding" style="width:100%;" />
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input type="text" placeholder="Surname" class="w3-border w3-padding" style="width:100%;" />
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" />
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input type="text" placeholder="Phone Number" class="w3-border w3-padding" style="width:100%;" />
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input type="password" placeholder="Password" class="w3-border w3-padding" style="width:100%;" />
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input type="password" placeholder="Confirm Password" class="w3-border w3-padding" style="width:100%;" />
+                                </div>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="w3-row w3-padding" style="width:100%;">
+                                        <img src='images/placeholder.png' alt='' width="160" height="160" class='w3-border'>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="w3-row w3-padding" style="width:100%;">
+                                        <table>
+                                            <tr>
+                                                <p>Select and upload a profile image.</p>
+                                            </tr>
+                                            <tr>
+                                                <button type="button" class="w3-button w3-theme-d2">
+                                                    <i class="fa fa-upload "></i> Browse</button>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="w3-row w3-padding ">
+                                        <button type="button" onclick="location.href='home.html'" class="w3-button w3-theme-d2 ">
+                                            <i class="fa fa-sign-in "></i> Register</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- End Middle Column -->
+            </div>
+
+        </div>
+        <!-- End Grid -->
+    </div>
+    <!-- End Page Container -->
+    </div>
+    <br>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-theme-d5 w3-bottom ">
+        <p>Powered by
+            <a href="https://www.w3schools.com/w3css/default.asp " target="_blank ">w3.css</a>
+        </p>
+    </footer>
+
+    <script>
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo ");
+            if (x.className.indexOf("w3-show ") == -1) {
+                x.className += " w3-show ";
+            } else {
+                x.className = x.className.replace(" w3-show ", " ");
+            }
+        }
+    </script>
+</body>
+
+</html>

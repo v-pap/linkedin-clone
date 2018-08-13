@@ -47,32 +47,34 @@
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input type="text" placeholder="Name" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="name" type="text" placeholder="Name" class="w3-border w3-padding" style="width:100%;" />
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input type="text" placeholder="Surname" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="surname" type="text" placeholder="Surname" class="w3-border w3-padding" style="width:100%;" />
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="email" type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" />
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input type="text" placeholder="Phone Number" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="phone" type="text" placeholder="Phone Number" class="w3-border w3-padding" style="width:100%;" />
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input type="password" placeholder="Password" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="password" type="password" placeholder="Password" onkeyup="comparePasswords();" class="w3-border w3-padding" style="width:100%;"
+                                    />
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input type="password" placeholder="Confirm Password" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="c_password" type="password" placeholder="Confirm Password" onkeyup="comparePasswords();" class="w3-border w3-padding"
+                                        style="width:100%;" />
                                 </div>
                             </tr>
                             <tr>
@@ -98,9 +100,12 @@
                             <tr>
                                 <td>
                                     <div class="w3-row w3-padding ">
-                                        <button type="button" onclick="location.href='home.html'" class="w3-button w3-theme-d2 ">
+                                        <button id="register" type="button" onclick="check_register();" class="w3-button w3-theme-d2 ">
                                             <i class="fa fa-sign-in "></i> Register</button>
                                     </div>
+                                </td>
+                                <td>
+                                    <input id="error_message" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold" readonly>
                                 </td>
                             </tr>
                         </table>
@@ -118,7 +123,7 @@
     <br>
 
     <!-- Footer -->
-    <footer class="w3-container w3-theme-d5 w3-bottom ">
+    <footer class="w3-container w3-theme-d5 w3-bottom">
         <p>Powered by
             <a href="https://www.w3schools.com/w3css/default.asp " target="_blank ">w3.css</a>
         </p>
@@ -132,6 +137,32 @@
                 x.className += " w3-show ";
             } else {
                 x.className = x.className.replace(" w3-show ", " ");
+            }
+        }
+
+        function comparePasswords() {
+            if (document.getElementById('password').value ==
+                document.getElementById('c_password').value) {
+                document.getElementById('error_message').value = "";
+                document.getElementById("register").disabled = false;
+            } else {
+                document.getElementById('error_message').value = "Passwords not matching.";
+                document.getElementById("register").disabled = true;
+            }
+        }
+
+        function check_register() {
+            if (document.getElementById('name').value == "" ||
+                document.getElementById('surname').value == "" ||
+                document.getElementById('email').value == "" ||
+                document.getElementById('phone').value == "" ||
+                document.getElementById('password').value == "" ||
+                document.getElementById('c_password').value == "") {
+                document.getElementById('error_message').value = "Empty fields.";
+            }
+            else {
+                document.getElementById('error_message').value = "";
+                location.href = "home.html";
             }
         }
     </script>

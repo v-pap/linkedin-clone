@@ -31,7 +31,7 @@
                 <i class="fa fa-linkedin-square w3-margin-right"></i>
                 LinkedIn Clone
             </a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
                 <i class="fa fa-sign-out"></i>
                 Log Out
             </a>
@@ -87,42 +87,62 @@
 
                 <div class="w3-container w3-card w3-white w3-round w3-margin">
                     <div class="w3-row w3-padding" style="width:100%;">
-                        <h4>Password</h4>
-                    </div>
-                    <div class="w3-row w3-padding" style="width:100%;">
-                        <input type="text" placeholder="New Email" class="w3-border w3-padding" style="width:100%;" />
-                    </div>
-                    <div class="w3-row w3-padding" style="width:100%;">
-                        <input type="password" placeholder="Confirm Password" class="w3-border w3-padding" style="width:100%;" />
-                    </div>
-                    <div class="w3-row w3-padding" style="width:100%;">
-                        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
-                            <i class="fa fa-edit"></i> Change</button>
-                    </div>
-                </div>
-                <div class="w3-container w3-card w3-white w3-round w3-margin">
-                    <div class="w3-row w3-padding" style="width:100%;">
                         <h4>Email</h4>
                     </div>
                     <div class="w3-row w3-padding" style="width:100%;">
-                        <input type="password" placeholder="New Password" class="w3-border w3-padding" style="width:100%;" />
+                        <input id="e_email" type="text" placeholder="New Email" class="w3-border w3-padding" style="width:100%;" />
                     </div>
                     <div class="w3-row w3-padding" style="width:100%;">
-                        <input type="password" placeholder="Confirm New Password" class="w3-border w3-padding" style="width:100%;" />
+                        <input id="e_password" type="password" placeholder="Confirm Password" class="w3-border w3-padding" style="width:100%;" />
                     </div>
-                    <div class="w3-row w3-padding" style="width:100%;">
-                        <input type="password" placeholder="Confirm Password" class="w3-border w3-padding" style="width:100%;" />
-                    </div>
-                    <div class="w3-row w3-padding" style="width:100%;">
-                        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
-                            <i class="fa fa-edit"></i> Change</button>
-                    </div>
-                </div>
+                    <table>
+                        <td>
+                            <div class="w3-row w3-padding" style="width:100%;">
+                                <button type="button" onclick="check_e_change();" class="w3-button w3-theme-d2 w3-margin-bottom">
+                                    <i class="fa fa-edit"></i> Change</button>
+                        </td>
+                        <td>
+                            <input id="e_error_message" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                readonly>
+                        </td>
+                        </div>
 
+                    </table>
+                </div>
+                <div class="w3-container w3-card w3-white w3-round w3-margin">
+                    <div class="w3-row w3-padding" style="width:100%;">
+                        <h4>Password</h4>
+                    </div>
+                    <div class="w3-row w3-padding" style="width:100%;">
+                        <input id="p_password" type="password" placeholder="New Password" class="w3-border w3-padding" style="width:100%;" />
+                    </div>
+                    <div class="w3-row w3-padding" style="width:100%;">
+                        <input id="p_new_password" type="password" placeholder="Confirm New Password" onkeyup="comparePasswords();" class="w3-border w3-padding"
+                            style="width:100%;" />
+                    </div>
+                    <div class="w3-row w3-padding" style="width:100%;">
+                        <input id="p_c_password" type="password" placeholder="Confirm Password" onkeyup="comparePasswords();" class="w3-border w3-padding"
+                            style="width:100%;" />
+                    </div>
+                    <table>
+                        <td>
+                            <div class="w3-row w3-padding" style="width:100%;">
+                                <button id="p_change" type="button" onclick="check_p_change();" class="w3-button w3-theme-d2 w3-margin-bottom">
+                                    <i class="fa fa-edit"></i> Change</button>
+                            </div>
+                        </td>
+                        <td>
+                            <input id="p_error_message" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                readonly>
+                        </td>
+                    </table>
+                </div>
             </div>
-            <!-- End Grid -->
+
         </div>
-        <!-- End Page Container -->
+        <!-- End Grid -->
+    </div>
+    <!-- End Page Container -->
     </div>
     <br>
 
@@ -141,6 +161,38 @@
                 x.className += " w3-show";
             } else {
                 x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        function comparePasswords() {
+            if (document.getElementById('p_new_password').value ==
+                document.getElementById('p_c_password').value) {
+                document.getElementById('p_error_message').value = "";
+                document.getElementById("p_change").disabled = false;
+            } else {
+                document.getElementById('p_error_message').value = "Passwords not matching.";
+                document.getElementById("p_change").disabled = true;
+            }
+        }
+
+        function check_e_change() {
+            if (document.getElementById('e_email').value == "" ||
+                document.getElementById('e_password').value == "") {
+                document.getElementById('e_error_message').value = "Empty fields.";
+            }
+            else {
+                document.getElementById('e_error_message').value = "";
+            }
+        }
+
+        function check_p_change() {
+            if (document.getElementById('p_password').value == "" ||
+                document.getElementById('p_new_password').value == "" ||
+                document.getElementById('p_c_password').value == "") {
+                document.getElementById('p_error_message').value = "Empty fields.";
+            }
+            else {
+                document.getElementById('p_error_message').value = "";
             }
         }
     </script>

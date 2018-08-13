@@ -39,25 +39,32 @@
                         <table style="width:100%">
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="email" type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" />
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input type="password" placeholder="Password" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="password" type="password" placeholder="Password" class="w3-border w3-padding" style="width:100%;" />
                                 </div>
                             </tr>
                             <tr>
-                                <div class="w3-row w3-padding">
-                                    <button type="button" onclick="location.href='home.html'" class="w3-button w3-theme-d2">
-                                        <i class="fa fa-sign-in"></i> Log In</button>
-                                </div>
+                                <td>
+                                    <div class="w3-row w3-padding">
+                                        <button id="sign_in" type="button" onclick="check_login();" class="w3-button w3-theme-d2">
+                                            <i class="fa fa-sign-in"></i> Log In</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input id="error_message" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold" readonly>
+                                </td>
                             </tr>
-                            <tr>
-                                <div class="w3-row w3-padding">
-                                    Don't have an account?
-                                    <a href="register.html">Register here.</a>
-                                </div>
+                            <tr style="width: 200%">
+                                <td style="width: 200%">
+                                    <div class="w3-row w3-padding" style="width: 200%">
+                                        Don't have an account?
+                                        <a href="register.html">Register here.</a>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -88,6 +95,17 @@
                 x.className += " w3-show";
             } else {
                 x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        function check_login() {
+            if (document.getElementById('email').value == "" ||
+                document.getElementById('password').value == "") {
+                document.getElementById('error_message').value = "Empty fields.";
+            }
+            else {
+                document.getElementById('error_message').value = "";
+                location.href = "home.html";
             }
         }
     </script>

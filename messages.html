@@ -167,12 +167,6 @@
                                         <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.
-                                        <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.
-                                        <br>
                                         <br>
                                     </td>
                                 </table>
@@ -182,10 +176,10 @@
                     <div class="w3-padding-8">
                         <table style="width:100%">
                             <td style="width: 100%">
-                                <input type="text" placeholder="Type your message." class="w3-border w3-padding" style="width:100%;" />
+                                <input id="message" type="text" placeholder="Type your message." class="w3-border w3-padding" style="width:100%;" />
                             </td>
                             <td style="width: 100%">
-                                <button type="button" onclick="location.href='network_search.html'" class="w3-button w3-theme-d2">
+                                <button type="button" onclick="check_message();" class="w3-button w3-theme-d2">
                                     <i class="fa fa-send"></i> Send</button>
                             </td>
                         </table>
@@ -217,6 +211,15 @@
                 x.className += " w3-show";
             } else {
                 x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        function check_message() {
+            if (document.getElementById('message').value == "") {
+                ;
+            }
+            else {
+                ;
             }
         }
     </script>

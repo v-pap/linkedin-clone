@@ -91,10 +91,10 @@
                                 <div class="w3-padding-8">
                                     <table style="width:100%">
                                         <td style="width: 100%">
-                                            <input type="text" placeholder="Search" class="w3-border w3-padding" style="width:100%;" />
+                                            <input id="search" type="text" placeholder="Search" class="w3-border w3-padding" style="width:100%;" />
                                         </td>
                                         <td style="width: 100%">
-                                            <button type="button" onclick="location.href='network_search.html'" class="w3-button w3-theme-d2">
+                                            <button type="button" onclick="check_search();" class="w3-button w3-theme-d2">
                                                 <i class="fa fa-search"></i> Search</button>
                                         </td>
                                     </table>
@@ -196,6 +196,15 @@
                 x.className += " w3-show";
             } else {
                 x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        function check_search() {
+            if (document.getElementById('search').value == "") {
+                ;
+            }
+            else {
+                location.href = "network_search.html";
             }
         }
     </script>

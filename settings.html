@@ -85,7 +85,7 @@
             <!-- Middle Column -->
             <div class="w3-col">
 
-                <div class="w3-container w3-card w3-white w3-round w3-margin">
+                <div class="w3-container w3-card w3-white w3-margin">
                     <div class="w3-row w3-padding" style="width:100%;">
                         <h4>Email</h4>
                     </div>
@@ -109,7 +109,7 @@
 
                     </table>
                 </div>
-                <div class="w3-container w3-card w3-white w3-round w3-margin">
+                <div class="w3-container w3-card w3-white w3-margin">
                     <div class="w3-row w3-padding" style="width:100%;">
                         <h4>Password</h4>
                     </div>
@@ -178,7 +178,7 @@
         function check_e_change() {
             if (document.getElementById('e_email').value == "" ||
                 document.getElementById('e_password').value == "") {
-                document.getElementById('e_error_message').value = "Empty fields.";
+                document.getElementById('e_error_message').value = "Missing required fields.";
             }
             else {
                 document.getElementById('e_error_message').value = "";
@@ -189,7 +189,7 @@
             if (document.getElementById('p_password').value == "" ||
                 document.getElementById('p_new_password').value == "" ||
                 document.getElementById('p_c_password').value == "") {
-                document.getElementById('p_error_message').value = "Empty fields.";
+                document.getElementById('p_error_message').value = "Missing required fields.";
             }
             else {
                 document.getElementById('p_error_message').value = "";

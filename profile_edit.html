@@ -118,21 +118,27 @@
                         </td>
                         <td>
                             <form style="float:right;">
-                                <input type="radio" name="visibility" value="Public" checked/> Public
-                                <input type="radio" name="visibility" value="Private"> Private
+                                <input type="radio" name="visibility" value="Public" style="vertical-align: sub" checked/>                                Public
+                                <input type="radio" name="visibility" value="Private" style="vertical-align: sub"> Private
                             </form>
                         </td>
                     </table>
-                    <div class="w3-row w3-padding-8" style="width:100%;">
-                        <input type="text" placeholder="Title" class="w3-border w3-padding" style="width:100%;" />
+                    <div id="work_wrapper">
+                        <div id="work_title_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input id="work_title_1" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%" />
+                            <input id="work_from_1" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type='date')"
+                                onblur="(this.type='text')">
+                            <input id="work_to_1" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type='date')"
+                                onblur="(this.type='text')">
+                        </div>
+                        <div id="work_description_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input id="work_description_1" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />
+                        </div>
                     </div>
                     <div class="w3-row w3-padding-8" style="width:100%;">
-                        <input type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />
-                    </div>
-                    <div class="w3-row w3-padding-8" style="width:100%;">
-                        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
+                        <button type="button" onclick="remove_work();" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-minus"></i> Remove Entry</button>
-                        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
+                        <button type="button" onclick="add_work();" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-plus"></i> Add Entry</button>
                     </div>
                     <hr class="w3-clear">
@@ -142,21 +148,28 @@
                         </td>
                         <td>
                             <form style="float:right;">
-                                <input type="radio" name="visibility" value="Public" checked> Public
-                                <input type="radio" name="visibility" value="Private"> Private
+                                <input type="radio" name="visibility" value="Public" style="vertical-align: sub" checked>                                Public
+                                <input type="radio" name="visibility" value="Private" style="vertical-align: sub"> Private
                             </form>
                         </td>
                     </table>
-                    <div class="w3-row w3-padding-8" style="width:100%;">
-                        <input type="text" placeholder="Title" class="w3-border w3-padding" style="width:100%;" />
+                    <div id="education_wrapper">
+                        <div id="education_title_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input id="education_title_1" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />
+                            <input id="education_from_1" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type='date')"
+                                onblur="(this.type='text')">
+                            <input id="education_to_1" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type='date')"
+                                onblur="(this.type='text')">
+                        </div>
+                        <div id="education_description_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input id="education_description_1" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;"
+                            />
+                        </div>
                     </div>
                     <div class="w3-row w3-padding-8" style="width:100%;">
-                        <input type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />
-                    </div>
-                    <div class="w3-row w3-padding-8" style="width:100%;">
-                        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
+                        <button type="button" onclick="remove_education();" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-minus"></i> Remove Entry</button>
-                        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
+                        <button type="button" onclick="add_education();" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-plus"></i> Add Entry</button>
                     </div>
                     <hr class="w3-clear">
@@ -166,8 +179,8 @@
                         </td>
                         <td>
                             <form style="float:right;">
-                                <input type="radio" name="visibility" value="Public" checked> Public
-                                <input type="radio" name="visibility" value="Private"> Private
+                                <input type="radio" name="visibility" value="Public" style="vertical-align: sub" checked>                                Public
+                                <input type="radio" name="visibility" value="Private" style="vertical-align: sub"> Private
                             </form>
                         </td>
                     </table>
@@ -209,6 +222,35 @@
             } else {
                 x.className = x.className.replace(" w3-show", "");
             }
+        }
+
+        var education_counter = 1, work_counter = 1;
+        function add_work() {
+            work_counter += 1;
+            var field_to_add = '<div id="work_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input id="work_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input id="work_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input id="work_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div id="work_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input id="work_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div>'.replace(/%num%/g, work_counter);
+            document.getElementById('work_wrapper').innerHTML += field_to_add;
+        }
+
+        function remove_work() {
+            var work_title_to_remove = "work_title_wrapper_%num%".replace("%num%", work_counter),
+                work_description_to_remove = "work_description_wrapper_%num%".replace("%num%", work_counter);
+            document.getElementById(work_title_to_remove).outerHTML = "";
+            document.getElementById(work_description_to_remove).outerHTML = "";
+            work_counter -= 1;
+        }
+
+        function add_education() {
+            education_counter += 1;
+            var field_to_add = '<div id="education_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input id="education_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input id="education_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input id="education_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div id="education_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input id="education_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div>'.replace(/%num%/g, education_counter);
+            document.getElementById('education_wrapper').innerHTML += field_to_add;
+        }
+
+        function remove_education() {
+            var education_title_to_remove = "education_title_wrapper_%num%".replace("%num%", education_counter),
+                education_description_to_remove = "education_description_wrapper_%num%".replace("%num%", education_counter);
+            document.getElementById(education_title_to_remove).outerHTML = "";
+            document.getElementById(education_description_to_remove).outerHTML = "";
+            education_counter -= 1;
         }
     </script>
 </body>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>LinkedIn Clone - Home</title>
+<title>LinkedIn Clone - Admin</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/w3.css">
@@ -27,7 +27,7 @@
                 onclick="openNav()">
                 <i class="fa fa-bars"></i>
             </a>
-            <a href="home.html" class="w3-bar-item w3-button w3-padding-large">
+            <a href="admin.html" class="w3-bar-item w3-button w3-padding-large">
                 <i class="fa fa-linkedin-square w3-margin-right"></i>
                 LinkedIn Clone - Admin Control Page
             </a>
@@ -40,7 +40,7 @@
 
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-        <a href="home.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
+        <a href="admin.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
         <a href="login.html" class="w3-bar-item w3-button w3-padding-large">Log Out</a>
     </div>
 
@@ -53,9 +53,31 @@
             <div class="w3-col">
                 <div class="w3-container w3-card w3-white w3-margin">
                     <table style="width: 100%">
+                        <td style="width: 37%">
+                            <h4>
+                                <i class="fa fa-user"></i> Users</h4>
+                        </td>
+                        <td style="width: 17%">
+                            <button type="button" onclick="unselect_all();" class="w3-button w3-theme-d2 w3-margin-right">
+                                <i class="fa fa-remove"></i> Unselect All</button>
+                        </td>
+                        <td style="width: 23%">
+                            <button type="button" class="w3-button w3-theme-d2 w3-margin-right">
+                                <i class="fa fa-download"></i> Download Selected (XML)</button>
+                        </td>
+                        <td style="width: 23%">
+                            <button type="button" class="w3-button w3-theme-d2" style="width: 100%">
+                                <i class="fa fa-download"></i> Download All (XML)</button>
+                        </td>
+                    </table>
+                </div>
+                <div class="w3-container w3-card w3-white w3-margin">
+                    <table style="width: 100%">
                         <td>
                             <p class="w3-center">
-                                <img src="images/avatar2.png" class="w3-circle" style="height:116px;width:116px" alt="Avatar">
+                                <a href="profile_admin.html">
+                                    <img src="images/avatar2.png" style="height:116px;width:116px" alt="Avatar">
+                                </a>
                             </p>
                         </td>
                         <td class="w3-padding">
@@ -79,7 +101,17 @@
                             </p>
                         </td>
                         <td>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+                            <div style="width:100%">
+                                <table style="width:100%">
+                                    <td style="width:100%">
+                                        <label class="w3-opacity-min">Select User (XML) </label>
+                                    </td>
+                                    <td>
+                                        <input id="check_1" class="w3-check" type="checkbox">
+                                    </td>
+                                </table>
+                            </div>
+                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
                                 <i class="fa fa-user"></i> View Profile</button>
                             <br>
                             <br>
@@ -92,7 +124,9 @@
                     <table style="width: 100%">
                         <td>
                             <p class="w3-center">
-                                <img src="images/avatar3.png" class="w3-circle" style="height:116px;width:116px" alt="Avatar">
+                                <a href="profile_admin.html">
+                                    <img src="images/avatar3.png" style="height:116px;width:116px" alt="Avatar">
+                                </a>
                             </p>
                         </td>
                         <td class="w3-padding">
@@ -116,7 +150,17 @@
                             </p>
                         </td>
                         <td>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+                            <div style="width:100%">
+                                <table style="width:100%">
+                                    <td style="width:100%">
+                                        <label class="w3-opacity-min">Select User (XML) </label>
+                                    </td>
+                                    <td>
+                                        <input id="check_2" class="w3-check" type="checkbox">
+                                    </td>
+                                </table>
+                            </div>
+                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
                                 <i class="fa fa-user"></i> View Profile</button>
                             <br>
                             <br>
@@ -129,7 +173,9 @@
                     <table style="width: 100%">
                         <td>
                             <p class="w3-center">
-                                <img src="images/avatar5.png" class="w3-circle" style="height:116px;width:116px" alt="Avatar">
+                                <a href="profile_admin.html">
+                                    <img src="images/avatar5.png" style="height:116px;width:116px" alt="Avatar">
+                                </a>
                             </p>
                         </td>
                         <td class="w3-padding">
@@ -153,7 +199,17 @@
                             </p>
                         </td>
                         <td>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+                            <div style="width:100%">
+                                <table style="width:100%">
+                                    <td style="width:100%">
+                                        <label class="w3-opacity-min">Select User (XML) </label>
+                                    </td>
+                                    <td>
+                                        <input id="check_3" class="w3-check" type="checkbox">
+                                    </td>
+                                </table>
+                            </div>
+                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
                                 <i class="fa fa-user"></i> View Profile</button>
                             <br>
                             <br>
@@ -166,7 +222,9 @@
                     <table style="width: 100%">
                         <td>
                             <p class="w3-center">
-                                <img src="images/avatar6.png" class="w3-circle" style="height:116px;width:116px" alt="Avatar">
+                                <a href="profile_admin.html">
+                                    <img src="images/avatar6.png" style="height:116px;width:116px" alt="Avatar">
+                                </a>
                             </p>
                         </td>
                         <td class="w3-padding">
@@ -190,7 +248,17 @@
                             </p>
                         </td>
                         <td>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+                            <div style="width:100%">
+                                <table style="width:100%">
+                                    <td style="width:100%">
+                                        <label class="w3-opacity-min">Select User (XML) </label>
+                                    </td>
+                                    <td>
+                                        <input id="check_4" class="w3-check" type="checkbox">
+                                    </td>
+                                </table>
+                            </div>
+                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
                                 <i class="fa fa-user"></i> View Profile</button>
                             <br>
                             <br>
@@ -218,6 +286,7 @@
     </footer>
 
     <script>
+        var user_count = 4;
         // Used to toggle the menu on smaller screens when clicking on the menu button
         function openNav() {
             var x = document.getElementById("navDemo");
@@ -228,12 +297,9 @@
             }
         }
 
-        function check_post() {
-            if (document.getElementById('post').value == "") {
-                ;
-            }
-            else {
-                ;
+        function unselect_all() {
+            for (var i = 1; i <= user_count; i++) {
+                document.getElementById("check_" + i).checked = false;
             }
         }
     </script>

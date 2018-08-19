@@ -47,34 +47,34 @@
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="name" type="text" placeholder="Name" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="name" type="text" placeholder="Name" class="w3-border w3-padding" style="width:100%;" required/>
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="surname" type="text" placeholder="Surname" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="surname" type="text" placeholder="Surname" class="w3-border w3-padding" style="width:100%;" required/>
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="email" type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="email" type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" required/>
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="phone" type="text" placeholder="Phone Number" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="phone" type="text" placeholder="Phone Number" class="w3-border w3-padding" style="width:100%;" required/>
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
                                     <input id="password" type="password" placeholder="Password" onkeyup="comparePasswords();" class="w3-border w3-padding" style="width:100%;"
-                                    />
+                                        required/>
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
                                     <input id="c_password" type="password" placeholder="Confirm Password" onkeyup="comparePasswords();" class="w3-border w3-padding"
-                                        style="width:100%;" />
+                                        style="width:100%;" required/>
                                 </div>
                             </tr>
                             <tr>
@@ -105,7 +105,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input id="error_message" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold" readonly>
+                                    <input id="error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                        readonly>
                                 </td>
                             </tr>
                         </table>

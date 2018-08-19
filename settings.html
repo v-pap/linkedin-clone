@@ -91,10 +91,10 @@
                         <h4>Email</h4>
                     </div>
                     <div class="w3-row w3-padding" style="width:100%;">
-                        <input id="e_email" type="text" placeholder="New Email" class="w3-border w3-padding" style="width:100%;" />
+                        <input id="e_email" type="email" placeholder="New Email" class="w3-border w3-padding" style="width:100%;" required/>
                     </div>
                     <div class="w3-row w3-padding" style="width:100%;">
-                        <input id="e_password" type="password" placeholder="Confirm Password" class="w3-border w3-padding" style="width:100%;" />
+                        <input id="e_password" type="password" placeholder="Confirm Password" class="w3-border w3-padding" style="width:100%;" required/>
                     </div>
                     <table>
                         <td>
@@ -103,7 +103,7 @@
                                     <i class="fa fa-edit"></i> Change</button>
                         </td>
                         <td>
-                            <input id="e_error_message" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                            <input id="e_error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
                                 readonly>
                         </td>
                         </div>
@@ -115,15 +115,15 @@
                         <h4>Password</h4>
                     </div>
                     <div class="w3-row w3-padding" style="width:100%;">
-                        <input id="p_password" type="password" placeholder="New Password" class="w3-border w3-padding" style="width:100%;" />
+                        <input id="p_password" type="password" placeholder="New Password" class="w3-border w3-padding" style="width:100%;" required/>
                     </div>
                     <div class="w3-row w3-padding" style="width:100%;">
                         <input id="p_new_password" type="password" placeholder="Confirm New Password" onkeyup="comparePasswords();" class="w3-border w3-padding"
-                            style="width:100%;" />
+                            style="width:100%;" required/>
                     </div>
                     <div class="w3-row w3-padding" style="width:100%;">
                         <input id="p_c_password" type="password" placeholder="Confirm Password" onkeyup="comparePasswords();" class="w3-border w3-padding"
-                            style="width:100%;" />
+                            style="width:100%;" required/>
                     </div>
                     <table>
                         <td>
@@ -133,7 +133,7 @@
                             </div>
                         </td>
                         <td>
-                            <input id="p_error_message" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                            <input id="p_error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
                                 readonly>
                         </td>
                     </table>

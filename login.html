@@ -39,12 +39,12 @@
                         <table style="width:100%">
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="email" type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="email" type="email" placeholder="Email" class="w3-border w3-padding" style="width:100%;" required/>
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="password" type="password" placeholder="Password" class="w3-border w3-padding" style="width:100%;" />
+                                    <input id="password" type="password" placeholder="Password" class="w3-border w3-padding" style="width:100%;" required/>
                                 </div>
                             </tr>
                             <tr>
@@ -55,7 +55,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input id="error_message" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold" readonly>
+                                    <input id="error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                        readonly>
                                 </td>
                             </tr>
                             <tr style="width: 200%">
@@ -101,6 +102,7 @@
         function check_login() {
             if (document.getElementById('email').value == "" ||
                 document.getElementById('password').value == "") {
+                document.getElementById('email').validateInput();
                 document.getElementById('error_message').value = "Missing required fields.";
             }
             else {

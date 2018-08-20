@@ -47,33 +47,37 @@
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="name" type="text" placeholder="Name" class="w3-border w3-padding" style="width:100%;" required/>
-                                </div>
-                            </tr>
-                            <tr>
-                                <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="surname" type="text" placeholder="Surname" class="w3-border w3-padding" style="width:100%;" required/>
-                                </div>
-                            </tr>
-                            <tr>
-                                <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="email" type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" required/>
-                                </div>
-                            </tr>
-                            <tr>
-                                <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="phone" type="text" placeholder="Phone Number" class="w3-border w3-padding" style="width:100%;" required/>
-                                </div>
-                            </tr>
-                            <tr>
-                                <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="password" type="password" placeholder="Password" onkeyup="comparePasswords();" class="w3-border w3-padding" style="width:100%;"
+                                    <input id="name" type="text" placeholder="Name" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
                                         required/>
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="c_password" type="password" placeholder="Confirm Password" onkeyup="comparePasswords();" class="w3-border w3-padding"
+                                    <input id="surname" type="text" placeholder="Surname" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
+                                        required/>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input id="email" type="email" placeholder="Email" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
+                                        required/>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input id="phone" type="text" placeholder="Phone Number" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
+                                        required/>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input id="password" type="password" placeholder="Password" onkeyup="check_form(this.id);comparePasswords();" class="w3-border w3-padding"
+                                        style="width:100%;" required/>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input id="c_password" type="password" placeholder="Confirm Password" onkeyup="check_form(this.id);comparePasswords();" class="w3-border w3-padding"
                                         style="width:100%;" required/>
                                 </div>
                             </tr>
@@ -141,27 +145,63 @@
             }
         }
 
-        function comparePasswords() {
-            if (document.getElementById('password').value ==
-                document.getElementById('c_password').value) {
+        function check_form(id) {
+            document.getElementById(id).setCustomValidity("");
+            if (document.getElementById(id).checkValidity() == false) {
+                document.getElementById(id).setCustomValidity("Invalid field.");
+                if (id == "email") {
+                    document.getElementById('error_message').value = "Invalid email.";
+                }
+                else {
+                    document.getElementById('error_message').value = "Missing required fields.";
+                }
+            }
+            else {
+                document.getElementById(id).setCustomValidity("");
                 document.getElementById('error_message').value = "";
-                document.getElementById("register").disabled = false;
+            }
+        }
+
+        function comparePasswords() {
+            if ((document.getElementById('password').value != "" &&
+                document.getElementById('password').value != "") &&
+                (document.getElementById('password').value ==
+                    document.getElementById('c_password').value)) {
+                document.getElementById('password').setCustomValidity("");
+                document.getElementById('c_password').setCustomValidity("");
+                return true;
             } else {
+                document.getElementById('password').setCustomValidity("Invalid field.");
+                document.getElementById('c_password').setCustomValidity("Invalid field.");
                 document.getElementById('error_message').value = "Passwords not matching.";
-                document.getElementById("register").disabled = true;
+                return false;
             }
         }
 
         function check_register() {
-            if (document.getElementById('name').value == "" ||
-                document.getElementById('surname').value == "" ||
-                document.getElementById('email').value == "" ||
-                document.getElementById('phone').value == "" ||
-                document.getElementById('password').value == "" ||
-                document.getElementById('c_password').value == "") {
-                document.getElementById('error_message').value = "Missing required fields.";
+            var error = false, id_arr = ["name", "surname", "email", "phone", "password", "c_password"];
+            if (document.getElementById('email').checkValidity() == false) {
+                document.getElementById('email').setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Invalid email.";
+                error = true;
             }
             else {
+                document.getElementById('email').setCustomValidity("");
+            }
+            for (var i = 0; i < id_arr.length; i++) {
+                if (document.getElementById(id_arr[i]).value == "") {
+                    document.getElementById(id_arr[i]).setCustomValidity("Invalid field.");
+                    document.getElementById('error_message').value = "Missing required fields.";
+                    error = true;
+                }
+                else {
+                    document.getElementById(id_arr[i]).setCustomValidity("");
+                }
+            }
+            if (comparePasswords() == false) {
+                error = true;
+            }
+            if (error == false) {
                 document.getElementById('error_message').value = "";
                 location.href = "home.html";
             }

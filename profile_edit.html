@@ -88,7 +88,18 @@
 
                 <div class="w3-container w3-card w3-white w3-margin">
                     <br>
-                    <img src="images/avatar3.png" alt="Avatar" style="width:100%" class="w3-circle w3-margin-bottom">
+                    <img id="profile_img" src="images/avatar3.png" alt="Avatar" style="width:100%" class="w3-circle w3-margin-bottom">
+                    <table>
+                        <td>
+                            <p class="w3-opacity-min">Select and upload a new profile image.</p>
+                        </td>
+                        <td>
+                            <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
+                                <i class="fa fa-upload "></i> Browse</button>
+                            <input id='upload_button' type='file' onchange="image_preview();" hidden/>
+                        </td>
+                    </table>
+                    <hr class="w3-clear">
                     <h4>Jane Doe</h4>
                     <hr class="w3-clear">
                     <div class="w3-row w3-padding-8" style="width:100%;">
@@ -224,6 +235,16 @@
             } else {
                 x.className = x.className.replace(" w3-show", "");
             }
+        }
+
+        function image_upload() {
+            document.getElementById('upload_button').click();
+        }
+
+
+        function image_preview() {
+            var selected_image = document.getElementById('upload_button').files[0];
+            document.getElementById('profile_img').src = window.URL.createObjectURL(selected_image);
         }
 
         var education_counter = 1, work_counter = 1;

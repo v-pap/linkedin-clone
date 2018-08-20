@@ -84,7 +84,7 @@
                             <tr>
                                 <td>
                                     <div class="w3-row w3-padding" style="width:100%;">
-                                        <img src='images/placeholder.png' alt='' width="160" height="160" class='w3-border'>
+                                        <img id="profile_img" src='images/placeholder.png' alt='Image not found. Please try again.' width="160" height="160" class='w3-border w3-circle'>
                                     </div>
                                 </td>
                                 <td>
@@ -94,8 +94,9 @@
                                                 <p>Select and upload a profile image.</p>
                                             </tr>
                                             <tr>
-                                                <button type="button" class="w3-button w3-theme-d2">
+                                                <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
                                                     <i class="fa fa-upload "></i> Browse</button>
+                                                <input id='upload_button' type='file' onchange="image_preview();" hidden/>
                                             </tr>
                                         </table>
                                     </div>
@@ -143,6 +144,16 @@
             } else {
                 x.className = x.className.replace(" w3-show ", " ");
             }
+        }
+
+        function image_upload() {
+            document.getElementById('upload_button').click();
+        }
+
+
+        function image_preview() {
+            var selected_image = document.getElementById('upload_button').files[0];
+            document.getElementById('profile_img').src = window.URL.createObjectURL(selected_image);
         }
 
         function check_form(id) {

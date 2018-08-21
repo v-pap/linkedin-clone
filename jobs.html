@@ -92,10 +92,19 @@
                                 <div class="w3-padding-8">
                                     <input id="post" type="text" placeholder="Post your own Job Offer" class="w3-border w3-padding" style="width:100%;" />
                                 </div>
-                                <div class="w3-padding-8">
-                                    <button type="button" onclick="check_post();" class="w3-button w3-theme-d2">
-                                        <i class="fa fa-pencil"></i> Post</button>
-                                </div>
+                                <table>
+                                    <td>
+                                        <button type="button" onclick="check_post();" class="w3-button w3-theme-d2">
+                                            <i class="fa fa-pencil"></i> Post</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
+                                            <i class="fa fa-photo "></i> Photo</button>
+                                        <input id='upload_button' type='file' onchange="image_pick();" hidden/>
+                                    </td>
+                                    <td id="img_picked" class="w3-opacity">
+                                    </td>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -175,6 +184,15 @@
             } else {
                 x.className = x.className.replace(" w3-show", "");
             }
+        }
+
+        function image_upload() {
+            document.getElementById('upload_button').click();
+        }
+
+        function image_pick() {
+            var selected_image = document.getElementById('upload_button').files[0];
+            document.getElementById('img_picked').innerHTML = "Selected image: " + selected_image.name;
         }
 
         function check_post() {

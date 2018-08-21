@@ -238,3 +238,4 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-button:active {color:#fff !important; background-color:#303e45 !important}
 
 .w3-padding-8{padding-top:8px!important;padding-bottom:8px!important}
+.w3-link {text-decoration: none;}.w3-link:hover {text-decoration: underline;}

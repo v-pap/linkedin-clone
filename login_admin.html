@@ -19,18 +19,16 @@
     }
 </style>
 
-<body background="images/welcome.jpg" class="w3-theme-l5">
+<body class="w3-theme-l5">
 
     <!-- Page Container -->
     <div class="w3-container w3-content" style="max-width:1400px;margin-top:160px">
         <!-- The Grid -->
         <div class="w3-row">
 
-            <!-- Left Column -->
-            <div class="w3-col m8">
-                <h1 class="w3-outline">WorkConnect</h1>
+            <div class="w3-col m4">
+                <p></p>
             </div>
-            <!-- End Left Column -->
 
             <!-- Middle Column -->
             <div class="w3-col m4">
@@ -39,8 +37,14 @@
                         <table style="width:100%">
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="email" type="email" placeholder="Email" onkeyup="check_form(this.id);" class="w3-border w3-padding w3-margin-top"
-                                        style="width:100%;" required/>
+                                    <h2>WorkConnect</h2>
+                                    <h5>Login as Admin</h5>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="w3-row w3-padding" style="width:100%;">
+                                    <input id="email" type="email" placeholder="Email" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
+                                        required/>
                                 </div>
                             </tr>
                             <tr>
@@ -64,8 +68,8 @@
                             <tr style="width: 200%">
                                 <td style="width: 200%">
                                     <div class="w3-row w3-padding" style="width: 200%">
-                                        Don't have an account?
-                                        <a href="register.html">Register here.</a>
+                                        Not an Administrator?
+                                        <a href="register.html">Go back to the Logιn page.</a>
                                     </div>
                                 </td>
                             </tr>
@@ -85,13 +89,10 @@
     <!-- Footer -->
     <footer class="w3-container w3-theme-d5 w3-bottom">
         <table class="w3-opacity-min" style="width:100%">
-            <td style="text-align: left;">
+            <td>
                 <h5>WorkConnect</h5>
             </td>
-            <td style="text-align: left;">
-                <a href="login_admin.html" class="w3-link">Login as Admin</a>
-            </td>
-            <td style="width:85%; text-align: right;">
+            <td style="float:right">
                 <p>Made by Vasileios Papavasileiou & Vasileios Sakkas - Powered by
                     <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
                 </p>
@@ -152,7 +153,7 @@
             }
             if (error == false) {
                 document.getElementById('error_message').value = "";
-                location.href = "home.html";
+                location.href = "admin.html";
             }
         }
     </script>

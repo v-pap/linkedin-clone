@@ -1,0 +1,36 @@
+package model;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+public class login {
+     private static final String PERSISTENCE_UNIT_NAME = "Administrator";
+     private static EntityManagerFactory factory;
+
+     public static void main(String[] args) {
+          factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+          EntityManager em = factory.createEntityManager();
+
+          // Create new user
+          em.getTransaction().begin();
+          Administrator admin = new Administrator();
+          admin.setEmail("gogo@gmail.com");
+          admin.setPassword("pass");
+          em.persist(admin);
+          em.getTransaction().commit();
+
+          em.close();
+          
+          // Read the existing entries and write to console
+          Query q = em.createQuery("SELECT u FROM administrators u");
+          List<Administrator> userList = q.getResultList();
+          for (Administrator administrator : userList) {
+               System.out.println(administrator.getEmail());
+          }
+          System.out.println("Size: " + userList.size());
+     }
+}

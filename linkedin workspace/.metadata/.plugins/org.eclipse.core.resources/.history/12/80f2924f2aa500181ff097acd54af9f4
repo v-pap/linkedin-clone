@@ -1,0 +1,13 @@
+package data;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class DBaccess {
+	private static final EntityManagerFactory emf =
+            Persistence.createEntityManagerFactory("LinkedInClone");
+    
+    public static EntityManagerFactory getEmFactory() {
+        return emf;
+    }
+}

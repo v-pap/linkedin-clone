@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+/home/bill/Desktop/linkedin workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/5873363.index
+/LinkedInClone/src
+/home/bill/Desktop/linkedin workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/504531583.index
+/LinkedInClone/src

@@ -1,0 +1,15 @@
+package dao;
+
+import java.util.List;
+
+import model.Administrator;
+
+public interface adminDAO 
+{
+	public Administrator find(long id);
+
+    public List<Administrator> list();
+
+    public void create(Administrator admin);
+
+}

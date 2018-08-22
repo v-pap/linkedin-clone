@@ -1,0 +1,30 @@
+package data;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import model.Administrator;
+
+public class userConnection {
+	
+	public static Boolean login(String email, String password) {
+        EntityManager em = DBaccess.getEmFactory().createEntityManager();
+        String qString = "SELECT u FROM Administrator u WHERE u.Email = :email AND u.Password = :pass";
+        Query q = em.createQuery(qString);
+        q.setParameter("email", email);
+        q.setParameter("password", password);
+        Boolean result = false;
+        try {
+        	Administrator admin = (Administrator) q.getSingleResult();
+        	if (email.equalsIgnoreCase(admin.getEmail())&&password.equals(admin.getPassword())) {
+  		      result=true;
+  		   }
+        } catch (Exception e) {
+            return false;
+        } finally {
+            em.close();
+        }
+        
+        return result;
+    }
+}

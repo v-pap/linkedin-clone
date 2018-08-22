@@ -1,0 +1,46 @@
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<html>
+<head>
+<title>Login Page</title>
+</head>
+<body>
+<f:view>
+<h:form id="helloForm">
+<Center>
+<H2>Logon Page</H2>
+</Br></Br>
+<table>
+<tr>
+<td>
+<h:outputLabel for="input1">
+<h:outputText id="nameLabel" value="User Name"/>
+</h:outputLabel>
+</td>
+<td>
+<h:inputText id="input1" value="#{loginbean.userName}" size="20"/>
+</td>
+</tr>
+<tr>
+<td>
+<h:outputLabel for="input2">
+<h:outputText id="passwordLabel" value="Password"/>
+</h:outputLabel>
+</td>
+<td>
+<h:inputSecret id="input2" value="#{loginbean.password}" size="20"/>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<h:commandButton id="logon" action="#{loginbean.validate}" value="Logon">
+</h:commandButton>
+</td>
+</tr>
+</table>
+</Center>
+</h:form>
+</f:view>
+</body>
+</html>

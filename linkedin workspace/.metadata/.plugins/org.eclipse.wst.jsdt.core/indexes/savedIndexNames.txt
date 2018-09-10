@@ -1,6 +1,8 @@
-INDEX VERSION 1.4+/home/bill/Desktop/linkedin-clone/linkedin workspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-2022060197.index
+INDEX VERSION 1.4+/home/bill/Desktop/linkedin workspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+4141010383.index
 3113519218.index
-1929260752.index
-2401769475.index
-1823456224.index
+3990059394.index
+1020549771.index
+1255400892.index
+3653484732.index
+1621863066.index

@@ -19,3 +19,9 @@
 127.0.0.1 - - [22/Aug/2018:02:14:40 +0300] "GET /LinkedInClone/login_error.jsp HTTP/1.1" 200 507
 127.0.0.1 - - [22/Aug/2018:02:42:01 +0300] "POST /LinkedInClone/AdministratorServlet HTTP/1.1" 302 -
 127.0.0.1 - - [22/Aug/2018:02:42:01 +0300] "GET /LinkedInClone/login_error.jsp HTTP/1.1" 200 507
+127.0.0.1 - - [22/Aug/2018:03:48:36 +0300] "GET / HTTP/1.1" 404 994
+127.0.0.1 - - [22/Aug/2018:03:48:49 +0300] "GET /LinkedInClone/login.jsp HTTP/1.1" 200 543
+127.0.0.1 - - [22/Aug/2018:03:48:56 +0300] "POST /LinkedInClone/AdministratorServlet HTTP/1.1" 302 -
+127.0.0.1 - - [22/Aug/2018:03:48:56 +0300] "GET /LinkedInClone/login_error.jsp HTTP/1.1" 200 507
+127.0.0.1 - - [22/Aug/2018:03:49:03 +0300] "POST /LinkedInClone/AdministratorServlet HTTP/1.1" 302 -
+127.0.0.1 - - [22/Aug/2018:03:49:03 +0300] "GET /LinkedInClone/admin_loggedin.jsp HTTP/1.1" 200 125

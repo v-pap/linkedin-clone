@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Move &apos;register.html&apos; to &apos;user&apos;" description="Move &apos;register.html&apos; to &apos;user&apos;" destination="WebContent/user" element1="WebContent/register.html" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1536453539427" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;LinkedInClone/WebContent/user/register.html&apos; to &apos;register.jsp&apos;" description="Rename resource &apos;register.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/user/register.html" name="register.jsp" stamp="1536453552867" updateReferences="true"/>
+</session>

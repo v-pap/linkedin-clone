@@ -1,5 +1,0 @@
-package jpautils;
-
-public class EntityManagerHelper {
-
-}

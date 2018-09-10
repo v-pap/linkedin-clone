@@ -19,10 +19,10 @@ public class Professional implements Serializable {
 	private String email;
 
 	@Column(name="education_private")
-	private byte educationPrivate;
+	private boolean educationPrivate;
 
 	@Column(name="experience_private")
-	private byte experiencePrivate;
+	private boolean experiencePrivate;
 
 	@Column(name="job_title")
 	private String jobTitle;
@@ -32,7 +32,7 @@ public class Professional implements Serializable {
 	private String password;
 
 	@Column(name="skills_private")
-	private byte skillsPrivate;
+	private boolean skillsPrivate;
 
 	private String surname;
 
@@ -101,19 +101,19 @@ public class Professional implements Serializable {
 		this.email = email;
 	}
 
-	public byte getEducationPrivate() {
+	public boolean getEducationPrivate() {
 		return this.educationPrivate;
 	}
 
-	public void setEducationPrivate(byte educationPrivate) {
+	public void setEducationPrivate(boolean educationPrivate) {
 		this.educationPrivate = educationPrivate;
 	}
 
-	public byte getExperiencePrivate() {
+	public boolean getExperiencePrivate() {
 		return this.experiencePrivate;
 	}
 
-	public void setExperiencePrivate(byte experiencePrivate) {
+	public void setExperiencePrivate(boolean experiencePrivate) {
 		this.experiencePrivate = experiencePrivate;
 	}
 
@@ -141,11 +141,11 @@ public class Professional implements Serializable {
 		this.password = password;
 	}
 
-	public byte getSkillsPrivate() {
+	public boolean getSkillsPrivate() {
 		return this.skillsPrivate;
 	}
 
-	public void setSkillsPrivate(byte skillsPrivate) {
+	public void setSkillsPrivate(boolean skillsPrivate) {
 		this.skillsPrivate = skillsPrivate;
 	}
 

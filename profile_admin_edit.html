@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<title>WorkConnect - Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/w3-theme-blue-grey.css">
+<link rel="stylesheet" href="fonts/open_sans.ttf" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Open Sans", sans-serif
+    }
+</style>
+
+<body class="w3-theme-l5">
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d3 w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-large" href="javascript:void(0);"
+                onclick="openNav()">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a href="admin.html" class="w3-bar-item w3-button w3-padding-large">
+
+                WorkConnect - Admin Control Page
+            </a>
+            <a href="login.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-sign-out"></i>
+                Log Out
+            </a>
+        </div>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a href="admin.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
+        <a href="login.html" class="w3-bar-item w3-button w3-padding-large">Log Out</a>
+    </div>
+
+    <!-- Page Container -->
+    <div class="w3-container w3-content" style="max-width:66.%;margin-top:80px">
+        <!-- The Grid -->
+        <div class="w3-row">
+
+            <div class="w3-container w3-padding w3-card w3-white w3-margin-right w3-margin-left">
+                <table style="width: 100%">
+                    <td style="width: 100%">
+                        <div class="w3-row" style="width:100%;">
+                            <a href="profile_admin.html">
+                                <i class="fa fa-arrow-left"></i>
+                                Cancel
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2">
+                            <i class="fa fa-edit"></i> Update Info</button>
+                    </td>
+                </table>
+            </div>
+
+            <!-- Middle Column -->
+            <div class="w3-col m4">
+
+                <div class="w3-container w3-card w3-white w3-margin">
+                    <br>
+                    <img id="profile_img" src="images/avatar3.png" alt="Avatar" style="width:100%" class="w3-round-large w3-margin-bottom">
+                    <table>
+                        <td>
+                            <p class="w3-opacity-min">Select and upload a new profile image.</p>
+                        </td>
+                        <td>
+                            <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
+                                <i class="fa fa-upload "></i> Browse</button>
+                            <input id='upload_button' type='file' onchange="image_preview();" hidden />
+                        </td>
+                    </table>
+                    <hr class="w3-clear">
+                    <h4>Jane Doe</h4>
+                    <hr class="w3-clear">
+                    <div class="w3-row w3-padding-8" style="width:100%;">
+                        <input type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />
+                    </div>
+                    <hr class="w3-clear">
+                    <h4>Contact Info</h4>
+                    <div class="w3-row w3-padding-8" style="width:100%;">
+                        <input type="text" placeholder="Email" class="w3-border w3-padding" style="width:100%;" />
+                    </div>
+                    <div class="w3-row w3-padding-8" style="width:100%;">
+                        <input type="text" placeholder="Phone" class="w3-border w3-padding" style="width:100%;" />
+                    </div>
+                    <div class="w3-row w3-padding-8" style="width:100%;">
+                        <input type="text" placeholder="Website" class="w3-border w3-padding" style="width:100%;" />
+                    </div>
+                </div>
+
+                <!-- End Middle Column -->
+            </div>
+
+            <div class="w3-col m8">
+
+                <div class="w3-container w3-card w3-white w3-margin">
+                    <table style="width:100%;">
+                        <td>
+                            <h4>Work Experience</h4>
+                        </td>
+                        <td>
+                            <form style="float:right;">
+                                <input type="radio" name="visibility" value="Public" style="vertical-align: sub"
+                                    checked /> Public
+                                <input type="radio" name="visibility" value="Private" style="vertical-align: sub">
+                                Private
+                            </form>
+                        </td>
+                    </table>
+                    <div id="work_wrapper">
+                        <div id="work_title_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input id="work_title_1" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%" />
+                            <input id="work_from_1" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%"
+                                onfocus="(this.type='date')" onblur="(this.type='text')">
+                            <input id="work_to_1" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%"
+                                onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                        <div id="work_description_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input id="work_description_1" type="text" placeholder="Description" class="w3-border w3-padding"
+                                style="width:100%;" />
+                        </div>
+                    </div>
+                    <div class="w3-row w3-padding-8" style="width:100%;">
+                        <button type="button" onclick="remove_work();" class="w3-button w3-theme-d2 w3-margin-bottom">
+                            <i class="fa fa-minus"></i> Remove Entry</button>
+                        <button type="button" onclick="add_work();" class="w3-button w3-theme-d2 w3-margin-bottom">
+                            <i class="fa fa-plus"></i> Add Entry</button>
+                    </div>
+                    <hr class="w3-clear">
+                    <table style="width:100%;">
+                        <td>
+                            <h4>Education</h4>
+                        </td>
+                        <td>
+                            <form style="float:right;">
+                                <input type="radio" name="visibility" value="Public" style="vertical-align: sub"
+                                    checked> Public
+                                <input type="radio" name="visibility" value="Private" style="vertical-align: sub">
+                                Private
+                            </form>
+                        </td>
+                    </table>
+                    <div id="education_wrapper">
+                        <div id="education_title_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input id="education_title_1" type="text" placeholder="Title" class="w3-border w3-padding"
+                                style="width:40.5%;" />
+                            <input id="education_from_1" placeholder="From" type="text" class="w3-border w3-padding"
+                                style="width: 29%" onfocus="(this.type='date')" onblur="(this.type='text')">
+                            <input id="education_to_1" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%"
+                                onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                        <div id="education_description_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input id="education_description_1" type="text" placeholder="Description" class="w3-border w3-padding"
+                                style="width:100%;" />
+                        </div>
+                    </div>
+                    <div class="w3-row w3-padding-8" style="width:100%;">
+                        <button type="button" onclick="remove_education();" class="w3-button w3-theme-d2 w3-margin-bottom">
+                            <i class="fa fa-minus"></i> Remove Entry</button>
+                        <button type="button" onclick="add_education();" class="w3-button w3-theme-d2 w3-margin-bottom">
+                            <i class="fa fa-plus"></i> Add Entry</button>
+                    </div>
+                    <hr class="w3-clear">
+                    <table style="width:100%;">
+                        <td>
+                            <h4>Skills</h4>
+                        </td>
+                        <td>
+                            <form style="float:right;">
+                                <input type="radio" name="visibility" value="Public" style="vertical-align: sub"
+                                    checked> Public
+                                <input type="radio" name="visibility" value="Private" style="vertical-align: sub">
+                                Private
+                            </form>
+                        </td>
+                    </table>
+                    <div class="w3-row w3-padding-8" style="width:100%;">
+                        <input type="text" placeholder="Interests. Use a comma (,) to separate your different skills."
+                            class="w3-border w3-padding" style="width:100%;" />
+                    </div>
+                </div>
+
+                <!-- End Middle Column -->
+            </div>
+
+        </div>
+        <!-- End Grid -->
+    </div>
+    <!-- End Page Container -->
+    </div>
+    <br>
+    <br>
+    <br>
+    <!-- Footer -->
+    <footer class="w3-container w3-theme-d5">
+        <table class="w3-opacity-min" style="width:100%">
+            <td>
+                <h5>WorkConnect</h5>
+            </td>
+            <td style="float:right">
+                <p>Made by Vasileios Papavasileiou & Vasileios Sakkas - Powered by
+                    <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+                </p>
+            </td>
+        </table>
+    </footer>
+
+    <script>
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        function image_upload() {
+            document.getElementById('upload_button').click();
+        }
+
+
+        function image_preview() {
+            var selected_image = document.getElementById('upload_button').files[0];
+            document.getElementById('profile_img').src = window.URL.createObjectURL(selected_image);
+        }
+
+        var education_counter = 1, work_counter = 1;
+        function add_work() {
+            work_counter += 1;
+            var field_to_add = '<div id="work_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input id="work_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input id="work_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input id="work_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div id="work_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input id="work_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div>'.replace(/%num%/g, work_counter);
+            document.getElementById('work_wrapper').innerHTML += field_to_add;
+        }
+
+        function remove_work() {
+            var work_title_to_remove = "work_title_wrapper_%num%".replace("%num%", work_counter),
+                work_description_to_remove = "work_description_wrapper_%num%".replace("%num%", work_counter);
+            document.getElementById(work_title_to_remove).outerHTML = "";
+            document.getElementById(work_description_to_remove).outerHTML = "";
+            work_counter -= 1;
+        }
+
+        function add_education() {
+            education_counter += 1;
+            var field_to_add = '<div id="education_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input id="education_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input id="education_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input id="education_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div id="education_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input id="education_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div>'.replace(/%num%/g, education_counter);
+            document.getElementById('education_wrapper').innerHTML += field_to_add;
+        }
+
+        function remove_education() {
+            var education_title_to_remove = "education_title_wrapper_%num%".replace("%num%", education_counter),
+                education_description_to_remove = "education_description_wrapper_%num%".replace("%num%", education_counter);
+            document.getElementById(education_title_to_remove).outerHTML = "";
+            document.getElementById(education_description_to_remove).outerHTML = "";
+            education_counter -= 1;
+        }
+    </script>
+</body>
+
+</html>

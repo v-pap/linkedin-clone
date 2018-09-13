@@ -74,7 +74,7 @@ public class RegisterServlet extends HttpServlet {
 		String requestURI = request.getRequestURI();
         String url = "";
         //if (requestURI.endsWith("/login")) {
-            Administrator admin = login(request, response);
+            /*Administrator admin = login(request, response);
             if (admin != null)
             {
                   
@@ -90,7 +90,7 @@ public class RegisterServlet extends HttpServlet {
             else
             {
             	response.sendRedirect("admin/login_error.jsp"); //error page 
-            }
+            }*/
         //}
         //getServletContext()
         //        .getRequestDispatcher(url)

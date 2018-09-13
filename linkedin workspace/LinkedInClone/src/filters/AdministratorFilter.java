@@ -47,6 +47,9 @@ public class AdministratorFilter implements Filter {
         
         Administrator admin;
         
+        chain.doFilter(req, res);
+        return;
+        /*
         System.out.println(requestURI);
         
         if(requestURI.endsWith(".css") || requestURI.endsWith(".ttf") ||
@@ -56,7 +59,9 @@ public class AdministratorFilter implements Filter {
         	return;
         }
         
-        if (session != null) {
+        chain.doFilter(req, res);
+        
+        /*if (session != null) {
         	admin = (Administrator) session.getAttribute("admin");
         	if(admin != null)
         	{
@@ -80,7 +85,7 @@ public class AdministratorFilter implements Filter {
         	res.sendRedirect("/LinkedInClone/admin/login.jsp");
         	return;
         }
-        chain.doFilter(req, res);
+        chain.doFilter(req, res);*/
 	}
 	/*if(!requestURI.endsWith("/LinkedInClone/admin/login.jsp") &&
     	!requestURI.endsWith("/LinkedInClone/admin/login_error.jsp"))

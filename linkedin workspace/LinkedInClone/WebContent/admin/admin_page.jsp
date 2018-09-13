@@ -29,11 +29,11 @@
                 onclick="openNav()">
                 <i class="fa fa-bars"></i>
             </a>
-            <a href="AdministratorServlet" class="w3-bar-item w3-button w3-padding-large">
+            <a href="/LinkedInClone/AdministratorServlet" class="w3-bar-item w3-button w3-padding-large">
 
                 WorkConnect - Admin Control Page
             </a>
-            <a href="AdministratorServlet/logout" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+            <a href="/LinkedInClone/AdministratorServlet/logout" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
                 <i class="fa fa-sign-out"></i>
                 Log Out
             </a>

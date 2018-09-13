@@ -89,7 +89,7 @@
                 <h5>WorkConnect</h5>
             </td>
             <td style="text-align: left;">
-                <a href="admin/login.jsp" class="w3-link">Login as Admin</a>
+                <a href="AdministratorServlet" class="w3-link">Login as Admin</a>
             </td>
             <td style="width:85%; text-align: right;">
                 <p>Made by Vasileios Papavasileiou & Vasileios Sakkas - Powered by

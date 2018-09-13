@@ -37,7 +37,7 @@
             <div class="w3-col m4">
                 <div class="w3-card w3-white">
                     <div class="w3-container w3-padding">
-                    <form action="../AdministratorServlet" method="post">
+                    <form action="/LinkedInClone/AdministratorServlet/login" method="post">
                         <table style="width:100%">
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
@@ -73,7 +73,7 @@
                                 <td style="width: 200%">
                                     <div class="w3-row w3-padding" style="width: 200%">
                                         Not an Administrator?
-                                        <a href="../index.jsp">Go back to the Login page.</a>
+                                        <a href="/LinkedInClone/index.jsp">Go back to the Login page.</a>
                                     </div>
                                 </td>
                             </tr>

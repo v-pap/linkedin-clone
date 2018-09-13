@@ -36,6 +36,7 @@ CREATE TABLE `administrators` (
 
 LOCK TABLES `administrators` WRITE;
 /*!40000 ALTER TABLE `administrators` DISABLE KEYS */;
+INSERT INTO `administrators` VALUES ('gogo1@gmail.com','pass');
 /*!40000 ALTER TABLE `administrators` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,12 +191,12 @@ DROP TABLE IF EXISTS `likes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `likes` (
   `email` varchar(40) NOT NULL,
-  `post_id` varchar(45) NOT NULL,
-  PRIMARY KEY (`post_id`),
-  UNIQUE KEY `post_id_UNIQUE` (`post_id`),
+  `post_id` int(11) NOT NULL,
+  PRIMARY KEY (`email`,`post_id`),
   KEY `fk_likes_1_idx` (`email`),
-  CONSTRAINT `fk_likes_1` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_likes_2` FOREIGN KEY (`post_id`) REFERENCES `posts` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_likes_1_idx1` (`post_id`),
+  CONSTRAINT `fk_likes_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_likes_2` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -294,6 +295,7 @@ CREATE TABLE `professionals` (
 
 LOCK TABLES `professionals` WRITE;
 /*!40000 ALTER TABLE `professionals` DISABLE KEYS */;
+INSERT INTO `professionals` VALUES ('crab17@soros.net','lel','BOG','BOGDANOF','666','picking up the phone',0,0,0),('f@di.uoa.gr','fag','zisimo','french','310130','calling',0,1,0),('fag@di.uoa.gr','dunno','lelios','kekios','34324','memer',1,0,1),('pouspa@boomer.gr','kek','faggotini','fag','666899','retired',1,1,1);
 /*!40000 ALTER TABLE `professionals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-15  1:55:45
+-- Dump completed on 2018-09-13 20:12:12

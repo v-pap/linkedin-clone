@@ -21,7 +21,7 @@ import dao.ProfessionalDAO;
 /**
  * Servlet implementation class AdministratorServlet
  */
-@WebServlet(urlPatterns = {"/AdministratorServlet", "/AdministratorServlet/logout"})
+@WebServlet(urlPatterns = {"/AdministratorServlet", "/AdministratorServlet/logout", "/AdministratorServlet/login"})
 public class AdministratorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,7 +48,7 @@ public class AdministratorServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			if(session != null)
 			    session.invalidate();
-			response.sendRedirect("/LinkedInClone/admin/login.jsp");
+			response.sendRedirect("/LinkedInClone/AdministratorServlet");
 			return;
 		}
 		
@@ -65,7 +65,9 @@ public class AdministratorServlet extends HttpServlet {
         }
         else
         {
-        	response.sendRedirect("admin/login.jsp");
+        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/login.jsp");  
+            rd.forward(request, response);
+        	//response.sendRedirect("admin/login.jsp");
         }
 	}
 
@@ -76,7 +78,7 @@ public class AdministratorServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String requestURI = request.getRequestURI();
         String url = "";
-        //if (requestURI.endsWith("/login")) {
+        if (requestURI.endsWith("login")) {
             Administrator admin = login(request, response);
             if (admin != null)
             {
@@ -92,9 +94,10 @@ public class AdministratorServlet extends HttpServlet {
             }
             else
             {
-            	response.sendRedirect("admin/login_error.jsp"); //error page 
+            	//TO DO ERROR PAGE
+            	//response.sendRedirect("admin/login_error.jsp"); //error page 
             }
-        //}
+        }
         //getServletContext()
         //        .getRequestDispatcher(url)
         //        .forward(request, response);

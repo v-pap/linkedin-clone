@@ -60,7 +60,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	public Professional register(String name, String surname, String email, String telephone, String password, String job_title) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		String qString = "SELECT p FROM Professional p WHERE p.email = :email AND p.password = :password";
-		"INSERT INTO professional (`email`, `password`, `name`, `surname`, `telephone`, `job_title`, `education_private`, `experience_private`, `skills_private`) VALUES (:email, :password, :name, :surname, :telephone, :job_title, 1, 1, 1)"
+		//"INSERT INTO professional (`email`, `password`, `name`, `surname`, `telephone`, `job_title`, `education_private`, `experience_private`, `skills_private`) VALUES (:email, :password, :name, :surname, :telephone, :job_title, 1, 1, 1)"
         Query q = em.createQuery(qString);
         q.setParameter("email",email);
         q.setParameter("password",password);

@@ -37,7 +37,7 @@
             <div class="w3-col m4">
                 <div class="w3-card w3-white">
                     <div class="w3-container w3-padding">
-                    <form action="/LinkedInClone/AdministratorServlet/login" method="post">
+                    <form action="/LinkedInClone/AdministratorServlet" method="post">
                         <table style="width:100%">
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
@@ -65,7 +65,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input id="error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                    <input id="error_message" class="w3-opacity-min" type="text" value="<%=request.getAttribute("error_message")%>" style="border: 0;background-color: inherit; color:red;font-weight: bold"
                                         readonly>
                                 </td>
                             </tr>

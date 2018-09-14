@@ -13,7 +13,8 @@ public class AdministratorDAOImpl implements AdministratorDAO
 {
 
 	@Override
-	public Administrator find(long id) {
+	public Administrator find(long id)
+	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		Administrator admin = em.find(Administrator.class, id);
 		EntityManagerHelper.closeEntityManager();
@@ -21,7 +22,8 @@ public class AdministratorDAOImpl implements AdministratorDAO
 	}
 
 	@Override
-	public List<Administrator> list() {
+	public List<Administrator> list()
+	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		Query query = em.createNamedQuery("admin.findAll");
 		@SuppressWarnings("unchecked")
@@ -39,7 +41,8 @@ public class AdministratorDAOImpl implements AdministratorDAO
 	}
 	
 	@Override
-	public Administrator login(String email, String password) {
+	public Administrator login(String email, String password)
+	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		String qString = "SELECT a FROM Administrator a WHERE a.email = :email AND a.password = :password";
         Query q = em.createQuery(qString);

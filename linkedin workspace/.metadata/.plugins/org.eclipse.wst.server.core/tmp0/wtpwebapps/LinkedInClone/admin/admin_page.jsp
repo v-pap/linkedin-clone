@@ -5,10 +5,10 @@
 <title>WorkConnect - Admin</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/w3.css">
-<link rel="stylesheet" href="css/w3-theme-blue-grey.css">
-<link rel="stylesheet" href="fonts/open_sans.ttf" />
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/w3.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/w3-theme-blue-grey.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/open_sans.ttf" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 <style>
     html,
     body,
@@ -79,7 +79,7 @@
                         <td>
                             <p class="w3-center">
                                 <a href="profile_admin.html">
-                                    <img src="images/avatar2.png" style="height:116px;width:116px" alt="Avatar">
+                                    <img src="${pageContext.request.contextPath}/images/avatar2.png" style="height:116px;width:116px" alt="Avatar">
                                 </a>
                             </p>
                         </td>

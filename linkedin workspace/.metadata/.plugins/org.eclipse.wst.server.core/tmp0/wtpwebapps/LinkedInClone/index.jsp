@@ -65,7 +65,7 @@
                                 <td style="width: 200%">
                                     <div class="w3-row w3-padding" style="width: 200%">
                                         Don't have an account?
-                                        <a href="user/register.jsp">Register here.</a>
+                                        <a href="RegisterServlet">Register here.</a>
                                     </div>
                                 </td>
                             </tr>

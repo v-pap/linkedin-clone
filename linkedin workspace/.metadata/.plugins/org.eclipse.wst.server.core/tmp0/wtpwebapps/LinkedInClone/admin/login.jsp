@@ -73,7 +73,7 @@
                                 <td style="width: 200%">
                                     <div class="w3-row w3-padding" style="width: 200%">
                                         Not an Administrator?
-                                        <a href="/LinkedInClone/index.jsp">Go back to the Login page.</a>
+                                        <a href="/LinkedInClone/UserServlet">Go back to the Login page.</a>
                                     </div>
                                 </td>
                             </tr>

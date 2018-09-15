@@ -19,6 +19,23 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		EntityManagerHelper.closeEntityManager();
         return prof;
 	}
+	
+	@Override
+	public boolean emailExists(String email) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		String qString = "SELECT p FROM Professional p WHERE p.email = :email";
+        Query q = em.createQuery(qString);
+        try {
+        	Professional prof;
+        	prof = (Professional) q.getSingleResult();
+        	if(prof == null) return false;
+        } catch (Exception e) {
+            return false;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return true;
+	}
 
 	@Override
 	public List<Professional> list() {
@@ -57,16 +74,21 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	}
 	
 	@Override
-	public Professional register(String name, String surname, String email, String telephone, String password, String job_title) {
+	public Professional register(String name, String surname, String email,
+			String telephone, String password, String job_title)
+	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
-		String qString = "SELECT p FROM Professional p WHERE p.email = :email AND p.password = :password";
-		//"INSERT INTO professional (`email`, `password`, `name`, `surname`, `telephone`, `job_title`, `education_private`, `experience_private`, `skills_private`) VALUES (:email, :password, :name, :surname, :telephone, :job_title, 1, 1, 1)"
-        Query q = em.createQuery(qString);
-        q.setParameter("email",email);
-        q.setParameter("password",password);
-        Professional prof;
+        Professional prof = new Professional();
+        prof.setEmail(email);
+        prof.setPassword(password);
+        prof.setName(name);
+        prof.setSurname(surname);
+        prof.setTelephone(telephone);
+        prof.setJobTitle(job_title);
         try {
-        	prof = (Professional) q.getSingleResult();
+        	em.getTransaction().begin();
+            em.persist(prof); //em.merge(u); for updates
+            em.getTransaction().commit();
         } catch (Exception e) {
             return null;
         } finally {

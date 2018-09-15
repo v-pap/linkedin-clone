@@ -36,10 +36,11 @@
             <div class="w3-col m4">
                 <div class="w3-card w3-white">
                     <div class="w3-container w3-padding">
+                    <form action="/LinkedInClone/RegisterServlet" method="post">
                         <table style="width:100%">
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <a href="../index.jsp">
+                                    <a href="/LinkedInClone/UserServlet">
                                         <i class="fa fa-arrow-left"></i>
                                         Return
                                     </a>
@@ -65,7 +66,7 @@
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="phone" name="phone" type="text" placeholder="Phone Number" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
+                                    <input id="phone" name="telephone" type="text" placeholder="Phone Number" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
                                         required/>
                                 </div>
                             </tr>
@@ -111,7 +112,7 @@
                             <tr>
                                 <td>
                                     <div class="w3-row w3-padding ">
-                                        <button id="register" type="button" onclick="check_register();" class="w3-button w3-theme-d2 ">
+                                        <button id="register" type="submit" onclick="check_register();" class="w3-button w3-theme-d2 ">
                                             <i class="fa fa-sign-in "></i> Register</button>
                                     </div>
                                 </td>
@@ -121,6 +122,7 @@
                                 </td>
                             </tr>
                         </table>
+                    </form>
                     </div>
                 </div>
 

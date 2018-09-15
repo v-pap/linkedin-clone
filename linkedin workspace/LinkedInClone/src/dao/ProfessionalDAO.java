@@ -9,6 +9,8 @@ public interface ProfessionalDAO
 	public Professional find(long id);
 
     public List<Professional> list();
+    
+    public boolean emailExists(String email);
 
     public void create(Professional prof);
     

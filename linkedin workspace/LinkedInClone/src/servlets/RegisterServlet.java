@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Administrator;
 import model.Professional;
 import dao.ProfessionalDAOImpl;
 import dao.ProfessionalDAO;
@@ -33,94 +34,76 @@ public class RegisterServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		/*String requestURI = request.getRequestURI();
-		//RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/login.jsp");  
-
-		//rd.forward(request, response);
-		if(requestURI.endsWith("logout"))
-		{
-			HttpSession session = request.getSession(false);
-			if(session != null)
-			    session.invalidate();
-			response.sendRedirect("/LinkedInClone/admin/login.jsp");
-			return;
-		}
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		String requestURI = request.getRequestURI();
 		HttpSession session = request.getSession(true);
 	
-		Administrator admin = (Administrator) session.getAttribute("admin");
-        if (admin != null)
+		Professional prof = (Professional) session.getAttribute("prof");
+        if (prof != null)
         {
-             List<Professional> profs = getAllProfessionals(request, response);
-             request.setAttribute("profs", profs);
-             
-             RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/admin_page.jsp");  
+             RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserServlet");  
              rd.forward(request, response);
         }
         else
         {
-        	response.sendRedirect("admin/login.jsp");
-        }*/
+        	request.setAttribute("error_message","");
+        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/register.jsp");  
+            rd.forward(request, response);
+        }
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String requestURI = request.getRequestURI();
-        String url = "";
-        //if (requestURI.endsWith("/login")) {
-            /*Administrator admin = login(request, response);
-            if (admin != null)
-            {
-                  
-                 HttpSession session = request.getSession(true);       
-                 session.setAttribute("admin",admin);
-                 //response.sendRedirect("admin/admin_page.jsp"); //logged-in page
-                 List<Professional> profs = getAllProfessionals(request, response);
-                 request.setAttribute("profs", profs);
-                 
-                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/admin_page.jsp");  
-                 rd.forward(request, response);
-            }
-            else
-            {
-            	response.sendRedirect("admin/login_error.jsp"); //error page 
-            }*/
-        //}
-        //getServletContext()
-        //        .getRequestDispatcher(url)
-        //        .forward(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		if(!emailExists(request, response))
+		{
+			Professional prof = register(request, response);
+			HttpSession session = request.getSession(true);       
+            session.setAttribute("prof", prof);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserServlet");  
+            rd.forward(request, response);
+		}
+        else
+        {
+        	//TO DO ERROR PAGE
+        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/register.jsp");
+        	request.setAttribute("error_message", "email already in use");
+            rd.forward(request, response);
+        }
 	}
 	
 	private Professional register(HttpServletRequest request,
-            HttpServletResponse response) {
-	 
-	 	//HttpSession session = request.getSession();
-
+            HttpServletResponse response)
+	{
 		String name = request.getParameter("name");
         String surname = request.getParameter("surname");
         String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
         String password = request.getParameter("password");
+        String telephone = request.getParameter("telephone");
+        String job_title = request.getParameter("job_title");
 
         ProfessionalDAO dao = new ProfessionalDAOImpl();
 
-        Professional prof = dao.login(email,password);
+        Professional prof = dao.register(name, surname, email, telephone, password, job_title);
         return prof;
     }
 	
-	private List<Professional> getAllProfessionals(HttpServletRequest request,
-            HttpServletResponse response) {
-	 
-	 	//HttpSession session = request.getSession();
+	private boolean emailExists(HttpServletRequest request,
+            HttpServletResponse response)
+	{
+        String email = request.getParameter("email");
 
         ProfessionalDAO dao = new ProfessionalDAOImpl();
-
+        return dao.emailExists(email);
+    }
+	
+	private List<Professional> getAllProfessionals(HttpServletRequest request,
+            HttpServletResponse response)
+	{
+        ProfessionalDAO dao = new ProfessionalDAOImpl();
 		List<Professional> profs = dao.list();
         return profs;
     }

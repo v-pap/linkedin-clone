@@ -25,6 +25,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		String qString = "SELECT p FROM Professional p WHERE p.email = :email";
         Query q = em.createQuery(qString);
+        q.setParameter("email",email);
         try {
         	Professional prof;
         	prof = (Professional) q.getSingleResult();

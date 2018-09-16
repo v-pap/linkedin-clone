@@ -117,7 +117,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input id="error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                    <input id="error_message" class="w3-opacity-min" type="text" value="<%=request.getAttribute("error_message")%>" style="border: 0;background-color: inherit; color:red;font-weight: bold"
                                         readonly>
                                 </td>
                             </tr>

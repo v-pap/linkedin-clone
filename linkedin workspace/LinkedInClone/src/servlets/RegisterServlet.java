@@ -58,10 +58,19 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		HttpSession session = request.getSession(true);
+		Professional prof = (Professional) session.getAttribute("prof");
+		
+        if (prof != null)
+        {
+        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserServlet");  
+            rd.forward(request, response);
+            return;
+        }
+        
 		if(!emailExists(request, response))
 		{
-			Professional prof = register(request, response);
-			HttpSession session = request.getSession(true);       
+			prof = register(request, response);    
             session.setAttribute("prof", prof);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserServlet");  
             rd.forward(request, response);

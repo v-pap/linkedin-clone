@@ -3,10 +3,10 @@
 <title>WorkConnect - Log In</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/w3.css">
-<link rel="stylesheet" href="css/w3-theme-blue-grey.css">
-<link rel="stylesheet" href="fonts/open_sans.ttf" />
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/w3.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/w3-theme-blue-grey.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/open_sans.ttf" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 <style>
     html,
     body,
@@ -19,7 +19,7 @@
     }
 </style>
 
-<body background="images/welcome.jpg" class="w3-theme-l5">
+<body background="${pageContext.request.contextPath}/images/welcome.jpg" class="w3-theme-l5">
 
     <!-- Page Container -->
     <div class="w3-container w3-content" style="max-width:1400px;margin-top:160px">
@@ -36,28 +36,29 @@
             <div class="w3-col m4">
                 <div class="w3-card w3-white">
                     <div class="w3-container w3-padding">
+                    <form action="/LinkedInClone/UserServlet/login" method="post">
                         <table style="width:100%">
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="email" type="email" placeholder="Email" onkeyup="check_form(this.id);" class="w3-border w3-padding w3-margin-top"
+                                    <input id="email" name="email" type="email" placeholder="Email" onkeyup="check_form(this.id);" class="w3-border w3-padding w3-margin-top"
                                         style="width:100%;" required/>
                                 </div>
                             </tr>
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
-                                    <input id="password" type="password" placeholder="Password" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
+                                    <input id="password" name="password" type="password" placeholder="Password" onkeyup="check_form(this.id);" class="w3-border w3-padding" style="width:100%;"
                                         required/>
                                 </div>
                             </tr>
                             <tr>
                                 <td>
                                     <div class="w3-row w3-padding">
-                                        <button id="sign_in" type="button" onclick="check_login();" class="w3-button w3-theme-d2">
+                                        <button id="sign_in" type="submit" onclick="check_login();" class="w3-button w3-theme-d2">
                                             <i class="fa fa-sign-in"></i> Log In</button>
                                     </div>
                                 </td>
                                 <td>
-                                    <input id="error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                    <input id="error_message" class="w3-opacity-min" type="text" value="<%=request.getAttribute("error_message")%>" style="border: 0;background-color: inherit; color:red;font-weight: bold"
                                         readonly>
                                 </td>
                             </tr>
@@ -70,6 +71,7 @@
                                 </td>
                             </tr>
                         </table>
+                    </form>
                     </div>
                 </div>
 

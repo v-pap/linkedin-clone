@@ -6,15 +6,16 @@
 		<class>model.Education</class>
 		<class>model.Experience</class>
 		<class>model.JobOffer</class>
-		<class>model.Like</class>
 		<class>model.Message</class>
+		<class>model.PostPicture</class>
+		<class>model.PostSound</class>
+		<class>model.PostVideo</class>
 		<class>model.Post</class>
 		<class>model.Professional</class>
 		<class>model.Relation</class>
-		<class>model.Skill</class>
 		<class>model.RelationPK</class>
+		<class>model.Skill</class>
 		<class>model.SkillPK</class>
-		<class>model.LikePK</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="Buffered"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/database"/>

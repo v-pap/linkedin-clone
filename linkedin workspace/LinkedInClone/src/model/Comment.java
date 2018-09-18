@@ -28,7 +28,7 @@ public class Comment implements Serializable {
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
-	@JoinColumn(name="email")
+	@JoinColumn(name="id")
 	private Professional professional;
 
 	public Comment() {

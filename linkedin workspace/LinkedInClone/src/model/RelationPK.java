@@ -13,24 +13,24 @@ public class RelationPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(insertable=false, updatable=false)
-	private String email1;
+	private int id1;
 
 	@Column(insertable=false, updatable=false)
-	private String email2;
+	private int id2;
 
 	public RelationPK() {
 	}
-	public String getEmail1() {
-		return this.email1;
+	public int getId1() {
+		return this.id1;
 	}
-	public void setEmail1(String email1) {
-		this.email1 = email1;
+	public void setId1(int id1) {
+		this.id1 = id1;
 	}
-	public String getEmail2() {
-		return this.email2;
+	public int getId2() {
+		return this.id2;
 	}
-	public void setEmail2(String email2) {
-		this.email2 = email2;
+	public void setId2(int id2) {
+		this.id2 = id2;
 	}
 
 	public boolean equals(Object other) {
@@ -42,15 +42,15 @@ public class RelationPK implements Serializable {
 		}
 		RelationPK castOther = (RelationPK)other;
 		return 
-			this.email1.equals(castOther.email1)
-			&& this.email2.equals(castOther.email2);
+			(this.id1 == castOther.id1)
+			&& (this.id2 == castOther.id2);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.email1.hashCode();
-		hash = hash * prime + this.email2.hashCode();
+		hash = hash * prime + this.id1;
+		hash = hash * prime + this.id2;
 		
 		return hash;
 	}

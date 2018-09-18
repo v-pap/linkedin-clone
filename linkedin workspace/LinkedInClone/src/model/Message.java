@@ -19,7 +19,7 @@ public class Message implements Serializable {
 	@Column(name="message_id")
 	private int messageId;
 
-	private byte read;
+	private boolean read;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date time;
@@ -45,11 +45,11 @@ public class Message implements Serializable {
 		this.messageId = messageId;
 	}
 
-	public byte getRead() {
+	public boolean getRead() {
 		return this.read;
 	}
 
-	public void setRead(byte read) {
+	public void setRead(boolean read) {
 		this.read = read;
 	}
 

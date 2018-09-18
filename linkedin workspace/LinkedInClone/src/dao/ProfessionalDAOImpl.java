@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +7,7 @@ import javax.persistence.Query;
 
 import jpautils.EntityManagerHelper;
 import model.Professional;
+import helper.ProfessionalInfo;
 
 public class ProfessionalDAOImpl implements ProfessionalDAO 
 {
@@ -38,13 +38,19 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Professional> list() {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		Query query = em.createNamedQuery("Professional.findAll");
-		@SuppressWarnings("unchecked")
-		List<Professional> profs = query.getResultList();
-		EntityManagerHelper.closeEntityManager();
+		List<Professional> profs;
+		try {
+			profs = query.getResultList();
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
         return profs;
 	}
 
@@ -56,29 +62,43 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		EntityManagerHelper.closeEntityManager();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public Professional login(String email, String password) {
+	public ProfessionalInfo login(String email, String password) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		String qString = "SELECT p FROM Professional p WHERE p.email = :email AND p.password = :password";
         Query q = em.createQuery(qString);
         q.setParameter("email",email);
         q.setParameter("password",password);
-        Professional prof;
+        List<Professional> results;
         try {
-        	prof = (Professional) q.getSingleResult();
+        	results = q.getResultList();
         } catch (Exception e) {
-            return null;
+        	return new ProfessionalInfo(null,"DB error");
         } finally {
         	EntityManagerHelper.closeEntityManager();
         }
-        return prof;
+        if(results.isEmpty())	return new ProfessionalInfo(null,"Wrong email or password");
+        return new ProfessionalInfo(results.get(0),"");
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public Professional register(String name, String surname, String email,
+	public ProfessionalInfo register(String name, String surname, String email,
 			String telephone, String password, String job_title)
 	{
+		String qString = "SELECT p FROM Professional p WHERE p.email = :email";
 		EntityManager em = EntityManagerHelper.getEntityManager();
+        Query q = em.createQuery(qString);
+        q.setParameter("email",email);
+        List<Professional> results;
+        try {
+        	results = q.getResultList();
+        } catch (Exception e) {
+        	EntityManagerHelper.closeEntityManager();
+        	return new ProfessionalInfo(null,"DB error");
+        }
+        if(!results.isEmpty()) return new ProfessionalInfo(null,"The email is already in use");
         Professional prof = new Professional();
         prof.setEmail(email);
         prof.setPassword(password);
@@ -86,16 +106,62 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         prof.setSurname(surname);
         prof.setTelephone(telephone);
         prof.setJobTitle(job_title);
+        prof.setPath("kek");
         try {
         	em.getTransaction().begin();
             em.persist(prof); //em.merge(u); for updates
             em.getTransaction().commit();
         } catch (Exception e) {
-            return null;
+        	return new ProfessionalInfo(null,"DB error");
         } finally {
         	EntityManagerHelper.closeEntityManager();
         }
-        return prof;
+        return new ProfessionalInfo(prof,"");
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public ProfessionalInfo changeEmail(String newEmail, Professional prof)
+	{
+		String qString = "SELECT p FROM Professional p WHERE p.email = :email";
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        Query q = em.createQuery(qString);
+        q.setParameter("email",newEmail);
+        List<Professional> results;
+        try {
+        	results = q.getResultList();
+        } catch (Exception e) {
+        	return new ProfessionalInfo(null,"DB error");
+        }
+        if(!results.isEmpty()) return new ProfessionalInfo(null,"The email is already in use");
+        prof.setEmail(newEmail);
+        try {
+        	em.getTransaction().begin();
+            prof = em.merge(prof);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return new ProfessionalInfo(prof,"");
+	}
+	
+	@Override
+	public ProfessionalInfo changePassword(String newPassword, Professional prof)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        prof.setPassword(newPassword);
+        try {
+        	em.getTransaction().begin();
+            prof = em.merge(prof);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return new ProfessionalInfo(prof,"");
 	}
 	
 

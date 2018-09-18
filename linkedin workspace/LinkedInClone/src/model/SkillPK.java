@@ -13,17 +13,17 @@ public class SkillPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(insertable=false, updatable=false)
-	private String email;
+	private int id;
 
 	private String description;
 
 	public SkillPK() {
 	}
-	public String getEmail() {
-		return this.email;
+	public int getId() {
+		return this.id;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getDescription() {
 		return this.description;
@@ -41,14 +41,14 @@ public class SkillPK implements Serializable {
 		}
 		SkillPK castOther = (SkillPK)other;
 		return 
-			this.email.equals(castOther.email)
+			(this.id == castOther.id)
 			&& this.description.equals(castOther.description);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.email.hashCode();
+		hash = hash * prime + this.id;
 		hash = hash * prime + this.description.hashCode();
 		
 		return hash;

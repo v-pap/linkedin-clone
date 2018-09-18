@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.Administrator;
 import model.Professional;
 import dao.ProfessionalDAOImpl;
+import helper.ProfessionalInfo;
 import dao.ProfessionalDAO;
 
 /**
@@ -68,23 +69,24 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
         
-		if(!emailExists(request, response))
-		{
-			prof = register(request, response);    
+        ProfessionalInfo profInfo = register(request, response);
+        prof = profInfo.getProf();
+        
+		if(prof != null)
+		{    
             session.setAttribute("prof", prof);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserServlet");  
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/UserServlet");
             rd.forward(request, response);
 		}
         else
         {
-        	//TO DO ERROR PAGE
         	RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/register.jsp");
-        	request.setAttribute("error_message", "email already in use");
+        	request.setAttribute("error_message", profInfo.getError());
             rd.forward(request, response);
         }
 	}
 	
-	private Professional register(HttpServletRequest request,
+	private ProfessionalInfo register(HttpServletRequest request,
             HttpServletResponse response)
 	{
 		String name = request.getParameter("name");
@@ -96,8 +98,7 @@ public class RegisterServlet extends HttpServlet {
 
         ProfessionalDAO dao = new ProfessionalDAOImpl();
 
-        Professional prof = dao.register(name, surname, email, telephone, password, job_title);
-        return prof;
+        return dao.register(name, surname, email, telephone, password, job_title);
     }
 	
 	private boolean emailExists(HttpServletRequest request,

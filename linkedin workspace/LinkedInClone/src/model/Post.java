@@ -26,14 +26,17 @@ public class Post implements Serializable {
 	@OneToMany(mappedBy="post")
 	private List<Comment> comments;
 
-	//bi-directional one-to-one association to Like
-	@OneToOne(mappedBy="post")
-	private Like like;
+	//bi-directional many-to-one association to PostPicture
+	@OneToMany(mappedBy="post")
+	private List<PostPicture> postPictures;
 
-	//bi-directional many-to-one association to Professional
-	@ManyToOne
-	@JoinColumn(name="email")
-	private Professional professional;
+	//bi-directional many-to-one association to PostSound
+	@OneToMany(mappedBy="post")
+	private List<PostSound> postSounds;
+
+	//bi-directional many-to-one association to PostVideo
+	@OneToMany(mappedBy="post")
+	private List<PostVideo> postVideos;
 
 	//bi-directional many-to-many association to Professional
 	@ManyToMany
@@ -43,10 +46,15 @@ public class Post implements Serializable {
 			@JoinColumn(name="post_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="email")
+			@JoinColumn(name="id")
 			}
 		)
 	private List<Professional> professionals;
+
+	//bi-directional many-to-one association to Professional
+	@ManyToOne
+	@JoinColumn(name="id")
+	private Professional professional;
 
 	public Post() {
 	}
@@ -89,20 +97,70 @@ public class Post implements Serializable {
 		return comment;
 	}
 
-	public Like getLike() {
-		return this.like;
+	public List<PostPicture> getPostPictures() {
+		return this.postPictures;
 	}
 
-	public void setLike(Like like) {
-		this.like = like;
+	public void setPostPictures(List<PostPicture> postPictures) {
+		this.postPictures = postPictures;
 	}
 
-	public Professional getProfessional() {
-		return this.professional;
+	public PostPicture addPostPicture(PostPicture postPicture) {
+		getPostPictures().add(postPicture);
+		postPicture.setPost(this);
+
+		return postPicture;
 	}
 
-	public void setProfessional(Professional professional) {
-		this.professional = professional;
+	public PostPicture removePostPicture(PostPicture postPicture) {
+		getPostPictures().remove(postPicture);
+		postPicture.setPost(null);
+
+		return postPicture;
+	}
+
+	public List<PostSound> getPostSounds() {
+		return this.postSounds;
+	}
+
+	public void setPostSounds(List<PostSound> postSounds) {
+		this.postSounds = postSounds;
+	}
+
+	public PostSound addPostSound(PostSound postSound) {
+		getPostSounds().add(postSound);
+		postSound.setPost(this);
+
+		return postSound;
+	}
+
+	public PostSound removePostSound(PostSound postSound) {
+		getPostSounds().remove(postSound);
+		postSound.setPost(null);
+
+		return postSound;
+	}
+
+	public List<PostVideo> getPostVideos() {
+		return this.postVideos;
+	}
+
+	public void setPostVideos(List<PostVideo> postVideos) {
+		this.postVideos = postVideos;
+	}
+
+	public PostVideo addPostVideo(PostVideo postVideo) {
+		getPostVideos().add(postVideo);
+		postVideo.setPost(this);
+
+		return postVideo;
+	}
+
+	public PostVideo removePostVideo(PostVideo postVideo) {
+		getPostVideos().remove(postVideo);
+		postVideo.setPost(null);
+
+		return postVideo;
 	}
 
 	public List<Professional> getProfessionals() {
@@ -111,6 +169,14 @@ public class Post implements Serializable {
 
 	public void setProfessionals(List<Professional> professionals) {
 		this.professionals = professionals;
+	}
+
+	public Professional getProfessional() {
+		return this.professional;
+	}
+
+	public void setProfessional(Professional professional) {
+		this.professional = professional;
 	}
 
 }

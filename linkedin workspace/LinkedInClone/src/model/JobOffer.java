@@ -29,14 +29,14 @@ public class JobOffer implements Serializable {
 			@JoinColumn(name="job_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="email")
+			@JoinColumn(name="id")
 			}
 		)
 	private List<Professional> professionals;
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
-	@JoinColumn(name="email")
+	@JoinColumn(name="id")
 	private Professional professional;
 
 	public JobOffer() {

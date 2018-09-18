@@ -21,7 +21,7 @@ public class Experience implements Serializable {
 	private int from;
 
 	@Column(name="private")
-	private byte private_;
+	private boolean private_;
 
 	private String title;
 
@@ -29,7 +29,7 @@ public class Experience implements Serializable {
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
-	@JoinColumn(name="email")
+	@JoinColumn(name="id")
 	private Professional professional;
 
 	public Experience() {
@@ -51,11 +51,11 @@ public class Experience implements Serializable {
 		this.from = from;
 	}
 
-	public byte getPrivate_() {
+	public boolean getPrivate_() {
 		return this.private_;
 	}
 
-	public void setPrivate_(byte private_) {
+	public void setPrivate_(boolean private_) {
 		this.private_ = private_;
 	}
 

@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import model.Administrator;
+import helper.AdministratorInfo;
 
 public interface AdministratorDAO 
 {
@@ -12,6 +13,6 @@ public interface AdministratorDAO
 
     public void create(Administrator admin);
     
-    public Administrator login(String email, String password);
+    public AdministratorInfo login(String email, String password);
 
 }

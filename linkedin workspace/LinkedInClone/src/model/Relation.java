@@ -21,12 +21,12 @@ public class Relation implements Serializable {
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
-	@JoinColumn(name="email1")
+	@JoinColumn(name="id1")
 	private Professional professional1;
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
-	@JoinColumn(name="email2")
+	@JoinColumn(name="id2")
 	private Professional professional2;
 
 	public Relation() {

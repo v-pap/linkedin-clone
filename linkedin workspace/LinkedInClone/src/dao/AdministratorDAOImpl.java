@@ -8,6 +8,9 @@ import javax.persistence.Query;
 
 import jpautils.EntityManagerHelper;
 import model.Administrator;
+import model.Professional;
+import helper.AdministratorInfo;
+import helper.ProfessionalInfo;
 
 public class AdministratorDAOImpl implements AdministratorDAO 
 {
@@ -40,23 +43,25 @@ public class AdministratorDAOImpl implements AdministratorDAO
 		EntityManagerHelper.closeEntityManager();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public Administrator login(String email, String password)
+	public AdministratorInfo login(String email, String password)
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		String qString = "SELECT a FROM Administrator a WHERE a.email = :email AND a.password = :password";
         Query q = em.createQuery(qString);
         q.setParameter("email",email);
         q.setParameter("password",password);
-        Administrator admin;
+        List<Administrator> results;
         try {
-        	admin = (Administrator) q.getSingleResult();
+        	results = q.getResultList();
         } catch (Exception e) {
-            return null;
+        	return new AdministratorInfo(null,"DB error");
         } finally {
         	EntityManagerHelper.closeEntityManager();
         }
-        return admin;
+        if(results.isEmpty())	return new AdministratorInfo(null,"Wrong email or password");
+        return new AdministratorInfo(results.get(0),"");
 	}
 	
 

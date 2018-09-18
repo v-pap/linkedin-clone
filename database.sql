@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `database` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `database`;
 -- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
 --
 -- Host: localhost    Database: database
@@ -48,15 +50,15 @@ DROP TABLE IF EXISTS `comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comments` (
-  `email` varchar(40) NOT NULL,
+  `id` int(11) NOT NULL,
   `text` mediumtext NOT NULL,
   `post_id` int(11) NOT NULL,
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`comment_id`),
   UNIQUE KEY `comment_id_UNIQUE` (`comment_id`),
-  KEY `fk_comments_1_idx` (`email`),
+  KEY `fk_comments_1_idx` (`id`),
   KEY `fk_comments_2_idx` (`post_id`),
-  CONSTRAINT `fk_comments_1` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comments_1` FOREIGN KEY (`id`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_comments_2` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -81,13 +83,13 @@ CREATE TABLE `education` (
   `from` int(11) NOT NULL,
   `to` int(11) DEFAULT NULL,
   `title` varchar(100) NOT NULL,
-  `email` varchar(40) NOT NULL,
+  `id` int(11) NOT NULL,
   `private` tinyint(1) NOT NULL,
   `education_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`education_id`),
   UNIQUE KEY `education_id_UNIQUE` (`education_id`),
-  KEY `fk_education_1_idx` (`email`),
-  CONSTRAINT `fk_education_1` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_education_1_idx` (`id`),
+  CONSTRAINT `fk_education_1` FOREIGN KEY (`id`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -111,13 +113,13 @@ CREATE TABLE `experience` (
   `from` int(11) NOT NULL,
   `to` int(11) DEFAULT NULL,
   `title` varchar(45) NOT NULL,
-  `email` varchar(40) NOT NULL,
+  `id` int(11) NOT NULL,
   `private` tinyint(1) NOT NULL,
   `experience_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`experience_id`),
   UNIQUE KEY `experience_id_UNIQUE` (`experience_id`),
-  KEY `fk_experience_1_idx` (`email`),
-  CONSTRAINT `fk_experience_1` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_experience_1_idx` (`id`),
+  CONSTRAINT `fk_experience_1` FOREIGN KEY (`id`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -139,10 +141,11 @@ DROP TABLE IF EXISTS `job_applies`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `job_applies` (
   `job_id` int(11) NOT NULL,
-  `email` varchar(40) NOT NULL,
-  KEY `fk_job_applies_1_idx` (`email`),
+  `id` int(11) NOT NULL,
+  PRIMARY KEY (`job_id`,`id`),
   KEY `fk_job_applies_2_idx` (`job_id`),
-  CONSTRAINT `fk_job_applies_1` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_job_applies_1_idx` (`id`),
+  CONSTRAINT `fk_job_applies_1` FOREIGN KEY (`id`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_job_applies_2` FOREIGN KEY (`job_id`) REFERENCES `job_offers` (`job_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -164,12 +167,12 @@ DROP TABLE IF EXISTS `job_offers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `job_offers` (
-  `email` varchar(40) NOT NULL,
+  `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL AUTO_INCREMENT,
   `text` varchar(45) NOT NULL,
   PRIMARY KEY (`job_id`),
-  KEY `fk_job_offers_1_idx` (`email`),
-  CONSTRAINT `fk_job_offers_1` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_job_offers_1_idx` (`id`),
+  CONSTRAINT `fk_job_offers_1` FOREIGN KEY (`id`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,13 +193,13 @@ DROP TABLE IF EXISTS `likes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `likes` (
-  `email` varchar(40) NOT NULL,
+  `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  PRIMARY KEY (`email`,`post_id`),
-  KEY `fk_likes_1_idx` (`email`),
-  KEY `fk_likes_1_idx1` (`post_id`),
-  CONSTRAINT `fk_likes_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_likes_2` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`id`,`post_id`),
+  KEY `fk_likes_1_idx` (`id`),
+  KEY `fk_likes_2_idx` (`post_id`),
+  CONSTRAINT `fk_likes_1` FOREIGN KEY (`id`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_likes_2` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -217,8 +220,8 @@ DROP TABLE IF EXISTS `messages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `messages` (
-  `from` varchar(40) NOT NULL,
-  `to` varchar(40) NOT NULL,
+  `from` int(11) NOT NULL,
+  `to` int(11) NOT NULL,
   `time` datetime NOT NULL,
   `read` tinyint(1) NOT NULL,
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -226,8 +229,8 @@ CREATE TABLE `messages` (
   UNIQUE KEY `message_id_UNIQUE` (`message_id`),
   KEY `fk_messages_1_idx` (`from`,`to`),
   KEY `fk_messages_2_idx` (`to`),
-  CONSTRAINT `fk_messages_1` FOREIGN KEY (`from`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_messages_2` FOREIGN KEY (`to`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_messages_1` FOREIGN KEY (`from`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_messages_2` FOREIGN KEY (`to`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -241,6 +244,84 @@ LOCK TABLES `messages` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `post_pictures`
+--
+
+DROP TABLE IF EXISTS `post_pictures`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `post_pictures` (
+  `post_id` int(11) NOT NULL,
+  `path` varchar(45) NOT NULL,
+  `picture_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`picture_id`),
+  KEY `fk_post_pictures_1_idx` (`post_id`),
+  CONSTRAINT `fk_post_pictures_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `post_pictures`
+--
+
+LOCK TABLES `post_pictures` WRITE;
+/*!40000 ALTER TABLE `post_pictures` DISABLE KEYS */;
+/*!40000 ALTER TABLE `post_pictures` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `post_sounds`
+--
+
+DROP TABLE IF EXISTS `post_sounds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `post_sounds` (
+  `post_id` int(11) NOT NULL,
+  `path` varchar(45) NOT NULL,
+  `sound_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`sound_id`),
+  KEY `fk_post_sounds_1_idx` (`post_id`),
+  CONSTRAINT `fk_post_sounds_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `post_sounds`
+--
+
+LOCK TABLES `post_sounds` WRITE;
+/*!40000 ALTER TABLE `post_sounds` DISABLE KEYS */;
+/*!40000 ALTER TABLE `post_sounds` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `post_videos`
+--
+
+DROP TABLE IF EXISTS `post_videos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `post_videos` (
+  `post_id` int(11) NOT NULL,
+  `path` varchar(45) NOT NULL,
+  `video_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`video_id`),
+  KEY `fk_post_videos_1_idx` (`post_id`),
+  CONSTRAINT `fk_post_videos_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `post_videos`
+--
+
+LOCK TABLES `post_videos` WRITE;
+/*!40000 ALTER TABLE `post_videos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `post_videos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `posts`
 --
 
@@ -248,13 +329,13 @@ DROP TABLE IF EXISTS `posts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `posts` (
-  `email` varchar(40) NOT NULL,
+  `id` int(11) NOT NULL,
   `text` longtext,
   `post_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`post_id`),
   UNIQUE KEY `post_id_UNIQUE` (`post_id`),
-  KEY `email_idx` (`email`),
-  CONSTRAINT `fk_posts_1` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_posts_1_idx` (`id`),
+  CONSTRAINT `fk_posts_1` FOREIGN KEY (`id`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -279,14 +360,17 @@ CREATE TABLE `professionals` (
   `password` varchar(40) NOT NULL,
   `name` varchar(45) NOT NULL,
   `surname` varchar(45) NOT NULL,
-  `telephone` varchar(45) DEFAULT NULL,
-  `job_title` varchar(45) DEFAULT NULL,
+  `telephone` varchar(45) NOT NULL,
+  `job_title` varchar(45) NOT NULL,
   `education_private` tinyint(1) NOT NULL,
   `experience_private` tinyint(1) NOT NULL,
   `skills_private` tinyint(1) NOT NULL,
-  PRIMARY KEY (`email`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `path` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +379,7 @@ CREATE TABLE `professionals` (
 
 LOCK TABLES `professionals` WRITE;
 /*!40000 ALTER TABLE `professionals` DISABLE KEYS */;
-INSERT INTO `professionals` VALUES ('crab17@soros.net','lel','BOG','BOGDANOF','666','picking up the phone',0,0,0),('f@di.uoa.gr','fag','zisimo','french','310130','calling',0,1,0),('fag@di.uoa.gr','dunno','lelios','kekios','34324','memer',1,0,1),('pouspa@boomer.gr','kek','faggotini','fag','666899','retired',1,1,1);
+INSERT INTO `professionals` VALUES ('gogo@gmail.com','helloladies','gogo','gogosauros','348289378','lel',0,0,0,1,'kek');
 /*!40000 ALTER TABLE `professionals` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,14 +391,14 @@ DROP TABLE IF EXISTS `relations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `relations` (
-  `email1` varchar(40) NOT NULL,
-  `email2` varchar(40) NOT NULL,
+  `id1` int(11) NOT NULL,
+  `id2` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  PRIMARY KEY (`email1`,`email2`),
-  KEY `fk_relations_1_idx` (`email1`),
-  KEY `fk_relations_2_idx` (`email2`),
-  CONSTRAINT `fk_relations_1` FOREIGN KEY (`email1`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_relations_2` FOREIGN KEY (`email2`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`id1`,`id2`),
+  KEY `fk_relations_1_idx` (`id1`),
+  KEY `fk_relations_2_idx` (`id2`),
+  CONSTRAINT `fk_relations_1` FOREIGN KEY (`id1`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_relations_2` FOREIGN KEY (`id2`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -335,11 +419,11 @@ DROP TABLE IF EXISTS `skills`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `skills` (
-  `email` varchar(40) NOT NULL,
+  `id` int(11) NOT NULL,
   `description` varchar(50) NOT NULL,
-  PRIMARY KEY (`email`,`description`),
-  KEY `fk_skills_1_idx` (`email`),
-  CONSTRAINT `fk_skills_1` FOREIGN KEY (`email`) REFERENCES `professionals` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`id`,`description`),
+  KEY `fk_skills_1_idx` (`id`),
+  CONSTRAINT `fk_skills_1` FOREIGN KEY (`id`) REFERENCES `professionals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -361,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-13 20:12:12
+-- Dump completed on 2018-09-18 22:05:40

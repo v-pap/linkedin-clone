@@ -16,10 +16,12 @@ public class Professional implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String email;
+	private int id;
 
 	@Column(name="education_private")
 	private boolean educationPrivate;
+
+	private String email;
 
 	@Column(name="experience_private")
 	private boolean experiencePrivate;
@@ -30,6 +32,8 @@ public class Professional implements Serializable {
 	private String name;
 
 	private String password;
+
+	private String path;
 
 	@Column(name="skills_private")
 	private boolean skillsPrivate;
@@ -58,10 +62,6 @@ public class Professional implements Serializable {
 	@OneToMany(mappedBy="professional")
 	private List<JobOffer> jobOffers2;
 
-	//bi-directional many-to-one association to Like
-	@OneToMany(mappedBy="professional")
-	private List<Like> likes;
-
 	//bi-directional many-to-one association to Message
 	@OneToMany(mappedBy="professional1")
 	private List<Message> messages1;
@@ -70,12 +70,12 @@ public class Professional implements Serializable {
 	@OneToMany(mappedBy="professional2")
 	private List<Message> messages2;
 
-	//bi-directional many-to-one association to Post
-	@OneToMany(mappedBy="professional")
-	private List<Post> posts1;
-
 	//bi-directional many-to-many association to Post
 	@ManyToMany(mappedBy="professionals")
+	private List<Post> posts1;
+
+	//bi-directional many-to-one association to Post
+	@OneToMany(mappedBy="professional")
 	private List<Post> posts2;
 
 	//bi-directional many-to-one association to Relation
@@ -93,12 +93,12 @@ public class Professional implements Serializable {
 	public Professional() {
 	}
 
-	public String getEmail() {
-		return this.email;
+	public int getId() {
+		return this.id;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public boolean getEducationPrivate() {
@@ -107,6 +107,14 @@ public class Professional implements Serializable {
 
 	public void setEducationPrivate(boolean educationPrivate) {
 		this.educationPrivate = educationPrivate;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public boolean getExperiencePrivate() {
@@ -139,6 +147,14 @@ public class Professional implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPath() {
+		return this.path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public boolean getSkillsPrivate() {
@@ -261,28 +277,6 @@ public class Professional implements Serializable {
 		return jobOffers2;
 	}
 
-	public List<Like> getLikes() {
-		return this.likes;
-	}
-
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
-	}
-
-	public Like addLike(Like like) {
-		getLikes().add(like);
-		like.setProfessional(this);
-
-		return like;
-	}
-
-	public Like removeLike(Like like) {
-		getLikes().remove(like);
-		like.setProfessional(null);
-
-		return like;
-	}
-
 	public List<Message> getMessages1() {
 		return this.messages1;
 	}
@@ -335,26 +329,26 @@ public class Professional implements Serializable {
 		this.posts1 = posts1;
 	}
 
-	public Post addPosts1(Post posts1) {
-		getPosts1().add(posts1);
-		posts1.setProfessional(this);
-
-		return posts1;
-	}
-
-	public Post removePosts1(Post posts1) {
-		getPosts1().remove(posts1);
-		posts1.setProfessional(null);
-
-		return posts1;
-	}
-
 	public List<Post> getPosts2() {
 		return this.posts2;
 	}
 
 	public void setPosts2(List<Post> posts2) {
 		this.posts2 = posts2;
+	}
+
+	public Post addPosts2(Post posts2) {
+		getPosts2().add(posts2);
+		posts2.setProfessional(this);
+
+		return posts2;
+	}
+
+	public Post removePosts2(Post posts2) {
+		getPosts2().remove(posts2);
+		posts2.setProfessional(null);
+
+		return posts2;
 	}
 
 	public List<Relation> getRelations1() {

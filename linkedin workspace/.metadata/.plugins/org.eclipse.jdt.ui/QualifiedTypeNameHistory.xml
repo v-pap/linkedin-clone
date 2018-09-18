@@ -7,4 +7,6 @@
 <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 <fullyQualifiedTypeName name="dao.ProfessionalDAOImpl"/>
 <fullyQualifiedTypeName name="dao.ProfessionalDAO"/>
+<fullyQualifiedTypeName name="helper.AdministratorInfo"/>
+<fullyQualifiedTypeName name="helper.ProfessionalInfo"/>
 </qualifiedTypeNameHistroy>

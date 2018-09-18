@@ -17,6 +17,7 @@ import dao.AdministratorDAOImpl;
 import dao.AdministratorDAO;
 import dao.ProfessionalDAOImpl;
 import dao.ProfessionalDAO;
+import helper.AdministratorInfo;
 
 /**
  * Servlet implementation class AdministratorServlet
@@ -76,7 +77,8 @@ public class AdministratorServlet extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-        Administrator admin = login(request, response);
+        AdministratorInfo adminInfo = login(request, response);
+        Administrator admin = adminInfo.getAdmin();
         if (admin != null)
         {
              HttpSession session = request.getSession(true);       
@@ -88,22 +90,20 @@ public class AdministratorServlet extends HttpServlet
         }
         else
         {
-        	//TO DO ERROR PAGE
         	RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/login.jsp");
-        	request.setAttribute("error_message", "Wrong email or password");
+        	request.setAttribute("error_message", adminInfo.getError());
             rd.forward(request, response);
         }
 	}
 	
-	private Administrator login(HttpServletRequest request,
+	private AdministratorInfo login(HttpServletRequest request,
             HttpServletResponse response)
 	{
 	 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         AdministratorDAO dao = new AdministratorDAOImpl();
-        Administrator admin = dao.login(email,password);
-        return admin;
+        return dao.login(email,password);
     }
 	
 	private List<Professional> getAllProfessionals(HttpServletRequest request,

@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import model.Professional;
+import helper.ProfessionalInfo;
 
 public interface ProfessionalDAO 
 {
@@ -14,8 +15,12 @@ public interface ProfessionalDAO
 
     public void create(Professional prof);
     
-    public Professional login(String email, String password);
+    public ProfessionalInfo login(String email, String password);
 
-	public Professional register(String name, String surname, String email, String telephone, String password, String job_title);
+	public ProfessionalInfo register(String name, String surname, String email, String telephone, String password, String job_title);
+	
+	public ProfessionalInfo changeEmail(String newEmail, Professional prof);
+	
+	public ProfessionalInfo changePassword(String newPassword, Professional prof);
 
 }

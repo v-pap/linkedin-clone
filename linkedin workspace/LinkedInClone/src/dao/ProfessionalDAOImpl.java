@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.File;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,7 +12,6 @@ import helper.ProfessionalInfo;
 
 public class ProfessionalDAOImpl implements ProfessionalDAO 
 {
-
 	@Override
 	public Professional find(long id) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
@@ -108,7 +108,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         prof.setJobTitle(job_title);
         prof.setPath("kek");
         try {
-        	em.getTransaction().begin();
+        	EntityManagerHelper.beginTransaction();
             em.persist(prof); //em.merge(u); for updates
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -116,7 +116,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         } finally {
         	EntityManagerHelper.closeEntityManager();
         }
-        return new ProfessionalInfo(prof,"");
+        return login(email,password);
 	}
 	
 	@SuppressWarnings("unchecked")

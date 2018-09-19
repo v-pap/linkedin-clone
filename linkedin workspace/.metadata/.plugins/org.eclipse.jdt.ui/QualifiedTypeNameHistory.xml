@@ -9,4 +9,11 @@
 <fullyQualifiedTypeName name="dao.ProfessionalDAO"/>
 <fullyQualifiedTypeName name="helper.AdministratorInfo"/>
 <fullyQualifiedTypeName name="helper.ProfessionalInfo"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.nio.file.StandardCopyOption"/>
+<fullyQualifiedTypeName name="java.nio.file.Files"/>
+<fullyQualifiedTypeName name="java.nio.file.Paths"/>
+<fullyQualifiedTypeName name="javax.servlet.http.Part"/>
+<fullyQualifiedTypeName name="javax.servlet.annotation.MultipartConfig"/>
 </qualifiedTypeNameHistroy>

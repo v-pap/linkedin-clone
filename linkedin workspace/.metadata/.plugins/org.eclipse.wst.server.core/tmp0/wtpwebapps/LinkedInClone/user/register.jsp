@@ -36,7 +36,7 @@
             <div class="w3-col m4">
                 <div class="w3-card w3-white">
                     <div class="w3-container w3-padding">
-                    <form action="/LinkedInClone/RegisterServlet" method="post">
+                    <form action="/LinkedInClone/RegisterServlet" method="post" enctype='multipart/form-data'>
                         <table style="width:100%">
                             <tr>
                                 <div class="w3-row w3-padding" style="width:100%;">
@@ -103,7 +103,7 @@
                                             <tr>
                                                 <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
                                                     <i class="fa fa-upload "></i> Browse</button>
-                                                <input id='upload_button' type='file' onchange="image_preview();" hidden/>
+                                                <input id='upload_button' type='file' name="image" onchange="image_preview();" hidden/>
                                             </tr>
                                         </table>
                                     </div>

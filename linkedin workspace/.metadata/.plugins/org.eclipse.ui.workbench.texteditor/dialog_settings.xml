@@ -2,19 +2,21 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Login" key="selection"/>
+		<item value="merge" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="merge"/>
+			<item value="em.close();"/>
+			<item value="byte"/>
 			<item value="login"/>
 			<item value="job"/>
 			<item value="register"/>
 			<item value="email"/>
 			<item value="logout"/>
 			<item value="admin"/>
-			<item value="byte"/>
 			<item value="bool"/>
 			<item value="Bool"/>
 			<item value="jsession"/>
@@ -23,6 +25,7 @@
 			<item value="user"/>
 		</list>
 		<list key="replacehistory">
+			<item value="EntityManagerHelper.closeEntityManager();"/>
 			<item value="boolean"/>
 			<item value="Administrator"/>
 			<item value="admin"/>
@@ -32,7 +35,7 @@
 		<item value="335" key="DIALOG_WIDTH"/>
 		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="459" key="DIALOG_HEIGHT"/>
-		<item value="179" key="DIALOG_X_ORIGIN"/>
-		<item value="212" key="DIALOG_Y_ORIGIN"/>
+		<item value="952" key="DIALOG_X_ORIGIN"/>
+		<item value="221" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

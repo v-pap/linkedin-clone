@@ -21,7 +21,7 @@ public class Education implements Serializable {
 	private int from;
 
 	@Column(name="private")
-	private boolean private_;
+	private byte private_;
 
 	private String title;
 
@@ -51,11 +51,11 @@ public class Education implements Serializable {
 		this.from = from;
 	}
 
-	public boolean getPrivate_() {
+	public byte getPrivate_() {
 		return this.private_;
 	}
 
-	public void setPrivate_(boolean private_) {
+	public void setPrivate_(byte private_) {
 		this.private_ = private_;
 	}
 

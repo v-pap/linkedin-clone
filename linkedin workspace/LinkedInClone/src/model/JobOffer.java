@@ -39,6 +39,10 @@ public class JobOffer implements Serializable {
 	@JoinColumn(name="id")
 	private Professional professional;
 
+	//bi-directional many-to-one association to JobApply
+	@OneToMany(mappedBy="jobOffer")
+	private List<JobApply> jobApplies;
+
 	public JobOffer() {
 	}
 
@@ -72,6 +76,28 @@ public class JobOffer implements Serializable {
 
 	public void setProfessional(Professional professional) {
 		this.professional = professional;
+	}
+
+	public List<JobApply> getJobApplies() {
+		return this.jobApplies;
+	}
+
+	public void setJobApplies(List<JobApply> jobApplies) {
+		this.jobApplies = jobApplies;
+	}
+
+	public JobApply addJobApply(JobApply jobApply) {
+		getJobApplies().add(jobApply);
+		jobApply.setJobOffer(this);
+
+		return jobApply;
+	}
+
+	public JobApply removeJobApply(JobApply jobApply) {
+		getJobApplies().remove(jobApply);
+		jobApply.setJobOffer(null);
+
+		return jobApply;
 	}
 
 }

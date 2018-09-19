@@ -26,6 +26,10 @@ public class Post implements Serializable {
 	@OneToMany(mappedBy="post")
 	private List<Comment> comments;
 
+	//bi-directional many-to-one association to Like
+	@OneToMany(mappedBy="post")
+	private List<Like> likes;
+
 	//bi-directional many-to-one association to PostPicture
 	@OneToMany(mappedBy="post")
 	private List<PostPicture> postPictures;
@@ -95,6 +99,28 @@ public class Post implements Serializable {
 		comment.setPost(null);
 
 		return comment;
+	}
+
+	public List<Like> getLikes() {
+		return this.likes;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
+	}
+
+	public Like addLike(Like like) {
+		getLikes().add(like);
+		like.setPost(this);
+
+		return like;
+	}
+
+	public Like removeLike(Like like) {
+		getLikes().remove(like);
+		like.setPost(null);
+
+		return like;
 	}
 
 	public List<PostPicture> getPostPictures() {

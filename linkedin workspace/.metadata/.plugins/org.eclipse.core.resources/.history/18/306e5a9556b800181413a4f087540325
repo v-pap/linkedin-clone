@@ -1,0 +1,88 @@
+package filters;
+
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import model.Administrator;
+
+/**
+ * Servlet Filter implementation class UrlRewriteFilter
+ */
+@WebFilter(urlPatterns = {"/admin/*","/AdministratorServlet*"})
+//urlPatterns = {"/LinkedInClone/login","/LinkedInClone/login_error"}
+public class AdministratorFilter implements Filter {
+
+    /**
+     * Default constructor. 
+     */
+    public AdministratorFilter() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see Filter#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 */
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+        String requestURI = req.getRequestURI();
+        HttpServletResponse res = (HttpServletResponse) response;
+        HttpSession session = req.getSession(false); //its false so it doesn't autocreate sessions
+        
+        Administrator admin = null;
+        
+        res.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+        res.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
+        res.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+        res.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
+        
+        System.out.println(requestURI);
+        
+        if(requestURI.endsWith(".css") || requestURI.endsWith(".ttf") ||
+        		requestURI.endsWith(".woff") || requestURI.endsWith(".woff2"))
+        {
+        	chain.doFilter(req, res);
+        	return;
+        }
+        
+        if(session != null) admin = (Administrator) session.getAttribute("admin");
+        if(session != null && admin != null)
+    	{ // force to not keep in cache
+        	chain.doFilter(req, res);
+    	}
+        else
+        {
+        	chain.doFilter(req, res);
+        	res.sendRedirect("/LinkedInClone/AdministratorServlet");
+        }
+        
+
+	}
+	/*if(!requestURI.endsWith("/LinkedInClone/admin/login.jsp") &&
+    	!requestURI.endsWith("/LinkedInClone/admin/login_error.jsp"))
+        {*/
+
+	/**
+	 * @see Filter#init(FilterConfig)
+	 */
+	public void init(FilterConfig fConfig) throws ServletException {
+		// TODO Auto-generated method stub
+	}
+
+}

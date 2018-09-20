@@ -1,0 +1,17 @@
+package helper;
+import model.Professional;
+
+public class ProfessionalInfo extends ObjectInfo
+{
+	private Professional prof;
+	
+	Professional getProf()
+	{
+		return prof;
+	}
+	
+	void setProf(Professional prof)
+	{
+		this.prof = prof;
+	}
+}

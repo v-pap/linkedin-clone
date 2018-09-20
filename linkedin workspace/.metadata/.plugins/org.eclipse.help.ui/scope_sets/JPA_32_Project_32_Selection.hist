@@ -1,0 +1,6 @@
+#Tue Sep 18 04:18:53 EEST 2018
+__DEFAULT__=false
+org.eclipse.sdk.Eclipse.master=true
+org.eclipse.sdk.Google.master=true
+org.eclipse.help.ui.localSearch.master=true
+expression=JPA Project Selection

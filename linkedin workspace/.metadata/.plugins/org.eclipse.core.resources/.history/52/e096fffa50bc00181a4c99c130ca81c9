@@ -1,0 +1,55 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+
+/**
+ * The persistent class for the post_sounds database table.
+ * 
+ */
+@Entity
+@Table(name="post_sounds")
+@NamedQuery(name="PostSound.findAll", query="SELECT p FROM PostSound p")
+public class PostSound implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name="sound_id")
+	private int soundId;
+
+	private String path;
+
+	//bi-directional many-to-one association to Post
+	@ManyToOne
+	@JoinColumn(name="post_id")
+	private Post post;
+
+	public PostSound() {
+	}
+
+	public int getSoundId() {
+		return this.soundId;
+	}
+
+	public void setSoundId(int soundId) {
+		this.soundId = soundId;
+	}
+
+	public String getPath() {
+		return this.path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public Post getPost() {
+		return this.post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+}

@@ -1,0 +1,54 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+
+/**
+ * The persistent class for the profile_pictures database table.
+ * 
+ */
+@Entity
+@Table(name="profile_pictures")
+@NamedQuery(name="ProfilePicture.findAll", query="SELECT p FROM ProfilePicture p")
+public class ProfilePicture implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private int id;
+
+	private String path;
+
+	//bi-directional one-to-one association to Professional
+	@OneToOne
+	@JoinColumn(name="id")
+	private Professional professional;
+
+	public ProfilePicture() {
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPath() {
+		return this.path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public Professional getProfessional() {
+		return this.professional;
+	}
+
+	public void setProfessional(Professional professional) {
+		this.professional = professional;
+	}
+
+}

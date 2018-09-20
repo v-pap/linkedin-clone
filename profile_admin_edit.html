@@ -120,22 +120,27 @@
                             </form>
                         </td>
                     </table>
-                    <div id="work_wrapper">
-                        <div id="work_title_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
-                            <input id="work_title_1" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%" />
-                            <input id="work_from_1" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%"
-                                onfocus="(this.type='date')" onblur="(this.type='text')">
-                            <input id="work_to_1" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%"
-                                onfocus="(this.type='date')" onblur="(this.type='text')">
+                    <div name="work_wrapper" id="work_wrapper">
+                        <div name="work_title_wrapper_1" id="work_title_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                            <input name="work_title_1" id="work_title_1" type="text" placeholder="Title" class="w3-border w3-padding"
+                                style="width:40.5%" />
+                            <input name="work_from_1" id="work_from_1" placeholder="From" type="text" class="w3-border w3-padding"
+                                style="width: 29%" onfocus="(this.type='date')" onblur="(this.type='text')">
+                            <input name="work_to_1" id="work_to_1" placeholder="To" type="text" class="w3-border w3-padding"
+                                style="width: 29%" onfocus="(this.type='date')" onblur="(this.type='text')">
                         </div>
-                        <div id="work_description_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
+                        <div name="work_description_wrapper_1" id="work_description_wrapper_1" class="w3-row w3-padding-8"
+                            style="width:100%;">
                             <input id="work_description_1" type="text" placeholder="Description" class="w3-border w3-padding"
                                 style="width:100%;" />
                         </div>
+                        <div name="work_remove_wrapper_1" id='work_remove_wrapper_1' class="w3-row w3-padding-8" style="width:100%;">
+                            <button name="work_remove_1" id="work_remove_1" type="button" onclick="remove_work(this.id);"
+                                class="w3-button w3-theme-d2">
+                                <i class="fa fa-minus"></i> Remove Entry</button>
+                        </div>
                     </div>
                     <div class="w3-row w3-padding-8" style="width:100%;">
-                        <button type="button" onclick="remove_work();" class="w3-button w3-theme-d2 w3-margin-bottom">
-                            <i class="fa fa-minus"></i> Remove Entry</button>
                         <button type="button" onclick="add_work();" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-plus"></i> Add Entry</button>
                     </div>
@@ -153,23 +158,29 @@
                             </form>
                         </td>
                     </table>
-                    <div id="education_wrapper">
-                        <div id="education_title_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
-                            <input id="education_title_1" type="text" placeholder="Title" class="w3-border w3-padding"
-                                style="width:40.5%;" />
-                            <input id="education_from_1" placeholder="From" type="text" class="w3-border w3-padding"
+                    <div name="education_wrapper" id="education_wrapper">
+                        <div name="education_title_wrapper_1" id="education_title_wrapper_1" class="w3-row w3-padding-8"
+                            style="width:100%;">
+                            <input name="education_title_1" id="education_title_1" type="text" placeholder="Title"
+                                class="w3-border w3-padding" style="width:40.5%;" />
+                            <input name="education_from_1" id="education_from_1" placeholder="From" type="text" class="w3-border w3-padding"
                                 style="width: 29%" onfocus="(this.type='date')" onblur="(this.type='text')">
-                            <input id="education_to_1" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%"
-                                onfocus="(this.type='date')" onblur="(this.type='text')">
+                            <input name="education_to_1" id="education_to_1" placeholder="To" type="text" class="w3-border w3-padding"
+                                style="width: 29%" onfocus="(this.type='date')" onblur="(this.type='text')">
                         </div>
-                        <div id="education_description_wrapper_1" class="w3-row w3-padding-8" style="width:100%;">
-                            <input id="education_description_1" type="text" placeholder="Description" class="w3-border w3-padding"
-                                style="width:100%;" />
+                        <div name="education_description_wrapper_1" id="education_description_wrapper_1" class="w3-row w3-padding-8"
+                            style="width:100%;">
+                            <input name="education_description_1" id="education_description_1" type="text" placeholder="Description"
+                                class="w3-border w3-padding" style="width:100%;" />
+                        </div>
+                        <div name="education_remove_wrapper_1" id='education_remove_wrapper_1' class="w3-row w3-padding-8"
+                            style="width:100%;">
+                            <button name="education_remove_1" id="education_remove_1" type="button" onclick="remove_education(this.id);"
+                                class="w3-button w3-theme-d2 w3-margin-bottom">
+                                <i class="fa fa-minus"></i> Remove Entry</button>
                         </div>
                     </div>
                     <div class="w3-row w3-padding-8" style="width:100%;">
-                        <button type="button" onclick="remove_education();" class="w3-button w3-theme-d2 w3-margin-bottom">
-                            <i class="fa fa-minus"></i> Remove Entry</button>
                         <button type="button" onclick="add_education();" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-plus"></i> Add Entry</button>
                     </div>
@@ -190,6 +201,12 @@
                     <div class="w3-row w3-padding-8" style="width:100%;">
                         <input type="text" placeholder="Interests. Use a comma (,) to separate your different skills."
                             class="w3-border w3-padding" style="width:100%;" />
+                    </div>
+                    <div class="w3-row w3-padding-8" style="width:100%;">
+                        <button type="button" onclick="location.href='profile.html'" class="w3-button w3-theme-d2 w3-margin-bottom">
+                            <i class="fa fa-arrow-left"></i> Cancel</button>
+                        <button type="button" onclick="location.href='profile.html'" class="w3-button w3-theme-d2 w3-margin-bottom">
+                            <i class="fa fa-save"></i> Save</button>
                     </div>
                 </div>
 
@@ -242,30 +259,34 @@
         var education_counter = 1, work_counter = 1;
         function add_work() {
             work_counter += 1;
-            var field_to_add = '<div id="work_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input id="work_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input id="work_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input id="work_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div id="work_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input id="work_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div>'.replace(/%num%/g, work_counter);
+            var field_to_add = '<div name="work_title_wrapper_%num%" id="work_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input name="work_title_%num% id="work_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input name="work_from_%num%" id="work_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input name="work_to_%num%" id="work_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div name="work_description_wrapper_%num%" id="work_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input name="work_description_%num%" id="work_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div><div id="work_remove_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;"><button name="work_remove_%num%" id="work_remove_%num%" type="button" onclick="remove_work(this.id);" class="w3-button w3-theme-d2"><i class="fa fa-minus"></i> Remove Entry</button></div>'.replace(/%num%/g, work_counter);
             document.getElementById('work_wrapper').innerHTML += field_to_add;
         }
 
-        function remove_work() {
-            var work_title_to_remove = "work_title_wrapper_%num%".replace("%num%", work_counter),
-                work_description_to_remove = "work_description_wrapper_%num%".replace("%num%", work_counter);
+        function remove_work(id) {
+            var id_num = id.split('_').pop();
+            var work_title_to_remove = "work_title_wrapper_%num%".replace("%num%", id_num),
+                work_description_to_remove = "work_description_wrapper_%num%".replace("%num%", id_num),
+                work_remove_wrapper = 'work_remove_wrapper_%num%'.replace("%num%", id_num);
             document.getElementById(work_title_to_remove).outerHTML = "";
             document.getElementById(work_description_to_remove).outerHTML = "";
-            work_counter -= 1;
+            document.getElementById(work_remove_wrapper).outerHTML = "";
         }
 
         function add_education() {
             education_counter += 1;
-            var field_to_add = '<div id="education_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input id="education_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input id="education_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input id="education_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div id="education_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input id="education_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div>'.replace(/%num%/g, education_counter);
+            var field_to_add = '<div name="education_title_wrapper_%num%" id="education_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input name="education_title_%num%" id="education_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input name="education_from_%num%" id="education_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input name="education_to_%num%" id="education_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div name="education_description_wrapper_%num%" id="education_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input name="education_description_%num%" id="education_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div><div name="education_remove_wrapper_%num%" id="education_remove_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;"><button name="education_remove_%num%" id="education_remove_%num%" type="button" onclick="remove_education(this.id);" class="w3-button w3-theme-d2"><i class="fa fa-minus"></i> Remove Entry</button></div>'.replace(/%num%/g, education_counter);
             document.getElementById('education_wrapper').innerHTML += field_to_add;
         }
 
-        function remove_education() {
-            var education_title_to_remove = "education_title_wrapper_%num%".replace("%num%", education_counter),
-                education_description_to_remove = "education_description_wrapper_%num%".replace("%num%", education_counter);
+        function remove_education(id) {
+            var id_num = id.split('_').pop();
+            var education_title_to_remove = "education_title_wrapper_%num%".replace("%num%", id_num),
+                education_description_to_remove = "education_description_wrapper_%num%".replace("%num%", id_num),
+                education_remove_wrapper = 'education_remove_wrapper_%num%'.replace("%num%", id_num);
             document.getElementById(education_title_to_remove).outerHTML = "";
             document.getElementById(education_description_to_remove).outerHTML = "";
-            education_counter -= 1;
+            document.getElementById(education_remove_wrapper).outerHTML = "";
         }
     </script>
 </body>

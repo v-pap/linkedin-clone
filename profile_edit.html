@@ -224,7 +224,7 @@
                             <i class="fa fa-arrow-left"></i> Cancel</button>
                         <button type="button" onclick="check_input();" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-save"></i> Save</button>
-                        <input id="error_message" class="w3-opacity-min" type="text" value="test" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                        <input id="error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
                             readonly>
                     </div>
                 </div>
@@ -277,9 +277,39 @@
 
         var education_counter = 1, work_counter = 1;
         function add_work() {
+            var work_title_list = [], work_from_list = [], work_description_list = [];
+            for (var i = 1; i <= work_counter; i++) {
+                var work_title = 'work_title_%num%'.replace('%num%', i),
+                    work_from = 'work_from_%num%'.replace('%num%', i),
+                    work_description = 'work_description_%num%'.replace('%num%', i);
+
+                if (document.getElementById(work_title)) {
+                    work_title_list.push(document.getElementById(work_title).value);
+                    work_from_list.push(document.getElementById(work_from).value);
+                    work_description_list.push(document.getElementById(work_description).value);
+                }
+                else {
+                    work_title_list.push('');
+                    work_from_list.push('');
+                    work_description_list.push('');
+                }
+            }
+
             work_counter += 1;
             var field_to_add = '<div name="work_title_wrapper_%num%" id="work_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input name="work_title_%num%" id="work_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input name="work_from_%num%" id="work_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input name="work_to_%num%" id="work_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div name="work_description_wrapper_%num%" id="work_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input name="work_description_%num%" id="work_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div><div id="work_remove_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;"><button name="work_remove_%num%" id="work_remove_%num%" type="button" onclick="remove_work(this.id);" class="w3-button w3-theme-d2"><i class="fa fa-minus"></i> Remove Entry</button></div>'.replace(/%num%/g, work_counter);
             document.getElementById('work_wrapper').innerHTML += field_to_add;
+
+            for (var i = 1; i < work_counter; i++) {
+                var work_title = 'work_title_%num%'.replace('%num%', i),
+                    work_from = 'work_from_%num%'.replace('%num%', i),
+                    work_description = 'work_description_%num%'.replace('%num%', i);
+
+                if (document.getElementById(work_title)) {
+                    document.getElementById(work_title).value = work_title_list[i - 1];
+                    document.getElementById(work_from).value = work_from_list[i - 1];
+                    document.getElementById(work_description).value = work_description_list[i - 1];
+                }
+            }
         }
 
         function remove_work(id) {
@@ -293,9 +323,39 @@
         }
 
         function add_education() {
+            var education_title_list = [], education_from_list = [], education_description_list = [];
+            for (var i = 1; i <= education_counter; i++) {
+                var education_title = 'education_title_%num%'.replace('%num%', i),
+                    education_from = 'education_from_%num%'.replace('%num%', i),
+                    education_description = 'education_description_%num%'.replace('%num%', i);
+
+                if (document.getElementById(education_title)) {
+                    education_title_list.push(document.getElementById(education_title).value);
+                    education_from_list.push(document.getElementById(education_from).value);
+                    education_description_list.push(document.getElementById(education_description).value);
+                }
+                else {
+                    education_title_list.push('');
+                    education_from_list.push('');
+                    education_description_list.push('');
+                }
+            }
+
             education_counter += 1;
             var field_to_add = '<div name="education_title_wrapper_%num%" id="education_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input name="education_title_%num%" id="education_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input name="education_from_%num%" id="education_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input name="education_to_%num%" id="education_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div name="education_description_wrapper_%num%" id="education_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input name="education_description_%num%" id="education_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div><div name="education_remove_wrapper_%num%" id="education_remove_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;"><button name="education_remove_%num%" id="education_remove_%num%" type="button" onclick="remove_education(this.id);" class="w3-button w3-theme-d2"><i class="fa fa-minus"></i> Remove Entry</button></div>'.replace(/%num%/g, education_counter);
             document.getElementById('education_wrapper').innerHTML += field_to_add;
+
+            for (var i = 1; i < education_counter; i++) {
+                var education_title = 'education_title_%num%'.replace('%num%', i),
+                    education_from = 'education_from_%num%'.replace('%num%', i),
+                    education_description = 'education_description_%num%'.replace('%num%', i);
+
+                if (document.getElementById(education_title)) {
+                    document.getElementById(education_title).value = education_title_list[i - 1];
+                    document.getElementById(education_from).value = education_from_list[i - 1];
+                    document.getElementById(education_description).value = education_description_list[i - 1];
+                }
+            }
         }
 
         function remove_education(id) {
@@ -316,20 +376,22 @@
                     work_from = 'work_from_%num%'.replace('%num%', i),
                     work_description = 'work_description_%num%'.replace('%num%', i);
 
-                if (document.getElementById(work_title).value == "") {
-                    document.getElementById(work_title).setCustomValidity("Invalid field.");
-                    document.getElementById('error_message').value = "Missing required fields.";
-                    error = true;
-                }
-                if (document.getElementById(work_from).value == "") {
-                    document.getElementById(work_from).setCustomValidity("Invalid field.");
-                    document.getElementById('error_message').value = "Missing required fields.";
-                    error = true;
-                }
-                if (document.getElementById(work_description).value == "") {
-                    document.getElementById(work_description).setCustomValidity("Invalid field.");
-                    document.getElementById('error_message').value = "Missing required fields.";
-                    error = true;
+                if (document.getElementById(work_title)) {
+                    if (document.getElementById(work_title).value == "") {
+                        document.getElementById(work_title).setCustomValidity("Invalid field.");
+                        document.getElementById('error_message').value = "Missing required fields.";
+                        error = true;
+                    }
+                    if (document.getElementById(work_from).value == "") {
+                        document.getElementById(work_from).setCustomValidity("Invalid field.");
+                        document.getElementById('error_message').value = "Missing required fields.";
+                        error = true;
+                    }
+                    if (document.getElementById(work_description).value == "") {
+                        document.getElementById(work_description).setCustomValidity("Invalid field.");
+                        document.getElementById('error_message').value = "Missing required fields.";
+                        error = true;
+                    }
                 }
             }
             for (var i = 1; i <= education_counter; i++) {
@@ -337,20 +399,22 @@
                     education_from = 'education_from_%num%'.replace('%num%', i),
                     education_description = 'education_description_%num%'.replace('%num%', i);
 
-                if (document.getElementById(education_title).value == "") {
-                    document.getElementById(education_title).setCustomValidity("Invalid field.");
-                    document.getElementById('error_message').value = "Missing required fields.";
-                    error = true;
-                }
-                if (document.getElementById(education_from).value == "") {
-                    document.getElementById(education_from).setCustomValidity("Invalid field.");
-                    document.getElementById('error_message').value = "Missing required fields.";
-                    error = true;
-                }
-                if (document.getElementById(education_description).value == "") {
-                    document.getElementById(education_description).setCustomValidity("Invalid field.");
-                    document.getElementById('error_message').value = "Missing required fields.";
-                    error = true;
+                if (document.getElementById(education_title)) {
+                    if (document.getElementById(education_title).value == "") {
+                        document.getElementById(education_title).setCustomValidity("Invalid field.");
+                        document.getElementById('error_message').value = "Missing required fields.";
+                        error = true;
+                    }
+                    if (document.getElementById(education_from).value == "") {
+                        document.getElementById(education_from).setCustomValidity("Invalid field.");
+                        document.getElementById('error_message').value = "Missing required fields.";
+                        error = true;
+                    }
+                    if (document.getElementById(education_description).value == "") {
+                        document.getElementById(education_description).setCustomValidity("Invalid field.");
+                        document.getElementById('error_message').value = "Missing required fields.";
+                        error = true;
+                    }
                 }
             }
             if (document.getElementById('name').value == "") {

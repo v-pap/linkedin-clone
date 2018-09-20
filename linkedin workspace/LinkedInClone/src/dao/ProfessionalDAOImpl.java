@@ -85,7 +85,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	@SuppressWarnings("unchecked")
 	@Override
 	public ProfessionalInfo register(String name, String surname, String email,
-			String telephone, String password, String job_title)
+			String telephone, String password, String job_title, String path)
 	{
 		String qString = "SELECT p FROM Professional p WHERE p.email = :email";
 		EntityManager em = EntityManagerHelper.getEntityManager();
@@ -106,7 +106,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         prof.setSurname(surname);
         prof.setTelephone(telephone);
         prof.setJobTitle(job_title);
-        prof.setPath("kek");
+        prof.setPath(path);
         try {
         	EntityManagerHelper.beginTransaction();
             em.persist(prof); //em.merge(u); for updates
@@ -164,5 +164,24 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         return new ProfessionalInfo(prof,"");
 	}
 	
+	@Override
+	public ProfessionalInfo refreshProfile(Professional prof)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+        	em.getTransaction().begin();
+        	prof = em.merge(prof);
+        	prof.getEducations().size();
+        	prof.getExperiences().size();
+        	prof.getSkills().size();
+        } catch (Exception e) {
+        	e.printStackTrace(); 
+            System.out.println(e); 
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return new ProfessionalInfo(prof,"");
+	}
 
 }

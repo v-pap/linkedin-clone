@@ -118,9 +118,9 @@ public class RegisterServlet extends HttpServlet {
 		try (InputStream input = filePart.getInputStream()) {
             Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
-        //int numberOfFiles = new File(folderPath).list().length;
-        //System.out.println(numberOfFiles);
-        return dao.register(name, surname, email, telephone, password, job_title);
+		ProfessionalInfo profInfo = dao.register(name, surname, email, telephone, password, job_title, file.getName());
+		if(profInfo.getProf() == null)	file.delete();
+        return profInfo;
     }
 
 }

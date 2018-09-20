@@ -17,10 +17,12 @@ public interface ProfessionalDAO
     
     public ProfessionalInfo login(String email, String password);
 
-	public ProfessionalInfo register(String name, String surname, String email, String telephone, String password, String job_title);
+	public ProfessionalInfo register(String name, String surname, String email, String telephone, String password, String job_title, String path);
 	
 	public ProfessionalInfo changeEmail(String newEmail, Professional prof);
 	
 	public ProfessionalInfo changePassword(String newPassword, Professional prof);
+	
+	public ProfessionalInfo refreshProfile(Professional prof);
 
 }

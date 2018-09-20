@@ -19,12 +19,12 @@ public class Professional implements Serializable {
 	private int id;
 
 	@Column(name="education_private")
-	private byte educationPrivate;
+	private boolean educationPrivate;
 
 	private String email;
 
 	@Column(name="experience_private")
-	private byte experiencePrivate;
+	private boolean experiencePrivate;
 
 	@Column(name="job_title")
 	private String jobTitle;
@@ -36,7 +36,7 @@ public class Professional implements Serializable {
 	private String path;
 
 	@Column(name="skills_private")
-	private byte skillsPrivate;
+	private boolean skillsPrivate;
 
 	private String surname;
 
@@ -53,6 +53,10 @@ public class Professional implements Serializable {
 	//bi-directional many-to-one association to Experience
 	@OneToMany(mappedBy="professional")
 	private List<Experience> experiences;
+
+	//bi-directional many-to-one association to JobApply
+	@OneToMany(mappedBy="professional")
+	private List<JobApply> jobApplies;
 
 	//bi-directional many-to-many association to JobOffer
 	@ManyToMany(mappedBy="professionals")
@@ -94,10 +98,6 @@ public class Professional implements Serializable {
 	@OneToMany(mappedBy="professional")
 	private List<Skill> skills;
 
-	//bi-directional many-to-one association to JobApply
-	@OneToMany(mappedBy="professional")
-	private List<JobApply> jobApplies;
-
 	public Professional() {
 	}
 
@@ -109,11 +109,11 @@ public class Professional implements Serializable {
 		this.id = id;
 	}
 
-	public byte getEducationPrivate() {
+	public boolean getEducationPrivate() {
 		return this.educationPrivate;
 	}
 
-	public void setEducationPrivate(byte educationPrivate) {
+	public void setEducationPrivate(boolean educationPrivate) {
 		this.educationPrivate = educationPrivate;
 	}
 
@@ -125,11 +125,11 @@ public class Professional implements Serializable {
 		this.email = email;
 	}
 
-	public byte getExperiencePrivate() {
+	public boolean getExperiencePrivate() {
 		return this.experiencePrivate;
 	}
 
-	public void setExperiencePrivate(byte experiencePrivate) {
+	public void setExperiencePrivate(boolean experiencePrivate) {
 		this.experiencePrivate = experiencePrivate;
 	}
 
@@ -165,11 +165,11 @@ public class Professional implements Serializable {
 		this.path = path;
 	}
 
-	public byte getSkillsPrivate() {
+	public boolean getSkillsPrivate() {
 		return this.skillsPrivate;
 	}
 
-	public void setSkillsPrivate(byte skillsPrivate) {
+	public void setSkillsPrivate(boolean skillsPrivate) {
 		this.skillsPrivate = skillsPrivate;
 	}
 
@@ -253,6 +253,28 @@ public class Professional implements Serializable {
 		experience.setProfessional(null);
 
 		return experience;
+	}
+
+	public List<JobApply> getJobApplies() {
+		return this.jobApplies;
+	}
+
+	public void setJobApplies(List<JobApply> jobApplies) {
+		this.jobApplies = jobApplies;
+	}
+
+	public JobApply addJobApply(JobApply jobApply) {
+		getJobApplies().add(jobApply);
+		jobApply.setProfessional(this);
+
+		return jobApply;
+	}
+
+	public JobApply removeJobApply(JobApply jobApply) {
+		getJobApplies().remove(jobApply);
+		jobApply.setProfessional(null);
+
+		return jobApply;
 	}
 
 	public List<JobOffer> getJobOffers1() {
@@ -445,28 +467,6 @@ public class Professional implements Serializable {
 		skill.setProfessional(null);
 
 		return skill;
-	}
-
-	public List<JobApply> getJobApplies() {
-		return this.jobApplies;
-	}
-
-	public void setJobApplies(List<JobApply> jobApplies) {
-		this.jobApplies = jobApplies;
-	}
-
-	public JobApply addJobApply(JobApply jobApply) {
-		getJobApplies().add(jobApply);
-		jobApply.setProfessional(this);
-
-		return jobApply;
-	}
-
-	public JobApply removeJobApply(JobApply jobApply) {
-		getJobApplies().remove(jobApply);
-		jobApply.setProfessional(null);
-
-		return jobApply;
 	}
 
 }

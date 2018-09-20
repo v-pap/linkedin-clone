@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 /**
@@ -15,17 +16,23 @@ public class Experience implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="experience_id")
+	@Column(name="`experience_id`")
 	private int experienceId;
 
-	private int from;
+	@Column(name="`from`")
+	private LocalDate from;
 
 	@Column(name="private")
-	private byte private_;
+	private boolean private_;
 
+	@Column(name="`title`")
 	private String title;
+	
+	@Column(name="`description`")
+	private String description;
 
-	private int to;
+	@Column(name="`to`")
+	private LocalDate to;
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
@@ -43,19 +50,19 @@ public class Experience implements Serializable {
 		this.experienceId = experienceId;
 	}
 
-	public int getFrom() {
+	public LocalDate getFrom() {
 		return this.from;
 	}
 
-	public void setFrom(int from) {
+	public void setFrom(LocalDate from) {
 		this.from = from;
 	}
 
-	public byte getPrivate_() {
+	public boolean getPrivate_() {
 		return this.private_;
 	}
 
-	public void setPrivate_(byte private_) {
+	public void setPrivate_(boolean private_) {
 		this.private_ = private_;
 	}
 
@@ -66,12 +73,20 @@ public class Experience implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	public String getDescription() {
+		return this.description;
+	}
 
-	public int getTo() {
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public LocalDate getTo() {
 		return this.to;
 	}
 
-	public void setTo(int to) {
+	public void setTo(LocalDate to) {
 		this.to = to;
 	}
 

@@ -79,7 +79,7 @@
                         <td>
                             <p class="w3-center">
                                 <a href="profile_admin.html">
-                                    <img src="${pageContext.request.contextPath}/images/avatar2.png" style="height:116px;width:116px" alt="Avatar">
+                                    <img src= "ImageServlet?id=${prof.getPath()}" style="height:116px;width:116px" alt="Avatar">
                                 </a>
                             </p>
                         </td>

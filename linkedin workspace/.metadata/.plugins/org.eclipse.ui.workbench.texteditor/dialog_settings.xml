@@ -2,15 +2,17 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="merge" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="byte"/>
+			<item value="Job"/>
+			<item value="path"/>
 			<item value="merge"/>
 			<item value="em.close();"/>
-			<item value="byte"/>
 			<item value="login"/>
 			<item value="job"/>
 			<item value="register"/>
@@ -21,12 +23,10 @@
 			<item value="Bool"/>
 			<item value="jsession"/>
 			<item value="sendError"/>
-			<item value="User"/>
-			<item value="user"/>
 		</list>
 		<list key="replacehistory">
-			<item value="EntityManagerHelper.closeEntityManager();"/>
 			<item value="boolean"/>
+			<item value="EntityManagerHelper.closeEntityManager();"/>
 			<item value="Administrator"/>
 			<item value="admin"/>
 		</list>

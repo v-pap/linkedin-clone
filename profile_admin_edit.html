@@ -84,14 +84,15 @@
                     </table>
                     <hr class="w3-clear">
                     <div class="w3-row w3-padding-8" style="width:100%;">
-                        <input type="text" placeholder="Name" class="w3-border w3-padding" style="width:100%;" />
+                        <input id="name" type="text" placeholder="Name" class="w3-border w3-padding" style="width:100%;" />
                     </div>
                     <div class="w3-row w3-padding-8" style="width:100%;">
-                        <input type="text" placeholder="Surname" class="w3-border w3-padding" style="width:100%;" />
+                        <input id="surname" type="text" placeholder="Surname" class="w3-border w3-padding" style="width:100%;" />
                     </div>
                     <hr class="w3-clear">
                     <div class="w3-row w3-padding-8" style="width:100%;">
-                        <input type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />
+                        <input id="description" type="text" placeholder="Description" class="w3-border w3-padding"
+                            style="width:100%;" />
                     </div>
                     <hr class="w3-clear">
                     <h4>Contact Info</h4>
@@ -204,8 +205,10 @@
                     <div class="w3-row w3-padding-8" style="width:100%;">
                         <button type="button" onclick="location.href='profile.html'" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-arrow-left"></i> Cancel</button>
-                        <button type="button" onclick="location.href='profile.html'" class="w3-button w3-theme-d2 w3-margin-bottom">
+                        <button type="button" onclick="check_input();" class="w3-button w3-theme-d2 w3-margin-bottom">
                             <i class="fa fa-save"></i> Save</button>
+                        <input id="error_message" class="w3-opacity-min" type="text" value="test" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                            readonly>
                     </div>
                 </div>
 
@@ -258,7 +261,7 @@
         var education_counter = 1, work_counter = 1;
         function add_work() {
             work_counter += 1;
-            var field_to_add = '<div name="work_title_wrapper_%num%" id="work_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input name="work_title_%num% id="work_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input name="work_from_%num%" id="work_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input name="work_to_%num%" id="work_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div name="work_description_wrapper_%num%" id="work_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input name="work_description_%num%" id="work_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div><div id="work_remove_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;"><button name="work_remove_%num%" id="work_remove_%num%" type="button" onclick="remove_work(this.id);" class="w3-button w3-theme-d2"><i class="fa fa-minus"></i> Remove Entry</button></div>'.replace(/%num%/g, work_counter);
+            var field_to_add = '<div name="work_title_wrapper_%num%" id="work_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input name="work_title_%num%" id="work_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input name="work_from_%num%" id="work_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input name="work_to_%num%" id="work_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div name="work_description_wrapper_%num%" id="work_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input name="work_description_%num%" id="work_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div><div id="work_remove_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;"><button name="work_remove_%num%" id="work_remove_%num%" type="button" onclick="remove_work(this.id);" class="w3-button w3-theme-d2"><i class="fa fa-minus"></i> Remove Entry</button></div>'.replace(/%num%/g, work_counter);
             document.getElementById('work_wrapper').innerHTML += field_to_add;
         }
 
@@ -286,6 +289,71 @@
             document.getElementById(education_title_to_remove).outerHTML = "";
             document.getElementById(education_description_to_remove).outerHTML = "";
             document.getElementById(education_remove_wrapper).outerHTML = "";
+        }
+        function check_input() {
+            var error = false;
+            for (var i = 1; i <= work_counter; i++) {
+
+                var work_title = 'work_title_%num%'.replace('%num%', i),
+                    work_from = 'work_from_%num%'.replace('%num%', i),
+                    work_description = 'work_description_%num%'.replace('%num%', i);
+
+                if (document.getElementById(work_title).value == "") {
+                    document.getElementById(work_title).setCustomValidity("Invalid field.");
+                    document.getElementById('error_message').value = "Missing required fields.";
+                    error = true;
+                }
+                if (document.getElementById(work_from).value == "") {
+                    document.getElementById(work_from).setCustomValidity("Invalid field.");
+                    document.getElementById('error_message').value = "Missing required fields.";
+                    error = true;
+                }
+                if (document.getElementById(work_description).value == "") {
+                    document.getElementById(work_description).setCustomValidity("Invalid field.");
+                    document.getElementById('error_message').value = "Missing required fields.";
+                    error = true;
+                }
+            }
+            for (var i = 1; i <= education_counter; i++) {
+                var education_title = 'education_title_%num%'.replace('%num%', i),
+                    education_from = 'education_from_%num%'.replace('%num%', i),
+                    education_description = 'education_description_%num%'.replace('%num%', i);
+
+                if (document.getElementById(education_title).value == "") {
+                    document.getElementById(education_title).setCustomValidity("Invalid field.");
+                    document.getElementById('error_message').value = "Missing required fields.";
+                    error = true;
+                }
+                if (document.getElementById(education_from).value == "") {
+                    document.getElementById(education_from).setCustomValidity("Invalid field.");
+                    document.getElementById('error_message').value = "Missing required fields.";
+                    error = true;
+                }
+                if (document.getElementById(education_description).value == "") {
+                    document.getElementById(education_description).setCustomValidity("Invalid field.");
+                    document.getElementById('error_message').value = "Missing required fields.";
+                    error = true;
+                }
+            }
+            if (document.getElementById('name').value == "") {
+                document.getElementById('name').setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
+                error = true;
+            }
+            if (document.getElementById('surname').value == "") {
+                document.getElementById('surname').setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
+                error = true;
+            }
+            if (document.getElementById('description').value == "") {
+                document.getElementById('description').setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
+                error = true;
+            }
+            if (error == false) {
+                document.getElementById('error_message').value = "";
+                location.href = "profile.html";
+            }
         }
     </script>
 </body>

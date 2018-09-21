@@ -114,7 +114,7 @@
                     <h4>Work Experience</h4>
                     <ul style="padding-left: 16px">
                     <c:forEach items="${prof.getExperiences()}" var="experience">
-                        <li><b>${experience.getTitle()}</b> <i style="float:right">Sep 2008 - Jun 2012</i>
+                        <li><b>${experience.getTitle()}</b> <i style="float:right">${experience.getFrom()} - ${experience.getTo()}</i>
                             <br>${experience.getDescription()}
                             <br>
                             <br>
@@ -125,7 +125,7 @@
                     <h4>Education</h4>
                     <ul style="padding-left: 16px">
                     <c:forEach items="${prof.getEducations()}" var="education">
-                        <li><b>${education.getTitle()}</b> <i style="float:right;">Jan 2017 - Now</i>
+                        <li><b>${education.getTitle()}</b> <i style="float:right;">${education.getFrom()} - ${education.getTo()}</i>
                             <br>${education.getDescription()}
                             <br>
                             <br>

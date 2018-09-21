@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.time.LocalDate;
 
 
 /**
@@ -21,7 +20,7 @@ public class Education implements Serializable {
 	private int educationId;
 
 	@Column(name="`from`")
-	private LocalDate from;
+	private String from;
 	
 	@Column(name="`title`")
 	private String title;
@@ -30,7 +29,7 @@ public class Education implements Serializable {
 	private String description;
 
 	@Column(name="`to`")
-	private LocalDate to;
+	private String to;
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
@@ -48,11 +47,11 @@ public class Education implements Serializable {
 		this.educationId = educationId;
 	}
 
-	public LocalDate getFrom() {
+	public String getFrom() {
 		return this.from;
 	}
 
-	public void setFrom(LocalDate from) {
+	public void setFrom(String from) {
 		this.from = from;
 	}
 
@@ -72,11 +71,11 @@ public class Education implements Serializable {
 		this.description = description;
 	}
 
-	public LocalDate getTo() {
+	public String getTo() {
 		return this.to;
 	}
 
-	public void setTo(LocalDate to) {
+	public void setTo(String to) {
 		this.to = to;
 	}
 

@@ -100,7 +100,7 @@ public class Professional implements Serializable {
 	private List<Relation> relations2;
 
 	//bi-directional many-to-one association to Skill
-	@OneToMany(mappedBy="professional")
+	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Skill> skills;
 
 	public Professional() {

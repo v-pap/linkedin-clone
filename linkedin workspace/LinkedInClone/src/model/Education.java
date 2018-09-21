@@ -16,14 +16,12 @@ public class Education implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="`education_id`")
 	private int educationId;
 
 	@Column(name="`from`")
 	private LocalDate from;
-
-	@Column(name="`private`")
-	private boolean private_;
 	
 	@Column(name="`title`")
 	private String title;
@@ -56,14 +54,6 @@ public class Education implements Serializable {
 
 	public void setFrom(LocalDate from) {
 		this.from = from;
-	}
-
-	public boolean getPrivate_() {
-		return this.private_;
-	}
-
-	public void setPrivate_(boolean private_) {
-		this.private_ = private_;
 	}
 
 	public String getTitle() {

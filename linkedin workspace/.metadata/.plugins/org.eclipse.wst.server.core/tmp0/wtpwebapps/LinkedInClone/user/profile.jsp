@@ -113,9 +113,9 @@
                 <div class="w3-container w3-card w3-white w3-margin">
                     <h4>Work Experience</h4>
                     <ul style="padding-left: 16px">
-                    <c:forEach items="${prof.getEducations()}" var="education">
-                        <li><b>${education.getTitle()}</b> <i style="float:right;">Jan 2017 - Now</i>
-                            <br>${education.getDescription()}
+                    <c:forEach items="${prof.getExperiences()}" var="experience">
+                        <li><b>${experience.getTitle()}</b> <i style="float:right">Sep 2008 - Jun 2012</i>
+                            <br>${experience.getDescription()}
                             <br>
                             <br>
                         </li>
@@ -124,9 +124,9 @@
                     <hr class="w3-clear">
                     <h4>Education</h4>
                     <ul style="padding-left: 16px">
-                    <c:forEach items="${prof.getExperiences()}" var="experience">
-                        <li><b>${experience.getTitle()}</b> <i style="float:right">Sep 2008 - Jun 2012</i>
-                            <br>${experience.getDescription()}
+                    <c:forEach items="${prof.getEducations()}" var="education">
+                        <li><b>${education.getTitle()}</b> <i style="float:right;">Jan 2017 - Now</i>
+                            <br>${education.getDescription()}
                             <br>
                             <br>
                         </li>
@@ -139,7 +139,7 @@
                         <span class="w3-tag w3-small w3-theme">${skill.getId().getDescription()}</span>
                     </c:forEach>
                     </p>
-                    <button type="button" onclick="location.href='profile_edit.html'" class="w3-button w3-theme-d2 w3-margin-bottom">
+                    <button type="button" onclick="location.href='/LinkedInClone/UserProfile/edit'" class="w3-button w3-theme-d2 w3-margin-bottom">
                         <i class="fa fa-edit"></i> Edit</button>
                 </div>
 

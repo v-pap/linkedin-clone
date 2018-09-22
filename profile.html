@@ -212,8 +212,8 @@
         function convert_date(current_date) {
             var d_list = current_date.split("-");
             var d = new Date(date_list[0], date_list[1]);
-            var d_string_list = d.toDateString();
-            var d_string = d_string_list[1].concat(d_string_list[3]);
+            var d_string_list = d.toDateString().split(" ");
+            var d_string = d_string_list[1].concat(" ", d_string_list[3]);
             return d_string;
         }
 

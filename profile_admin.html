@@ -195,6 +195,9 @@
         }
 
         function convert_date(current_date) {
+            if (current_date == null) {
+                return "Now";
+            }
             var d_list = current_date.split("-");
             var d = new Date(date_list[0], date_list[1]);
             var d_string_list = d.toDateString().split(" ");

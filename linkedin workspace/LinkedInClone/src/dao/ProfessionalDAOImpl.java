@@ -1,12 +1,14 @@
 package dao;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import jpautils.EntityManagerHelper;
+import model.Experience;
 import model.Professional;
 import helper.ProfessionalInfo;
 
@@ -182,6 +184,31 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
+	}
+	
+	@Override
+	public ProfessionalInfo updateProfile(Professional prof, List<Experience> experiences)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+        	em.getTransaction().begin();
+        	prof = em.merge(prof);
+        	/*for (Iterator<Experience> it = experiences.iterator(); it.hasNext();) {
+                Experience exp = it.next();
+
+                em.persist(exp);
+                em.flush();
+                em.clear();
+            }*/
+            em.getTransaction().commit();
+        } catch (Exception e) {
+        	e.printStackTrace(); 
+            System.out.println(e); 
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return refreshProfile(prof);
 	}
 
 }

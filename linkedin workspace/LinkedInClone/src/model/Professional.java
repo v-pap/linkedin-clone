@@ -16,6 +16,8 @@ public class Professional implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="`id`")
 	private int id;
 
 	@Column(name="education_private")
@@ -29,6 +31,7 @@ public class Professional implements Serializable {
 	@Column(name="job_title")
 	private String jobTitle;
 
+	@Column(name="`name`")
 	private String name;
 
 	private String password;
@@ -38,8 +41,10 @@ public class Professional implements Serializable {
 	@Column(name="skills_private")
 	private boolean skillsPrivate;
 
+	@Column(name="`surname`")
 	private String surname;
 
+	@Column(name="`telephone`")
 	private String telephone;
 
 	//bi-directional many-to-one association to Comment
@@ -47,11 +52,11 @@ public class Professional implements Serializable {
 	private List<Comment> comments;
 
 	//bi-directional many-to-one association to Education
-	@OneToMany(mappedBy="professional")
+	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Education> educations;
 
 	//bi-directional many-to-one association to Experience
-	@OneToMany(mappedBy="professional")
+	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Experience> experiences;
 
 	//bi-directional many-to-one association to JobApply
@@ -95,7 +100,7 @@ public class Professional implements Serializable {
 	private List<Relation> relations2;
 
 	//bi-directional many-to-one association to Skill
-	@OneToMany(mappedBy="professional")
+	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Skill> skills;
 
 	public Professional() {

@@ -12,7 +12,7 @@ public class SkillPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(insertable=false, updatable=false)
+	@Column(insertable=false, updatable=false,name="id")
 	private int id;
 
 	private String description;

@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import model.Experience;
 import model.Professional;
 import helper.ProfessionalInfo;
 
@@ -24,5 +25,7 @@ public interface ProfessionalDAO
 	public ProfessionalInfo changePassword(String newPassword, Professional prof);
 	
 	public ProfessionalInfo refreshProfile(Professional prof);
+	
+	public ProfessionalInfo updateProfile(Professional prof, List<Experience> experiences);
 
 }

@@ -19,6 +19,7 @@ public class Skill implements Serializable {
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JoinColumn(name="id")
 	private Professional professional;
 

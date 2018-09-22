@@ -31,4 +31,6 @@
 <fullyQualifiedTypeName name="org.apache.tomcat.util.codec.binary.StringUtils"/>
 <fullyQualifiedTypeName name="com.sun.xml.internal.ws.util.StringUtils"/>
 <fullyQualifiedTypeName name="model.Education"/>
+<fullyQualifiedTypeName name="model.Relation"/>
+<fullyQualifiedTypeName name="model.RelationPK"/>
 </qualifiedTypeNameHistroy>

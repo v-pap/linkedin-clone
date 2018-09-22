@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="professionals")
-@NamedQuery(name="Professional.findAll", query="SELECT p FROM Professional p")
+@NamedQueries({
+@NamedQuery(name="Professional.findAll", query="SELECT p FROM Professional p"),
+@NamedQuery(name="Professional.search", query="SELECT DISTINCT p FROM Professional p WHERE (UPPER(CONCAT(p.name,p.surname)) LIKE UPPER(:search_name) OR UPPER(CONCAT(p.surname,p.name)) LIKE UPPER(:search_name))")
+})
 public class Professional implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -92,11 +95,11 @@ public class Professional implements Serializable {
 	private List<Post> posts2;
 
 	//bi-directional many-to-one association to Relation
-	@OneToMany(mappedBy="professional1")
+	@OneToMany(mappedBy="professional1", cascade = CascadeType.ALL)
 	private List<Relation> relations1;
 
 	//bi-directional many-to-one association to Relation
-	@OneToMany(mappedBy="professional2")
+	@OneToMany(mappedBy="professional2", cascade = CascadeType.ALL)
 	private List<Relation> relations2;
 
 	//bi-directional many-to-one association to Skill
@@ -472,6 +475,19 @@ public class Professional implements Serializable {
 		skill.setProfessional(null);
 
 		return skill;
+	}
+	
+	 public boolean findRemoveProfessional(List<Professional> profs)
+	 {
+	    for(Professional temp_prof : profs)
+	    {
+	        if(temp_prof.getId() == id)
+	        {
+	        	profs.remove(temp_prof);
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 }

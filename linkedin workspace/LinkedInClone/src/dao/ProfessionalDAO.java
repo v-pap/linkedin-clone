@@ -8,7 +8,7 @@ import helper.ProfessionalInfo;
 
 public interface ProfessionalDAO 
 {
-	public Professional find(long id);
+	public Professional find(int id);
 
     public List<Professional> list();
     
@@ -26,6 +26,12 @@ public interface ProfessionalDAO
 	
 	public ProfessionalInfo refreshProfile(Professional prof);
 	
-	public ProfessionalInfo updateProfile(Professional prof, List<Experience> experiences);
+	public ProfessionalInfo updateProfile(Professional prof);
+	
+	public List<Professional> list_connected(Professional prof);
+	
+	public List<Professional> list_search(String searchName);
+	
+	public int check_status(Professional prof1, Professional prof2);
 
 }

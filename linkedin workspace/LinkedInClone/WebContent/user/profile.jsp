@@ -57,7 +57,7 @@
                 <i class="fa fa-list"></i>
                 Jobs
             </a>
-            <a href="network.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+            <a href="/LinkedInClone/UserNetwork" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
                 <i class="fa fa-globe"></i>
                 Network
             </a>
@@ -71,7 +71,7 @@
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
         <a href="/LinkedInClone/UserServlet" class="w3-bar-item w3-button w3-padding-large">Home</a>
-        <a href="network.html" class="w3-bar-item w3-button w3-padding-large">Network</a>
+        <a href="/LinkedInClone/UserNetwork" class="w3-bar-item w3-button w3-padding-large">Network</a>
         <a href="jobs.html" class="w3-bar-item w3-button w3-padding-large">Jobs</a>
         <a href="messages.html" class="w3-bar-item w3-button w3-padding-large">Messages</a>
         <a href="notifications.html" class="w3-bar-item w3-button w3-padding-large">Notifications</a>
@@ -100,8 +100,9 @@
                         <i class="fa fa-envelope-open"></i> Email: ${prof.getEmail()}</p>
                     <p>
                         <i class="fa fa-phone"></i> Phone: ${prof.getTelephone()}</p>
-                    <p>
-                        <i class="fa fa-link"></i> Website: website.com</p>
+                    </p>
+                    <p><i class="fa fa-user"></i>
+                        <a href="/LinkedInClone/UserNetwork" class="w3-link"> View Network </a>
                     </p>
                 </div>
 
@@ -109,7 +110,6 @@
             </div>
 
             <div class="w3-col m8">
-
                 <div class="w3-container w3-card w3-white w3-margin">
                     <h4>Work Experience</h4>
                     <ul style="padding-left: 16px">
@@ -177,6 +177,22 @@
             } else {
                 x.className = x.className.replace(" w3-show", "");
             }
+        }
+
+        function convert_date() {
+        	var exp_from = <c:out value='${experience.getFrom()}'/>;
+        	window.alert(exp_from);
+            if (exp_from == null) {
+            	document.getElementById('exp_from').innerHTML = "Now";
+                return;
+            }
+            var d_list = current_date.split("-");
+            var d = new Date(date_list[0], date_list[1]);
+            var d_string_list = d.toDateString().split(" ");
+            var d_string = d_string_list[1].concat(" ", d_string_list[3]);
+        	document.getElementById('exp_from').innerHTML = "fig";
+
+            //return d_string;
         }
     </script>
 </body>

@@ -15,7 +15,7 @@ import helper.ProfessionalInfo;
 public class ProfessionalDAOImpl implements ProfessionalDAO 
 {
 	@Override
-	public Professional find(long id) {
+	public Professional find(int id) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		Professional prof = em.find(Professional.class, id);
 		EntityManagerHelper.closeEntityManager();
@@ -173,9 +173,9 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	em.getTransaction().begin();
         	prof = em.merge(prof);
-        	prof.getEducations().size();
-        	prof.getExperiences().size();
-        	prof.getSkills().size();
+        	//prof.getEducations().size();
+        	//prof.getExperiences().size();
+        	//prof.getSkills().size();
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
@@ -187,19 +187,12 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	}
 	
 	@Override
-	public ProfessionalInfo updateProfile(Professional prof, List<Experience> experiences)
+	public ProfessionalInfo updateProfile(Professional prof)
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
         	em.getTransaction().begin();
         	prof = em.merge(prof);
-        	/*for (Iterator<Experience> it = experiences.iterator(); it.hasNext();) {
-                Experience exp = it.next();
-
-                em.persist(exp);
-                em.flush();
-                em.clear();
-            }*/
             em.getTransaction().commit();
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -209,6 +202,61 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	EntityManagerHelper.closeEntityManager();
         }
         return refreshProfile(prof);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Professional> list_connected(Professional prof) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query = em.createNamedQuery("Relation.findConnected");
+		query.setParameter("prof",prof);
+		List<Professional> profs;
+		try {
+			profs = query.getResultList();
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return profs;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Professional> list_search(String searchName) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query = em.createNamedQuery("Professional.search");
+		query.setParameter("search_name",searchName);
+		List<Professional> profs;
+		try {
+			profs = query.getResultList();
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return profs;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public int check_status(Professional prof1, Professional prof2) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query = em.createNamedQuery("Relation.findStatus");
+		query.setParameter("prof1",prof1);
+		query.setParameter("prof2",prof2);
+		List<Integer> status_list;
+		try {
+			status_list = query.getResultList();
+		} catch (Exception e) {
+        	return -1;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+		int status;
+		if(status_list.isEmpty()) status = 3;
+		else status = status_list.get(0);
+        return status;
 	}
 
 }

@@ -55,7 +55,7 @@
                 <i class="fa fa-list"></i>
                 Jobs
             </a>
-            <a href="network.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+            <a href="/LinkedInClone/UserNetwork" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
                 <i class="fa fa-globe"></i>
                 Network
             </a>
@@ -69,7 +69,7 @@
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
         <a href="/LinkedInClone/UserServlet" class="w3-bar-item w3-button w3-padding-large">Home</a>
-        <a href="network.html" class="w3-bar-item w3-button w3-padding-large">Network</a>
+        <a href="/LinkedInClone/UserNetwork" class="w3-bar-item w3-button w3-padding-large">Network</a>
         <a href="jobs.html" class="w3-bar-item w3-button w3-padding-large">Jobs</a>
         <a href="messages.html" class="w3-bar-item w3-button w3-padding-large">Messages</a>
         <a href="notifications.html" class="w3-bar-item w3-button w3-padding-large">Notifications</a>

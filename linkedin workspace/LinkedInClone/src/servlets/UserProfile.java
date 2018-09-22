@@ -221,22 +221,29 @@ public class UserProfile extends HttpServlet {
 		}
 		
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-        File multimedia = new File(folderPath);
-        File file = File.createTempFile(fileName, ".tmp", multimedia);
-		try (InputStream input = filePart.getInputStream()) {
-            Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        if(!fileName.equals(""))
+        {
+        	File multimedia = new File(folderPath);
+            File file = File.createTempFile(fileName, ".tmp", multimedia);
+    		try (InputStream input = filePart.getInputStream()) {
+                Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+    		prof.setPath(file.getName());
+    		ProfessionalInfo profInfo = dao.updateProfile(prof);
+    		if(profInfo.getProf() == null)
+    		{
+    			file.delete();
+    		}
+    		else
+    		{
+    			File oldfile = new File(folderPath + "/" + oldPath);
+    			oldfile.delete();
+    		}
+    		return profInfo;
         }
-		prof.setPath(file.getName());
-		ProfessionalInfo profInfo = dao.updateProfile(prof,experiences);
-		if(profInfo.getProf() == null)
-		{
-			file.delete();
-		}
-		else
-		{
-			File oldfile = new File(folderPath + "/" + oldPath);
-			oldfile.delete();
-		}
-		return profInfo;
+        else
+        {
+        	return dao.updateProfile(prof);
+        }
     }
 }

@@ -104,8 +104,10 @@
 
             <div class="w3-col m10">
                 <div class="w3-container w3-card w3-white w3-margin">
-                    <div style="height: 720px; overflow-y: scroll">
-                        <br>
+                    <div class="w3-margin">
+                        <h3>Profile #2</h3>
+                    </div>
+                    <div id="messages_area" style="height: 720px; overflow-y: scroll">
                         <ul class="w3-ul">
                             <li>
                                 <table style="width: 100%">
@@ -115,12 +117,15 @@
                                         </a>
                                     </td>
                                     <td style="width: 90%">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
+                                        incididunt ut labore et dolore magna aliqua.
+                                        <br>
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
                                         <br>
@@ -128,9 +133,11 @@
                                 </table>
                             </li>
                             <li>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua.
                                 <br>
-                                <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt
                                 ut labore et dolore magna aliqua.
                                 <br>
                                 <br>
@@ -143,33 +150,43 @@
                                         </a>
                                     </td>
                                     <td style="width: 90%">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
-                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
+                                        incididunt ut labore et dolore magna aliqua.
+                                        <br>
+                                        <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor
                                         incididunt ut labore et dolore magna aliqua.
                                         <br>
                                         <br>
@@ -181,7 +198,8 @@
                     <div class="w3-padding-8">
                         <table style="width:100%">
                             <td style="width: 100%">
-                                <input id="message" type="text" placeholder="Type your message." class="w3-border w3-padding" style="width:100%;" />
+                                <input id="message" type="text" placeholder="Type your message." class="w3-border w3-padding"
+                                    style="width:100%;" />
                             </td>
                             <td style="width: 100%">
                                 <button type="button" onclick="check_message();" class="w3-button w3-theme-d2">
@@ -223,6 +241,11 @@
             } else {
                 x.className = x.className.replace(" w3-show", "");
             }
+        }
+
+        window.onload = function () {
+            var objDiv = document.getElementById("messages_area");
+            objDiv.scrollTop = objDiv.scrollHeight;
         }
 
         function check_message() {

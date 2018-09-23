@@ -113,21 +113,27 @@
                 <div class="w3-container w3-card w3-white w3-margin">
                     <h4>Work Experience</h4>
                     <ul style="padding-left: 16px">
-                        <li><b>Company #1</b> <i style="float:right;">Jan 2017 - Now</i>
+                        <li><b>Company #1</b> <i style="float:right;">
+                                <div id="work_date_1">Jan 2017 - Now</div>
+                            </i>
                             <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                             incididunt
                             ut labore et dolore magna aliqua.
                             <br>
                             <br>
                         </li>
-                        <li><b>Company #2</b> <i style="float:right">Oct 2015 - Nov 2016</i>
+                        <li><b>Company #2</b> <i style="float:right">
+                                <div id="work_date_2">Oct 2015 - Nov 2016</div>
+                            </i>
                             <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                             incididunt
                             ut labore et dolore magna aliqua.
                             <br>
                             <br>
                         </li>
-                        <li><b>Company #3</b> <i style="float:right">Apr 2013 - Sep 2015</i>
+                        <li><b>Company #3</b> <i style="float:right">
+                                <div id="work_date_3">Apr 2013 - Sep 2015</div>
+                            </i>
                             <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                             incididunt
                             ut labore et dolore magna aliqua.
@@ -138,7 +144,9 @@
                     <hr class="w3-clear">
                     <h4>Education</h4>
                     <ul style="padding-left: 16px">
-                        <li><b>University</b> <i style="float:right">Sep 2008 - Jun 2012</i>
+                        <li><b>University</b> <i style="float:right">
+                                <div id="education_date_1">Sep 2008 - Jun 2012</div>
+                            </i>
                             <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
                             incididunt
                             ut labore et dolore magna aliqua.
@@ -208,15 +216,36 @@
             }
         }
 
+        window.onload = function () {
+            var work_counter = 1, education_counter = 1;
+            var work_list = [], education_list = [];
+
+            work_list.push(['2020-7-12', '2018-8-15']);   // use jsp to make loops that append the dates
+            education_list.push(['2018-7-12', '2018-8-15']);
+
+            for (var i = 1; i <= work_counter; i++) {
+                var work_id = 'work_date_%num%'.replace('%num%', i);
+                display_date(work_list[0][0], work_list[0][1], work_id);
+            }
+            for (var i = 1; i <= education_counter; i++) {
+                var education_id = 'education_date_%num%'.replace('%num%', i);
+                display_date(education_list[0][0], education_list[0][1], education_id);
+            }
+        };
+
+        function display_date(date_from, date_to, id) {
+            document.getElementById(id).innerHTML = convert_date(date_from).concat(' - ', convert_date(date_to));
+        }
+
         function convert_date(current_date) {
             if (current_date == null) {
                 return "Now";
             }
-            var d_list = current_date.split("-");
-            var d = new Date(date_list[0], date_list[1]);
-            var d_string_list = d.toDateString().split(" ");
-            var d_string = d_string_list[1].concat(" ", d_string_list[3]);
-            return d_string;
+            var date_list = current_date.split("-");
+            var date = new Date(date_list[0], date_list[1]);
+            var date_string_list = date.toDateString().split(" ");
+            var date_string = date_string_list[1].concat(" ", date_string_list[3]);
+            return date_string;
         }
 
     </script>

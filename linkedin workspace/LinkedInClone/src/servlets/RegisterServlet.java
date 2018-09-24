@@ -113,13 +113,23 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-        File multimedia = new File(folderPath);
-        File file = File.createTempFile(fileName, ".tmp", multimedia);
-		try (InputStream input = filePart.getInputStream()) {
-            Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        String path;
+        File file = null;
+        if (fileName.trim().isEmpty())
+        {
+        	path="avatar3.png";
         }
-		ProfessionalInfo profInfo = dao.register(name, surname, email, telephone, password, job_title, file.getName());
-		if(profInfo.getProf() == null)	file.delete();
+        else
+        {
+        	File multimedia = new File(folderPath);
+            file = File.createTempFile(fileName, ".tmp", multimedia);
+    		try (InputStream input = filePart.getInputStream()) {
+                Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+    		path = file.getName();
+        }
+		ProfessionalInfo profInfo = dao.register(name, surname, email, telephone, password, job_title, path);
+		if(profInfo.getProf() == null && !fileName.trim().isEmpty())	file.delete();
         return profInfo;
     }
 

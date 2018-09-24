@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -12,8 +14,12 @@ import javax.persistence.*;
 @Table(name="relations")
 @NamedQueries({
 @NamedQuery(name="Relation.findAll", query="SELECT r FROM Relation r"),
-@NamedQuery(name="Relation.findConnected", query="SELECT r FROM Relation r WHERE r.status = 0 AND (r.professional1 = :prof OR r.professional2 = :prof)"),
-@NamedQuery(name="Relation.findStatus", query="SELECT r.status FROM Relation r WHERE (r.professional1 = :prof1 AND r.professional2 = :prof2) OR (r.professional1 = :prof2 AND r.professional2 = :prof1)")
+@NamedQuery(name="Relation.findConnected2", query="SELECT r.professional2 FROM Relation r WHERE (r.status = 0 AND r.professional1 = :prof)"),
+@NamedQuery(name="Relation.findConnected1", query="SELECT r.professional1 FROM Relation r WHERE (r.status = 0 AND r.professional2 = :prof)"),
+@NamedQuery(name="Relation.findPending2", query="SELECT r.professional2 FROM Relation r WHERE (r.status = 1 AND r.professional1 = :prof)"),
+@NamedQuery(name="Relation.findPending1", query="SELECT r.professional1 FROM Relation r WHERE (r.status = 1 AND r.professional2 = :prof)"),
+@NamedQuery(name="Relation.findStatus", query="SELECT r.status FROM Relation r WHERE (r.professional1 = :prof1 AND r.professional2 = :prof2) OR (r.professional1 = :prof2 AND r.professional2 = :prof1)"),
+@NamedQuery(name="Relation.findRelation", query="SELECT r FROM Relation r WHERE (r.professional1 = :prof1 AND r.professional2 = :prof2) OR (r.professional1 = :prof2 AND r.professional2 = :prof1)")
 }) 
 public class Relation implements Serializable {
 	private static final long serialVersionUID = 1L;

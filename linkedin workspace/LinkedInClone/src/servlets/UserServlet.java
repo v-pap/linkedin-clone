@@ -81,8 +81,7 @@ public class UserServlet extends HttpServlet {
 	        {
 	             HttpSession session = request.getSession(true);       
 	             session.setAttribute("prof",prof);
-	             RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/home.jsp");  
-	             rd.forward(request, response);
+	             response.sendRedirect("/LinkedInClone/UserServlet");
 	        }
 	        else
 	        {

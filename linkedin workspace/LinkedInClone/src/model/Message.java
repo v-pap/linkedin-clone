@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 
 
 /**
@@ -11,27 +10,30 @@ import java.util.Date;
  */
 @Entity
 @Table(name="messages")
-@NamedQuery(name="Message.findAll", query="SELECT m FROM Message m")
+@NamedQueries({
+@NamedQuery(name="Message.findAll", query="SELECT m FROM Message m"),
+@NamedQuery(name="Message.findAllMessages", query="SELECT m FROM Message m WHERE (m.professional1 = :prof1 AND m.professional2 = :prof2) OR (m.professional1 = :prof2 AND m.professional2 = :prof1) ORDER BY m.messageId")
+}) 
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="message_id")
 	private int messageId;
 
-	private boolean read;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date time;
+	@Lob
+	@Column(name="message_text")
+	private String messageText;
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
-	@JoinColumn(name="from")
+	@JoinColumn(name="`from`")
 	private Professional professional1;
 
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
-	@JoinColumn(name="to")
+	@JoinColumn(name="`to`")
 	private Professional professional2;
 
 	public Message() {
@@ -45,20 +47,12 @@ public class Message implements Serializable {
 		this.messageId = messageId;
 	}
 
-	public boolean getRead() {
-		return this.read;
+	public String getMessageText() {
+		return this.messageText;
 	}
 
-	public void setRead(boolean read) {
-		this.read = read;
-	}
-
-	public Date getTime() {
-		return this.time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
+	public void setMessageText(String messageText) {
+		this.messageText = messageText;
 	}
 
 	public Professional getProfessional1() {

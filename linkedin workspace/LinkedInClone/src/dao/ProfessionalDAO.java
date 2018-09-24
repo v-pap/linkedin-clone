@@ -3,7 +3,9 @@ package dao;
 import java.util.List;
 
 import model.Experience;
+import model.Message;
 import model.Professional;
+import model.Relation;
 import helper.ProfessionalInfo;
 
 public interface ProfessionalDAO 
@@ -26,12 +28,22 @@ public interface ProfessionalDAO
 	
 	public ProfessionalInfo refreshProfile(Professional prof);
 	
+	public ProfessionalInfo refreshMessages(Professional prof);
+	
 	public ProfessionalInfo updateProfile(Professional prof);
 	
 	public List<Professional> list_connected(Professional prof);
 	
+	public List<Professional> list_pending(Professional prof);
+	
 	public List<Professional> list_search(String searchName);
 	
 	public int check_status(Professional prof1, Professional prof2);
+	
+	public ProfessionalInfo updateRelations(Professional prof);
+	
+	public Relation find_relation(Professional prof1, Professional prof2);
+	
+	public List<Message> list_messages(Professional prof1, Professional prof2);
 
 }

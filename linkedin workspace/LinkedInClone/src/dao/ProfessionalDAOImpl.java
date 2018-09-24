@@ -9,7 +9,9 @@ import javax.persistence.Query;
 
 import jpautils.EntityManagerHelper;
 import model.Experience;
+import model.Message;
 import model.Professional;
+import model.Relation;
 import helper.ProfessionalInfo;
 
 public class ProfessionalDAOImpl implements ProfessionalDAO 
@@ -173,9 +175,28 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	em.getTransaction().begin();
         	prof = em.merge(prof);
-        	//prof.getEducations().size();
-        	//prof.getExperiences().size();
-        	//prof.getSkills().size();
+        	prof.getEducations().size();
+        	prof.getExperiences().size();
+        	prof.getSkills().size();
+        } catch (Exception e) {
+        	e.printStackTrace(); 
+            System.out.println(e); 
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return new ProfessionalInfo(prof,"");
+	}
+	
+	@Override
+	public ProfessionalInfo refreshMessages(Professional prof)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+        	em.getTransaction().begin();
+        	prof = em.merge(prof);
+        	prof.getMessages1().size();
+        	prof.getMessages2();
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
@@ -208,11 +229,35 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	@Override
 	public List<Professional> list_connected(Professional prof) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
-		Query query = em.createNamedQuery("Relation.findConnected");
-		query.setParameter("prof",prof);
+		Query query1 = em.createNamedQuery("Relation.findConnected1");
+		query1.setParameter("prof",prof);
 		List<Professional> profs;
 		try {
-			profs = query.getResultList();
+			profs = query1.getResultList();
+		} catch (Exception e) {
+        	return null;
+        }
+		Query query2 = em.createNamedQuery("Relation.findConnected2");
+		query2.setParameter("prof",prof);
+		try {
+			profs.addAll(query2.getResultList());
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return profs;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Professional> list_pending(Professional prof) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query2 = em.createNamedQuery("Relation.findPending1");
+		List<Professional> profs;
+		query2.setParameter("prof",prof);
+		try {
+			profs = query2.getResultList();
 		} catch (Exception e) {
         	return null;
         } finally {
@@ -257,6 +302,78 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		if(status_list.isEmpty()) status = 3;
 		else status = status_list.get(0);
         return status;
+	}
+	
+	public ProfessionalInfo updateRelations(Professional prof)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+        	em.getTransaction().begin();
+        	prof = em.merge(prof);
+        	prof.getRelations1();
+        	prof.getRelations2();
+        } catch (Exception e) {
+        	e.printStackTrace(); 
+            System.out.println(e); 
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return refreshProfile(prof);
+	}
+	
+	public ProfessionalInfo connectProfessional(Professional prof)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+        	em.getTransaction().begin();
+        	prof = em.merge(prof);
+        	prof.getRelations1();
+        	prof.getRelations2();
+        } catch (Exception e) {
+        	e.printStackTrace(); 
+            System.out.println(e); 
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return refreshProfile(prof);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Relation find_relation(Professional prof1, Professional prof2) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query = em.createNamedQuery("Relation.findRelation");
+		query.setParameter("prof1",prof1);
+		query.setParameter("prof2",prof2);
+		List<Relation> rel_list;
+		try {
+			rel_list = query.getResultList();
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+		return rel_list.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Message> list_messages(Professional prof1, Professional prof2) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query = em.createNamedQuery("Message.findAllMessages");
+		query.setParameter("prof1",prof1);
+		query.setParameter("prof2",prof2);
+		List<Message> message_list;
+		try {
+			message_list = query.getResultList();
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return message_list;
 	}
 
 }

@@ -1,0 +1,123 @@
+package servlets;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import dao.ProfessionalDAO;
+import dao.ProfessionalDAOImpl;
+import model.Professional;
+import model.Skill;
+
+/**
+ * Servlet implementation class UserNetwork
+ */
+@WebServlet(urlPatterns = {"/UserNetwork", "/UserNetwork/search"})
+public class UserNetwork extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UserNetwork() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		
+		Professional prof = (Professional) session.getAttribute("prof");
+		if (prof != null)
+        {
+        	List<Professional> profs_connected = getConnectedProfessionals(request, response);
+        	ArrayList<List<Professional>> list_rows = new ArrayList<List<Professional>>();
+
+        	int num_of_lines = profs_connected.size()/3;
+        	if(profs_connected.size()%3 > 0) num_of_lines++;
+        	int index = 0;
+        	for(int i = 0; i < num_of_lines; i++)
+        	{
+        		ArrayList<Professional> rows = new ArrayList<Professional>();
+        		for(int j = 0; (j < 3 && profs_connected.size() > index + j); j++)
+        		{
+        			rows.add(profs_connected.get(index + j));
+        		}
+        		list_rows.add(rows);
+        		index += 3;
+        	}
+            request.setAttribute("list_rows", list_rows);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/network.jsp");  
+            rd.forward(request, response);
+        }
+        else
+        {
+			response.sendRedirect("/LinkedInClone/UserServlet");
+        }
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		//String requestURI = request.getRequestURI();
+		Professional prof = (Professional) session.getAttribute("prof");
+
+		if (prof != null)
+        {
+			String searchName = request.getParameter("search");
+			if(searchName.trim().isEmpty())
+			{
+	            request.setAttribute("profs_search", null);
+			}
+			else
+			{
+				List<Professional> profs_search = searchProfessionals(request, response);
+	            request.setAttribute("profs_search", profs_search);
+			}
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/network_search.jsp");  
+            rd.forward(request, response);
+        }
+		else
+        {
+			response.sendRedirect("/LinkedInClone/UserServlet");
+        }
+	}
+	
+	private List<Professional> getConnectedProfessionals(HttpServletRequest request,
+            HttpServletResponse response)
+	{
+		HttpSession session = request.getSession(true);
+		Professional prof = (Professional) session.getAttribute("prof");
+        ProfessionalDAO dao = new ProfessionalDAOImpl();
+		List<Professional> profs = dao.list_connected(prof);
+        return profs;
+    }
+	
+	private List<Professional> searchProfessionals(HttpServletRequest request,
+            HttpServletResponse response)
+	{
+		HttpSession session = request.getSession(true);
+		Professional prof = (Professional) session.getAttribute("prof");
+        ProfessionalDAO dao = new ProfessionalDAOImpl();
+        String searchName = request.getParameter("search");
+        searchName = "%" + searchName.trim() + "%";
+		List<Professional> profs = dao.list_search(searchName);
+		prof.findRemoveProfessional(profs);
+        return profs;
+    }
+
+}

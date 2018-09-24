@@ -230,14 +230,17 @@ public class UserProfile extends HttpServlet {
             }
     		prof.setPath(file.getName());
     		ProfessionalInfo profInfo = dao.updateProfile(prof);
-    		if(profInfo.getProf() == null)
+    		if(!oldPath.equals("avatar3.png"))
     		{
-    			file.delete();
-    		}
-    		else
-    		{
-    			File oldfile = new File(folderPath + "/" + oldPath);
-    			oldfile.delete();
+    			if(profInfo.getProf() == null)
+        		{
+        			file.delete();
+        		}
+        		else
+        		{
+        			File oldfile = new File(folderPath + "/" + oldPath);
+        			oldfile.delete();
+        		}
     		}
     		return profInfo;
         }

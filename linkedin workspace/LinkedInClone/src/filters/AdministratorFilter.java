@@ -19,7 +19,7 @@ import model.Administrator;
 /**
  * Servlet Filter implementation class UrlRewriteFilter
  */
-@WebFilter(urlPatterns = {"/AdministratorServlet/logout","/AdministratorServlet"})
+@WebFilter(urlPatterns = {"/*"})
 public class AdministratorFilter implements Filter
 {
 

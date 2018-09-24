@@ -43,15 +43,15 @@
                 <i class="fa fa-user"></i>
                 My Profile
             </a>
-            <a href="notifications.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+            <a href="/LinkedInClone/UserNotifications" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
                 <i class="fa fa-bell"></i>
                 Notifications
             </a>
-            <a href="messages.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+            <a href="/LinkedInClone/UserMessages" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
                 <i class="fa fa-envelope"></i>
                 Messages
             </a>
-            <a href="jobs.html" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+            <a href="/LinkedInClone/UserJobs" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
                 <i class="fa fa-list"></i>
                 Jobs
             </a>
@@ -70,9 +70,9 @@
     <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
         <a href="/LinkedInClone/UserServlet" class="w3-bar-item w3-button w3-padding-large">Home</a>
         <a href="/LinkedInClone/UserNetwork" class="w3-bar-item w3-button w3-padding-large">Network</a>
-        <a href="jobs.html" class="w3-bar-item w3-button w3-padding-large">Jobs</a>
-        <a href="messages.html" class="w3-bar-item w3-button w3-padding-large">Messages</a>
-        <a href="notifications.html" class="w3-bar-item w3-button w3-padding-large">Notifications</a>
+        <a href="/LinkedInClone/UserJobs" class="w3-bar-item w3-button w3-padding-large">Jobs</a>
+        <a href="/LinkedInClone/UserMessages" class="w3-bar-item w3-button w3-padding-large">Messages</a>
+        <a href="/LinkedInClone/UserNotifications" class="w3-bar-item w3-button w3-padding-large">Notifications</a>
         <a href="/LinkedInClone/UserProfile" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
         <a href="/LinkedInClone/UserSettings" class="w3-bar-item w3-button w3-padding-large">Settings</a>
         <a href="/LinkedInClone/UserServlet/logout" class="w3-bar-item w3-button w3-padding-large">Log Out</a>

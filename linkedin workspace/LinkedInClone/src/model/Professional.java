@@ -79,11 +79,11 @@ public class Professional implements Serializable {
 	private List<Like> likes;
 
 	//bi-directional many-to-one association to Message
-	@OneToMany(mappedBy="professional1")
+	@OneToMany(mappedBy="professional1", cascade = CascadeType.ALL)
 	private List<Message> messages1;
 
 	//bi-directional many-to-one association to Message
-	@OneToMany(mappedBy="professional2")
+	@OneToMany(mappedBy="professional2", cascade = CascadeType.ALL)
 	private List<Message> messages2;
 
 	//bi-directional many-to-many association to Post

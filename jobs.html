@@ -90,8 +90,12 @@
                         <div class="w3-card w3-white">
                             <div class="w3-container w3-padding">
                                 <div class="w3-padding-8">
-                                    <input id="post" type="text" placeholder="Post your own Job Offer" class="w3-border w3-padding"
-                                        style="width:100%;" />
+                                    <input id="title" type="text" placeholder="Job Title" onkeyup="check_form(this.id);"
+                                        class="w3-border w3-padding" style="width:100%;" required />
+                                </div>
+                                <div class="w3-padding-8">
+                                    <input id="post" type="text" placeholder="Job Description" onkeyup="check_form(this.id);"
+                                        class="w3-border w3-padding" style="width:100%;" required />
                                 </div>
                                 <table>
                                     <td>
@@ -105,7 +109,10 @@
                                     </td>
                                     <td id="img_picked" class="w3-opacity">
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <input id="error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                            readonly>
+                                    </td>
                                 </table>
                                 <div class="w3-padding-8 w3-opacity-min">
                                     <a href="user_jobs.html" class="w3-link">
@@ -208,12 +215,38 @@
             document.getElementById('img_picked').innerHTML = "Selected image: " + selected_image.name;
         }
 
-        function check_post() {
-            if (document.getElementById('post').value == "") {
-                ;
+        function check_form(id) {
+            document.getElementById(id).setCustomValidity("");
+            if (document.getElementById(id).checkValidity() == false) {
+                document.getElementById(id).setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
             }
             else {
-                ;
+                document.getElementById(id).setCustomValidity("");
+                document.getElementById('error_message').value = "";
+            }
+        }
+
+        function check_post() {
+            var error = false;
+            if (document.getElementById('title').value == "") {
+                document.getElementById('title').setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
+                error = true;
+            }
+            else {
+                document.getElementById('title').setCustomValidity("");
+            }
+            if (document.getElementById('post').value == "") {
+                document.getElementById('post').setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
+                error = true;
+            }
+            else {
+                document.getElementById('post').setCustomValidity("");
+            }
+            if (error == false) {
+                document.getElementById('error_message').value = "";
             }
         }
     </script>

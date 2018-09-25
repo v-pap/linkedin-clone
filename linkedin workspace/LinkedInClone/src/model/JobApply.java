@@ -15,6 +15,7 @@ public class JobApply implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private JobApplyPK id;
 
 	//bi-directional many-to-one association to JobOffer

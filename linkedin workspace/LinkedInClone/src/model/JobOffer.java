@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -11,14 +12,26 @@ import java.util.List;
  */
 @Entity
 @Table(name="job_offers")
-@NamedQuery(name="JobOffer.findAll", query="SELECT j FROM JobOffer j")
+@NamedQueries({
+@NamedQuery(name="JobOffer.findAll", query="SELECT j FROM JobOffer j"),
+@NamedQuery(name="JobOffer.findAvailableJobs", query="SELECT j FROM JobOffer j WHERE (j.professional != :prof AND j.jobTime >= :today) ORDER BY j.jobTime DESC"),
+@NamedQuery(name="JobOffer.findCreatedJobs", query="SELECT j FROM JobOffer j WHERE (j.professional = :prof) ORDER BY j.jobId DESC"),
+@NamedQuery(name="JobOffer.findJob", query="SELECT j FROM JobOffer j WHERE (j.jobId = :job)")
+}) 
 public class JobOffer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="job_id")
 	private int jobId;
 
+	@Column(name="job_time")
+	private Timestamp jobTime;
+
+	private String path;
+
+	@Lob
 	private String text;
 
 	//bi-directional many-to-one association to JobApply
@@ -52,6 +65,22 @@ public class JobOffer implements Serializable {
 
 	public void setJobId(int jobId) {
 		this.jobId = jobId;
+	}
+
+	public Timestamp getJobTime() {
+		return this.jobTime;
+	}
+
+	public void setJobTime(Timestamp jobTime) {
+		this.jobTime = jobTime;
+	}
+
+	public String getPath() {
+		return this.path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public String getText() {
@@ -98,6 +127,18 @@ public class JobOffer implements Serializable {
 
 	public void setProfessional(Professional professional) {
 		this.professional = professional;
+	}
+	
+	public boolean alreadyApplied(int id)
+	{
+	    for(Professional prof : professionals)
+	    {
+	        if(prof.getId() == id)
+	        {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 
 }

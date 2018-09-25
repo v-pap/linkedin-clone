@@ -129,7 +129,7 @@ public class RegisterServlet extends HttpServlet {
     		path = file.getName();
         }
 		ProfessionalInfo profInfo = dao.register(name, surname, email, telephone, password, job_title, path);
-		if(profInfo.getProf() == null && !fileName.trim().isEmpty())	file.delete();
+		if(profInfo.getProf() == null && !fileName.trim().isEmpty() && !path.equals("avatar3.png"))	file.delete();
         return profInfo;
     }
 

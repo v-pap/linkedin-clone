@@ -34,4 +34,12 @@
 <fullyQualifiedTypeName name="model.Relation"/>
 <fullyQualifiedTypeName name="model.RelationPK"/>
 <fullyQualifiedTypeName name="model.Message"/>
+<fullyQualifiedTypeName name="java.sql.Timestamp"/>
+<fullyQualifiedTypeName name="model.JobOffer"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="javax.persistence.TemporalType"/>
+<fullyQualifiedTypeName name="org.apache.commons.lang3.time.DateUtils"/>
+<fullyQualifiedTypeName name="java.time.Instant"/>
+<fullyQualifiedTypeName name="java.time.Duration"/>
+<fullyQualifiedTypeName name="model.JobApply"/>
 </qualifiedTypeNameHistroy>

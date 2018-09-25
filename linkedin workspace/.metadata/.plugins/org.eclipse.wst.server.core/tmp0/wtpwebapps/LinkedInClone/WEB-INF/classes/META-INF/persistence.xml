@@ -7,7 +7,6 @@
 		<class>model.Experience</class>
 		<class>model.JobApply</class>
 		<class>model.JobApplyPK</class>
-		<class>model.JobOffer</class>
 		<class>model.Like</class>
 		<class>model.LikePK</class>
 		<class>model.Message</class>
@@ -20,6 +19,7 @@
 		<class>model.RelationPK</class>
 		<class>model.Skill</class>
 		<class>model.SkillPK</class>
+		<class>model.JobOffer</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="Buffered"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/database"/>

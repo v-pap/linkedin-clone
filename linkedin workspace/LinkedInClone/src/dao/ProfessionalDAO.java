@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import model.Experience;
+import model.JobOffer;
 import model.Message;
 import model.Professional;
 import model.Relation;
@@ -42,8 +43,20 @@ public interface ProfessionalDAO
 	
 	public ProfessionalInfo updateRelations(Professional prof);
 	
+	public ProfessionalInfo updateJobApplications(Professional prof);
+	
 	public Relation find_relation(Professional prof1, Professional prof2);
 	
 	public List<Message> list_messages(Professional prof1, Professional prof2);
+	
+	public List<JobOffer> list_available_jobs(Professional prof);
+	
+	public JobOffer find_job_offer(int id);
+	
+	public ProfessionalInfo updateJobOffers(Professional prof);
+	
+	public ProfessionalInfo refreshJobApplications(Professional prof);
+	
+	public List<JobOffer> list_my_jobs(Professional prof);
 
 }

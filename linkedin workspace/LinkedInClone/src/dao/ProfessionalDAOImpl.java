@@ -1,14 +1,19 @@
 package dao;
 
 import java.io.File;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import jpautils.EntityManagerHelper;
 import model.Experience;
+import model.JobOffer;
 import model.Message;
 import model.Professional;
 import model.Relation;
@@ -178,6 +183,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	prof.getEducations().size();
         	prof.getExperiences().size();
         	prof.getSkills().size();
+        	em.getTransaction().commit();
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
@@ -196,7 +202,8 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	em.getTransaction().begin();
         	prof = em.merge(prof);
         	prof.getMessages1().size();
-        	prof.getMessages2();
+        	prof.getMessages2().size();
+        	em.getTransaction().commit();
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
@@ -310,8 +317,9 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	em.getTransaction().begin();
         	prof = em.merge(prof);
-        	prof.getRelations1();
-        	prof.getRelations2();
+        	prof.getRelations1().size();
+        	prof.getRelations2().size();
+        	em.getTransaction().commit();
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
@@ -322,14 +330,53 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         return refreshProfile(prof);
 	}
 	
+	public ProfessionalInfo updateJobApplications(Professional prof)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+        	em.getTransaction().begin();
+        	prof = em.merge(prof);
+        	prof.getJobApplies().size();
+        	prof.getJobOffers1().size();
+        	em.getTransaction().commit();
+        } catch (Exception e) {
+        	e.printStackTrace(); 
+            System.out.println(e); 
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return new ProfessionalInfo(prof,"");
+	}
+	
+	public ProfessionalInfo updateJobOffers(Professional prof)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+        	em.getTransaction().begin();
+        	prof = em.merge(prof);
+        	prof.getJobOffers1().size();
+        	prof.getJobOffers2().size();
+        	em.getTransaction().commit();
+        } catch (Exception e) {
+        	e.printStackTrace(); 
+            System.out.println(e); 
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return new ProfessionalInfo(prof,"");
+	}
+	
 	public ProfessionalInfo connectProfessional(Professional prof)
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
         	em.getTransaction().begin();
         	prof = em.merge(prof);
-        	prof.getRelations1();
-        	prof.getRelations2();
+        	prof.getRelations1().size();
+        	prof.getRelations2().size();
+        	em.getTransaction().commit();
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
@@ -360,6 +407,23 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	public JobOffer find_job_offer(int id) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query = em.createNamedQuery("JobOffer.findJob");
+		query.setParameter("job",id);
+		List<JobOffer> job_list;
+		try {
+			job_list = query.getResultList();
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+		return job_list.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<Message> list_messages(Professional prof1, Professional prof2) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		Query query = em.createNamedQuery("Message.findAllMessages");
@@ -374,6 +438,62 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	EntityManagerHelper.closeEntityManager();
         }
         return message_list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<JobOffer> list_available_jobs(Professional prof) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query = em.createNamedQuery("JobOffer.findAvailableJobs");
+		query.setParameter("prof",prof);
+		Date now =  Date.from(Instant.now().minus(Duration.ofDays(60)));
+		query.setParameter("today",now,TemporalType.TIMESTAMP);
+		List<JobOffer> offers_list;
+		try {
+			offers_list = query.getResultList();
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return offers_list;
+	}
+	
+	public ProfessionalInfo refreshJobApplications(Professional prof)
+	{
+		EntityManager em = EntityManagerHelper.getEntityManager();
+        try {
+        	em.getTransaction().begin();
+        	prof = em.merge(prof);
+        	em.refresh(prof);
+        	prof.getJobApplies().size();
+        	prof.getJobOffers1().size();
+        	em.getTransaction().commit();
+        } catch (Exception e) {
+        	e.printStackTrace(); 
+            System.out.println(e); 
+        	return new ProfessionalInfo(null,"DB error");
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return new ProfessionalInfo(prof,"");
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<JobOffer> list_my_jobs(Professional prof) {
+		EntityManager em = EntityManagerHelper.getEntityManager();
+		Query query = em.createNamedQuery("JobOffer.findCreatedJobs");
+		query.setParameter("prof",prof);
+		List<JobOffer> offers_list;
+		try {
+			offers_list = query.getResultList();
+		} catch (Exception e) {
+        	return null;
+        } finally {
+        	EntityManagerHelper.closeEntityManager();
+        }
+        return offers_list;
 	}
 
 }

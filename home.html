@@ -99,13 +99,24 @@
                                             <i class="fa fa-pencil"></i> Post</button>
                                     </td>
                                     <td>
-                                        <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
-                                            <i class="fa fa-photo "></i> Media</button>
-                                        <input id='upload_button' type='file' onchange="image_pick();" accept="audio/*|video/*|image/jpeg"
+                                        <button type="button" onclick="file_upload('upload_image');" class="w3-button w3-theme-d2">
+                                            <i class="fa fa-photo "></i> Photo</button>
+                                        <input id='upload_image' type='file' onchange="file_pick(this.id);" accept="image/jpeg"
                                             hidden />
                                     </td>
-                                    <td id="img_picked" class="w3-opacity">
+                                    <td>
+                                        <button type="button" onclick="file_upload('upload_video');" class="w3-button w3-theme-d2">
+                                            <i class="fa fa-video-camera "></i> Video</button>
+                                        <input id='upload_video' type='file' onchange="file_pick(this.id);" accept="video/mp4"
+                                            hidden />
                                     </td>
+                                    <td>
+                                        <button type="button" onclick="file_upload('upload_audio');" class="w3-button w3-theme-d2">
+                                            <i class="fa fa-music "></i> Audio</button>
+                                        <input id='upload_audio' type='file' onchange="file_pick(this.id);" accept=".mp3"
+                                            hidden />
+                                    </td>
+                                    <td id="file_picked" class="w3-opacity">
                                 </table>
                             </div>
                         </div>
@@ -278,13 +289,13 @@
             }
         }
 
-        function image_upload() {
-            document.getElementById('upload_button').click();
+        function file_upload(id) {
+            document.getElementById(id).click();
         }
 
-        function image_pick() {
-            var selected_file = document.getElementById('upload_button').files[0];
-            document.getElementById('img_picked').innerHTML = "Selected file: " + selected_file.name;
+        function file_pick(id) {
+            var selected_file = document.getElementById(id).files[0];
+            document.getElementById('file_picked').innerHTML = "Selected file: " + selected_file.name;
         }
 
         function check_post() {

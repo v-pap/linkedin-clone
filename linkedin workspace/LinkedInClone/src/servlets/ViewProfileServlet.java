@@ -44,11 +44,18 @@ public class ViewProfileServlet extends HttpServlet {
 		if (prof != null)
         {
         	Professional prof_profile = getProfessional(request, response);
-        	int status = checkStatus(prof,prof_profile);
-            request.setAttribute("prof_profile", prof_profile);
-            request.setAttribute("status", status);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/user_profile.jsp");  
-            rd.forward(request, response);
+        	if(prof_profile.getId() == prof.getId())
+        	{
+        		response.sendRedirect("/LinkedInClone/UserProfile");
+        	}
+        	else
+        	{
+        		int status = checkStatus(prof,prof_profile);
+                request.setAttribute("prof_profile", prof_profile);
+                request.setAttribute("status", status);
+    			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/user_profile.jsp");  
+                rd.forward(request, response);
+        	}
         }
         else
         {

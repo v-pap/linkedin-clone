@@ -93,8 +93,12 @@
                             <div class="w3-container w3-padding">
                             	<form action="/LinkedInClone/UserJobs/post" method="post" enctype='multipart/form-data'>
                                 <div class="w3-padding-8">
+                                    <input name="job_title" id="title" type="text" placeholder="Job Title" onkeyup="check_form(this.id);"
+                                        class="w3-border w3-padding" style="width:100%;" required />
+                                </div>
+                                <div class="w3-padding-8">
                                     <input name="job_description" id="post" type="text" placeholder="Post your own Job Offer" class="w3-border w3-padding"
-                                        style="width:100%;" />
+                                        style="width:100%;" required/>
                                 </div>
                                 <table>
                                     <td>
@@ -108,7 +112,10 @@
                                     </td>
                                     <td id="img_picked" class="w3-opacity">
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <input id="error_message" class="w3-opacity-min" type="text" value="" style="border: 0;background-color: inherit; color:red;font-weight: bold"
+                                            readonly>
+                                    </td>
                                 </table>
                                 </form>
                                 <div class="w3-padding-8 w3-opacity-min">
@@ -124,7 +131,7 @@
 				<c:forEach items="${jobs_list}" var="job">
                 <div class="w3-container w3-card w3-white w3-margin">
                     <br>
-                    <h4>Title</h4>
+                    <h4>${job.getJobTitle()}</h4>
                     <p>Submitted by <a href="/LinkedInClone/ViewProfileServlet?id=${job.getProfessional().getId()}" class="w3-link">${job.getProfessional().getName()} ${job.getProfessional().getSurname()}</a> </p>
                     <hr class="w3-clear">
                     <p>${job.getText()}</p>
@@ -188,13 +195,39 @@
             var selected_image = document.getElementById('upload_button').files[0];
             document.getElementById('img_picked').innerHTML = "Selected image: " + selected_image.name;
         }
-
-        function check_post() {
-            if (document.getElementById('post').value == "") {
-                ;
+        
+        function check_form(id) {
+            document.getElementById(id).setCustomValidity("");
+            if (document.getElementById(id).checkValidity() == false) {
+                document.getElementById(id).setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
             }
             else {
-                ;
+                document.getElementById(id).setCustomValidity("");
+                document.getElementById('error_message').value = "";
+            }
+        }
+
+        function check_post() {
+            var error = false;
+            if (document.getElementById('title').value == "") {
+                document.getElementById('title').setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
+                error = true;
+            }
+            else {
+                document.getElementById('title').setCustomValidity("");
+            }
+            if (document.getElementById('post').value == "") {
+                document.getElementById('post').setCustomValidity("Invalid field.");
+                document.getElementById('error_message').value = "Missing required fields.";
+                error = true;
+            }
+            else {
+                document.getElementById('post').setCustomValidity("");
+            }
+            if (error == false) {
+                document.getElementById('error_message').value = "";
             }
         }
     </script>

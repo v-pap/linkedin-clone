@@ -1,0 +1,228 @@
+package servlets;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+import dao.ProfessionalDAO;
+import dao.ProfessionalDAOImpl;
+import helper.ProfessionalInfo;
+import model.JobApply;
+import model.JobOffer;
+import model.Professional;
+
+/**
+ * Servlet implementation class UserJobs
+ */
+@MultipartConfig(location="/home/bill/Desktop/tomcat/temp", fileSizeThreshold=1024*1024, 
+maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
+@WebServlet(urlPatterns = {"/UserJobs", "/UserJobs/post", "/UserJobs/apply", "/UserJobs/view"})
+public class UserJobs extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	String folderPath = "/home/bill/Desktop/multimedia";
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UserJobs() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		String requestURI = request.getRequestURI();
+	
+		Professional prof = (Professional) session.getAttribute("prof");
+        if (prof != null)
+        {   
+        	if(requestURI.endsWith("view"))
+			{
+        		List<JobOffer> jobs_list = getMyOffers(request, response);
+        		request.setAttribute("jobs_list", jobs_list);
+        		ProfessionalDAO dao = new ProfessionalDAOImpl();
+            	ProfessionalInfo profInfo = dao.refreshJobApplications(prof);
+    			if(profInfo.getProf() != null)
+            	{
+    				session.setAttribute("prof",profInfo.getProf());
+    				RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/user_jobs.jsp");
+    	            rd.forward(request, response);
+            	}
+            	else
+            	{
+            		response.sendRedirect("/LinkedInClone/UserServlet");
+            	}
+			}
+        	else
+        	{
+        		List<JobOffer> jobs_list = getAvailableJobs(request, response);
+            	request.setAttribute("jobs_list", jobs_list);
+            	ProfessionalDAO dao = new ProfessionalDAOImpl();
+            	ProfessionalInfo profInfo = dao.refreshJobApplications(prof);
+    			if(profInfo.getProf() != null)
+            	{
+    				session.setAttribute("prof",profInfo.getProf());
+    				RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/jobs.jsp");
+    	            rd.forward(request, response);
+            	}
+            	else
+            	{
+            		response.sendRedirect("/LinkedInClone/UserServlet");
+            	}
+        	}
+        }
+        else
+        {
+        	response.sendRedirect("/LinkedInClone/UserServlet");
+        }
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
+		String requestURI = request.getRequestURI();
+		Professional prof = (Professional) session.getAttribute("prof");
+
+		if (prof != null)
+        {
+			if(requestURI.endsWith("apply"))
+			{
+				ProfessionalInfo profInfo = applyToJob(request, response);
+				if(profInfo.getProf() != null)
+	        	{
+					session.setAttribute("prof",profInfo.getProf());
+	        		response.sendRedirect("/LinkedInClone/UserJobs");
+	        	}
+	        	else
+	        	{
+	        		response.sendRedirect("/LinkedInClone/UserServlet");
+	        	}
+			}
+			else if(requestURI.endsWith("post"))
+			{
+				ProfessionalInfo profInfo = createJobOffer(request, response);
+				if(profInfo.getProf() != null)
+	        	{
+					session.setAttribute("prof",profInfo.getProf());
+	        		response.sendRedirect("/LinkedInClone/UserJobs");
+	        	}
+	        	else
+	        	{
+	        		response.sendRedirect("/LinkedInClone/UserServlet");
+	        	}
+			}
+			else
+			{
+				response.sendRedirect("/LinkedInClone/UserServlet");
+			}
+        }
+		else
+        {
+			response.sendRedirect("/LinkedInClone/UserServlet");
+        }
+	}
+	
+	private List<JobOffer> getAvailableJobs(HttpServletRequest request,
+            HttpServletResponse response)
+	{
+		HttpSession session = request.getSession(true);
+		Professional prof = (Professional) session.getAttribute("prof");
+        ProfessionalDAO dao = new ProfessionalDAOImpl();
+		List<JobOffer> jobs_list = dao.list_available_jobs(prof);
+        return jobs_list;
+    }
+	
+	private ProfessionalInfo applyToJob(HttpServletRequest request,
+            HttpServletResponse response)
+	{
+		HttpSession session = request.getSession(true);
+		Professional prof = (Professional) session.getAttribute("prof");
+		ProfessionalDAO dao = new ProfessionalDAOImpl();
+		ProfessionalInfo profInfo = dao.updateJobApplications(prof);
+		if(profInfo.getProf() == null) return profInfo;
+		prof = profInfo.getProf();
+        String id = request.getParameter("job_id");
+        JobOffer job = dao.find_job_offer(Integer.parseInt(id));
+        JobApply jobapp = new JobApply();
+        jobapp.setJobOffer(job);
+        jobapp.setProfessional(prof);
+        prof.addJobApply(jobapp);
+        return dao.updateJobApplications(prof);
+    }
+	
+	private ProfessionalInfo createJobOffer(HttpServletRequest request,
+            HttpServletResponse response) throws IOException
+	{
+		HttpSession session = request.getSession(true);
+		Professional prof = (Professional) session.getAttribute("prof");
+		ProfessionalDAO dao = new ProfessionalDAOImpl();
+		
+		Part filePart;
+		try {
+			filePart = request.getPart("image");
+		} catch (ServletException e) {
+			return new ProfessionalInfo(null,"couldn't save the photo");
+		}
+		
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        String path;
+        File file = null;
+        if (fileName.trim().isEmpty())
+        {
+        	path="lights.jpg";
+        }
+        else
+        {
+        	File multimedia = new File(folderPath);
+            file = File.createTempFile(fileName, ".tmp", multimedia);
+    		try (InputStream input = filePart.getInputStream()) {
+                Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+    		path = file.getName();
+        }
+		
+		ProfessionalInfo profInfo = dao.updateJobOffers(prof);
+		if(profInfo.getProf() == null) return profInfo;
+		prof = profInfo.getProf();
+        String jobDescription = request.getParameter("job_description");
+        
+        JobOffer job = new JobOffer();
+        job.setText(jobDescription);
+        job.setPath(path);
+        job.setProfessional(prof);
+        prof.addJobOffers2(job);
+        profInfo = dao.updateJobOffers(prof);
+        if(profInfo.getProf() == null && !fileName.trim().isEmpty() && !path.equals("lights.jpg"))	file.delete();
+        return profInfo;
+    }
+	
+	private List<JobOffer> getMyOffers(HttpServletRequest request,
+            HttpServletResponse response)
+	{
+		HttpSession session = request.getSession(true);
+		Professional prof = (Professional) session.getAttribute("prof");
+        ProfessionalDAO dao = new ProfessionalDAOImpl();
+		List<JobOffer> jobs_list = dao.list_my_jobs(prof);
+        return jobs_list;
+    }
+
+}

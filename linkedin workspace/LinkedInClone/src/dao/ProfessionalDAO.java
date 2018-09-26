@@ -5,6 +5,7 @@ import java.util.List;
 import model.Experience;
 import model.JobOffer;
 import model.Message;
+import model.Post;
 import model.Professional;
 import model.Relation;
 import helper.ProfessionalInfo;
@@ -58,5 +59,15 @@ public interface ProfessionalDAO
 	public ProfessionalInfo refreshJobApplications(Professional prof);
 	
 	public List<JobOffer> list_my_jobs(Professional prof);
+	
+	public List<Post> list_posts(Professional prof);
+	
+	public ProfessionalInfo updatePosts(Professional prof);
+	
+	public Post find_post(int id);
+	
+	public ProfessionalInfo updateComments(Professional prof);
+	
+	public ProfessionalInfo updateLikes(Professional prof);
 
 }

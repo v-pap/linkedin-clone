@@ -51,7 +51,7 @@ public class Professional implements Serializable {
 	private String telephone;
 
 	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="professional")
+	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 
 	//bi-directional many-to-one association to Education
@@ -75,7 +75,7 @@ public class Professional implements Serializable {
 	private List<JobOffer> jobOffers2;
 
 	//bi-directional many-to-one association to Like
-	@OneToMany(mappedBy="professional")
+	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL)
 	private List<Like> likes;
 
 	//bi-directional many-to-one association to Message
@@ -87,11 +87,11 @@ public class Professional implements Serializable {
 	private List<Message> messages2;
 
 	//bi-directional many-to-many association to Post
-	@ManyToMany(mappedBy="professionals")
+	@ManyToMany(mappedBy="professionals", cascade = CascadeType.ALL)
 	private List<Post> posts1;
 
 	//bi-directional many-to-one association to Post
-	@OneToMany(mappedBy="professional")
+	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL)
 	private List<Post> posts2;
 
 	//bi-directional many-to-one association to Relation
@@ -495,6 +495,18 @@ public class Professional implements Serializable {
 	    for(JobOffer job_offer : this.jobOffers1)
 	    {
 	        if(job_offer.getJobId() == id)
+	        {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	 
+	 public boolean alreadyLiked(int id)
+	 {
+	    for(Like like : this.likes)
+	    {
+	        if(like.getPost().getPostId() == id)
 	        {
 	            return true;
 	        }

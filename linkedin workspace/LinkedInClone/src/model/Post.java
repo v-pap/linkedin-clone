@@ -11,36 +11,40 @@ import java.util.List;
  */
 @Entity
 @Table(name="posts")
-@NamedQuery(name="Post.findAll", query="SELECT p FROM Post p")
+@NamedQueries({
+@NamedQuery(name="Post.findAll", query="SELECT p FROM Post p"),
+@NamedQuery(name="Post.findPost", query="SELECT p FROM Post p WHERE (p.postId = :id)"),
+@NamedQuery(name="Post.findConnectedPosts", query="SELECT p FROM Post p WHERE ((p.professional = :prof) OR (p.professional in "
+		+ "(SELECT r.professional1 FROM Relation r WHERE (r.status = 0 AND r.professional2 = :prof)) "
+		+ "OR p.professional in (SELECT r.professional2 FROM Relation r WHERE (r.status = 0 AND r.professional1 = :prof))))ORDER BY p.postId DESC")
+})
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="post_id")
 	private int postId;
+	
+	@Column(name="path_pic")
+	private String pathPic;
+	
+	@Column(name="path_vid")
+	private String pathVid;
+	
+	@Column(name="path_sound")
+	private String pathSound;
 
 	@Lob
 	private String text;
 
 	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="post")
+	@OneToMany(mappedBy="post", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 
 	//bi-directional many-to-one association to Like
-	@OneToMany(mappedBy="post")
+	@OneToMany(mappedBy="post", cascade = CascadeType.ALL)
 	private List<Like> likes;
-
-	//bi-directional many-to-one association to PostPicture
-	@OneToMany(mappedBy="post")
-	private List<PostPicture> postPictures;
-
-	//bi-directional many-to-one association to PostSound
-	@OneToMany(mappedBy="post")
-	private List<PostSound> postSounds;
-
-	//bi-directional many-to-one association to PostVideo
-	@OneToMany(mappedBy="post")
-	private List<PostVideo> postVideos;
 
 	//bi-directional many-to-many association to Professional
 	@ManyToMany
@@ -69,6 +73,30 @@ public class Post implements Serializable {
 
 	public void setPostId(int postId) {
 		this.postId = postId;
+	}
+	
+	public String getPathPic() {
+		return this.pathPic;
+	}
+
+	public void setPathPic(String path) {
+		this.pathPic = path;
+	}
+	
+	public String getPathVid() {
+		return this.pathVid;
+	}
+
+	public void setPathVid(String path) {
+		this.pathVid = path;
+	}
+	
+	public String getPathSound() {
+		return this.pathSound;
+	}
+
+	public void setPathSound(String path) {
+		this.pathSound = path;
 	}
 
 	public String getText() {
@@ -121,72 +149,6 @@ public class Post implements Serializable {
 		like.setPost(null);
 
 		return like;
-	}
-
-	public List<PostPicture> getPostPictures() {
-		return this.postPictures;
-	}
-
-	public void setPostPictures(List<PostPicture> postPictures) {
-		this.postPictures = postPictures;
-	}
-
-	public PostPicture addPostPicture(PostPicture postPicture) {
-		getPostPictures().add(postPicture);
-		postPicture.setPost(this);
-
-		return postPicture;
-	}
-
-	public PostPicture removePostPicture(PostPicture postPicture) {
-		getPostPictures().remove(postPicture);
-		postPicture.setPost(null);
-
-		return postPicture;
-	}
-
-	public List<PostSound> getPostSounds() {
-		return this.postSounds;
-	}
-
-	public void setPostSounds(List<PostSound> postSounds) {
-		this.postSounds = postSounds;
-	}
-
-	public PostSound addPostSound(PostSound postSound) {
-		getPostSounds().add(postSound);
-		postSound.setPost(this);
-
-		return postSound;
-	}
-
-	public PostSound removePostSound(PostSound postSound) {
-		getPostSounds().remove(postSound);
-		postSound.setPost(null);
-
-		return postSound;
-	}
-
-	public List<PostVideo> getPostVideos() {
-		return this.postVideos;
-	}
-
-	public void setPostVideos(List<PostVideo> postVideos) {
-		this.postVideos = postVideos;
-	}
-
-	public PostVideo addPostVideo(PostVideo postVideo) {
-		getPostVideos().add(postVideo);
-		postVideo.setPost(this);
-
-		return postVideo;
-	}
-
-	public PostVideo removePostVideo(PostVideo postVideo) {
-		getPostVideos().remove(postVideo);
-		postVideo.setPost(null);
-
-		return postVideo;
 	}
 
 	public List<Professional> getProfessionals() {

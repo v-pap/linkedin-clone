@@ -10,9 +10,6 @@
 		<class>model.Like</class>
 		<class>model.LikePK</class>
 		<class>model.Message</class>
-		<class>model.PostPicture</class>
-		<class>model.PostSound</class>
-		<class>model.PostVideo</class>
 		<class>model.Post</class>
 		<class>model.Professional</class>
 		<class>model.Relation</class>

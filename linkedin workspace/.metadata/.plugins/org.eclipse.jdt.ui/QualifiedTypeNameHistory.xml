@@ -42,4 +42,8 @@
 <fullyQualifiedTypeName name="java.time.Instant"/>
 <fullyQualifiedTypeName name="java.time.Duration"/>
 <fullyQualifiedTypeName name="model.JobApply"/>
+<fullyQualifiedTypeName name="model.Post"/>
+<fullyQualifiedTypeName name="model.Comment"/>
+<fullyQualifiedTypeName name="model.PostPicture"/>
+<fullyQualifiedTypeName name="model.Like"/>
 </qualifiedTypeNameHistroy>

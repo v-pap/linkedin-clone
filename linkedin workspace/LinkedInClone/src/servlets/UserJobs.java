@@ -204,9 +204,10 @@ public class UserJobs extends HttpServlet {
 		if(profInfo.getProf() == null) return profInfo;
 		prof = profInfo.getProf();
         String jobDescription = request.getParameter("job_description");
-        
+        String jobTitle = request.getParameter("job_title");
         JobOffer job = new JobOffer();
         job.setText(jobDescription);
+        job.setJobTitle(jobTitle);
         job.setPath(path);
         job.setProfessional(prof);
         prof.addJobOffers2(job);

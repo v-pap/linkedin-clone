@@ -15,6 +15,7 @@ public class Like implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private LikePK id;
 
 	//bi-directional many-to-one association to Post

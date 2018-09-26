@@ -28,6 +28,9 @@ public class JobOffer implements Serializable {
 
 	@Column(name="job_time")
 	private Timestamp jobTime;
+	
+	@Column(name="job_title")
+	private String jobTitle;
 
 	private String path;
 
@@ -89,6 +92,14 @@ public class JobOffer implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public String getJobTitle() {
+		return this.jobTitle;
+	}
+
+	public void setJobTitle(String title) {
+		this.jobTitle = title;
 	}
 
 	public List<JobApply> getJobApplies() {

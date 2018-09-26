@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <title>WorkConnect - Home</title>
@@ -89,79 +91,115 @@
                     <div class="w3-col m12">
                         <div class="w3-card w3-white">
                             <div class="w3-container w3-padding">
+                            <form action="/LinkedInClone/UserServlet/post" method="post" enctype='multipart/form-data'>
                                 <div class="w3-padding-8">
-                                    <input id="post" type="text" placeholder="Status: Feeling great!" class="w3-border w3-padding" style="width:100%;" />
+                                    <input name="post_text" id="post" type="text" placeholder="Status: Feeling great!" class="w3-border w3-padding"
+                                        style="width:100%;" />
                                 </div>
                                 <table>
                                     <td>
-                                        <button type="button" onclick="check_post();" class="w3-button w3-theme-d2">
+                                        <button type="submit" onclick="check_post();" class="w3-button w3-theme-d2">
                                             <i class="fa fa-pencil"></i> Post</button>
                                     </td>
                                     <td>
                                         <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
                                             <i class="fa fa-photo "></i> Photo</button>
-                                        <input id='upload_button' type='file' onchange="image_pick();" hidden/>
+                                        <input name="image" id='upload_button' type='file' onchange="image_pick();" accept="image/jpeg"
+                                            hidden />
+                                    </td>
+                                    <td>
+                                        <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
+                                            <i class="fa fa-video-camera "></i> Video</button>
+                                        <input id='upload_button' type='file' onchange="image_pick();" accept="video/*"
+                                            hidden />
+                                    </td>
+                                    <td>
+                                        <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
+                                            <i class="fa fa-music "></i> Audio</button>
+                                        <input id='upload_button' type='file' onchange="image_pick();" accept="audio/*"
+                                            hidden />
                                     </td>
                                     <td id="img_picked" class="w3-opacity">
                                     </td>
                                 </table>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
+				<c:forEach items="${posts_list}" var="post">
                 <div class="w3-container w3-card w3-white w3-margin">
                     <br>
-                    <a href="user_profile.html">
-                        <img src="${pageContext.request.contextPath}/images/avatar2.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
+                    <a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}">
+                        <img src="/LinkedInClone/ImageServlet?id=${post.getProfessional().getPath()}" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
                     </a>
-                    <h4><a href="user_profile.html" class="w3-link">John Doe</a></h4>
+                    <h4><a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}" class="w3-link">${post.getProfessional().getName()} ${post.getProfessional().getSurname()}</a></h4>
                     <br>
                     <hr class="w3-clear">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip ex ea commodo consequat.
-                    </p>
-                    <img src="${pageContext.request.contextPath}/images/lights.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
-                    <button type="button" class="w3-button w3-theme-d2">
+                    <p>${post.getText()}</p>
+                    <img src="images/lights.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+                    <c:choose>
+                    <c:when test = "${prof.alreadyLiked(post.getPostId()) == false}">
+                    <form action="/LinkedInClone/UserServlet/like" method="post">
+                    <button type="submit" class="w3-button w3-theme-d2">
                         <i class="fa fa-thumbs-up"></i> Like</button>
+                        <input type="hidden" name="post_id" value="${post.getPostId()}">
+                    </form>
+                    </c:when>
+                    <c:otherwise>
+                    <button type="button" disabled="true" class="w3-button w3-theme-d2">
+                        <i class="fa fa-thumbs-up"></i> Liked</button>
+                    </c:otherwise>
+                    </c:choose>
                     <hr class="w3-clear">
                     <table style="width:100%">
+                    	<c:forEach items="${post.getComments()}" var="comment">
                         <tr>
                             <td>
-                                <a href="user_profile.html">
-                                    <img src="${pageContext.request.contextPath}/images/avatar2.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right w3-margin-bottom" style="width:60px">
+                                <a href="/LinkedInClone/ViewProfileServlet?id=${comment.getProfessional().getId()}">
+                                    <img src="/LinkedInClone/ImageServlet?id=${comment.getProfessional().getPath()}" alt="Avatar" class="w3-left w3-round-large w3-margin-right w3-margin-bottom"
+                                        style="width:60px">
                                 </a>
                             </td>
                             <td style="width: 100%">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
+                                <p>${comment.getText()}</p>
                             </td>
                         </tr>
+                        </c:forEach>
                     </table>
+                    <form action="/LinkedInClone/UserServlet/comment" method="post">
                     <table style="width:100%">
                         <td style="width: 100%">
-                            <input type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom" style="width:100%;" />
+                            <input name="comment" type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom"
+                                style="width:100%;" />
+                             <input type="hidden" name="post_id" value="${post.getPostId()}">
                         </td>
                         <td style="width: 100%">
-                            <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
+                            <button type="submit" class="w3-button w3-theme-d2 w3-margin-bottom">
                                 <i class="fa fa-comment"></i> Comment</button>
                         </td>
                     </table>
+                    </form>
                 </div>
-
+				</c:forEach>
                 <div class="w3-container w3-card w3-white w3-margin">
                     <br>
                     <a href="user_profile.html">
-                        <img src="${pageContext.request.contextPath}/images/avatar5.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
+                        <img src="images/avatar5.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
                     </a>
                     <h4><a href="user_profile.html" class="w3-link">Jane Doe</a></h4>
                     <br>
                     <hr class="w3-clear">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        ut
                         aliquip ex ea commodo consequat.
                     </p>
+                    <video style="width: 100%" controls>
+                        <source src="sample_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                     <button type="button" class="w3-button w3-theme-d2">
                         <i class="fa fa-thumbs-up"></i> Like</button>
                     <hr class="w3-clear">
@@ -169,30 +207,39 @@
                         <tr>
                         </tr>
                     </table>
+                    <form action="/LinkedInClone/UserJobs/comment" method="post">
                     <table style="width:100%">
                         <td style="width: 100%">
-                            <input type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom" style="width:100%;" />
+                            <input type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom"
+                                style="width:100%;" />
                         </td>
                         <td style="width: 100%">
                             <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
                                 <i class="fa fa-comment"></i> Comment</button>
                         </td>
                     </table>
+                    </form>
+                    
                 </div>
 
                 <div class="w3-container w3-card w3-white w3-margin">
                     <br>
                     <a href="user_profile.html">
-                        <img src="${pageContext.request.contextPath}/images/avatar6.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
+                        <img src="images/avatar6.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
                     </a>
                     <h4><a href="user_profile.html" class="w3-link">Angie Jane</a></h4>
                     <br>
                     <hr class="w3-clear">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        ut
                         aliquip ex ea commodo consequat.
                     </p>
-                    <img src="${pageContext.request.contextPath}/images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                    <audio style="width: 100%" controls>
+                        <source src="sample_audio.mp3" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio>
                     <button type="button" class="w3-button w3-theme-d2">
                         <i class="fa fa-thumbs-up"></i> Like</button>
                     <hr class="w3-clear">
@@ -200,19 +247,23 @@
                         <tr>
                             <td>
                                 <a href="user_profile.html">
-                                    <img src="${pageContext.request.contextPath}/images/avatar2.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right w3-margin-bottom" style="width:60px">
+                                    <img src="images/avatar2.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right w3-margin-bottom"
+                                        style="width:60px">
                                 </a>
                             </td>
                             <td style="width: 100%">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation
                                     ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                             </td>
                         </tr>
                     </table>
                     <table style="width:100%">
                         <td style="width: 100%">
-                            <input type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom" style="width:100%;" />
+                            <input type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom"
+                                style="width:100%;" />
                         </td>
                         <td style="width: 100%">
                             <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
@@ -260,8 +311,8 @@
         }
 
         function image_pick() {
-            var selected_image = document.getElementById('upload_button').files[0];
-            document.getElementById('img_picked').innerHTML = "Selected image: " + selected_image.name;
+            var selected_file = document.getElementById('upload_button').files[0];
+            document.getElementById('img_picked').innerHTML = "Selected file: " + selected_file.name;
         }
 
         function check_post() {

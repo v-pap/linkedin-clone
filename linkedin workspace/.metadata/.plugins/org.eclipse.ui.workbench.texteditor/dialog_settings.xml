@@ -2,12 +2,18 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Applies" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="system"/>
+			<item value="mESS"/>
+			<item value="message"/>
+			<item value="sound"/>
+			<item value="path"/>
+			<item value="context"/>
 			<item value="applies"/>
 			<item value="refresh"/>
 			<item value="findJ"/>
@@ -17,12 +23,6 @@
 			<item value="applicants_1"/>
 			<item value="applicants_2"/>
 			<item value="applicants2"/>
-			<item value="applicants1"/>
-			<item value="jobO"/>
-			<item value="job_"/>
-			<item value="commit"/>
-			<item value="rel"/>
-			<item value="form"/>
 		</list>
 		<list key="replacehistory">
 			<item value="education"/>
@@ -40,7 +40,7 @@
 		<item value="335" key="DIALOG_WIDTH"/>
 		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="444" key="DIALOG_HEIGHT"/>
-		<item value="1137" key="DIALOG_X_ORIGIN"/>
-		<item value="326" key="DIALOG_Y_ORIGIN"/>
+		<item value="1302" key="DIALOG_X_ORIGIN"/>
+		<item value="311" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

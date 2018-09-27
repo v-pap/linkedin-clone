@@ -104,19 +104,19 @@
                                     <td>
                                         <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
                                             <i class="fa fa-photo "></i> Photo</button>
-                                        <input name="image" id='upload_button' type='file' onchange="image_pick();" accept="image/jpeg"
+                                        <input name="image" id='image_button' type='file' onchange="image_pick();" accept="image/jpeg"
                                             hidden />
                                     </td>
                                     <td>
-                                        <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
+                                        <button type="button" onclick="video_upload();" class="w3-button w3-theme-d2">
                                             <i class="fa fa-video-camera "></i> Video</button>
-                                        <input id='upload_button' type='file' onchange="image_pick();" accept="video/*"
+                                        <input name="video" id='video_button' type='file' onchange="video_pick();" accept="video/*"
                                             hidden />
                                     </td>
                                     <td>
-                                        <button type="button" onclick="image_upload();" class="w3-button w3-theme-d2">
+                                        <button type="button" onclick="audio_upload();" class="w3-button w3-theme-d2">
                                             <i class="fa fa-music "></i> Audio</button>
-                                        <input id='upload_button' type='file' onchange="image_pick();" accept="audio/*"
+                                        <input name="audio" id='audio_button' type='file' onchange="audio_pick();" accept="audio/*"
                                             hidden />
                                     </td>
                                     <td id="img_picked" class="w3-opacity">
@@ -133,11 +133,33 @@
                     <a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}">
                         <img src="/LinkedInClone/ImageServlet?id=${post.getProfessional().getPath()}" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
                     </a>
-                    <h4><a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}" class="w3-link">${post.getProfessional().getName()} ${post.getProfessional().getSurname()}</a></h4>
+                    <h4><a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}" class="w3-link">${post.getProfessional().getName()} ${post.getProfessional().getSurname()}
+                    <c:if test = "${prof.getId() == post.getProfessional().getId()}">
+                    <b>(Me)</b>
+                    </c:if>
+                    </a>
+                    <c:if test = "${prof.Connected(post.getProfessional().getId())}">
+                    <i class="fa fa-handshake-o" title="Connected"></i> 
+                    </c:if></h4>
                     <br>
                     <hr class="w3-clear">
                     <p>${post.getText()}</p>
-                    <img src="images/lights.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+                    
+                    <c:if test = "${!post.getPathPic().trim().isEmpty()}">
+                    <img src="/LinkedInClone/ImageServlet?id=${post.getPathPic()}" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+                    </c:if>
+                    <c:if test = "${!post.getPathVid().trim().isEmpty()}">
+                    <video style="width: 100%" controls>
+                        <source src="/multimedia/${post.getPathVid()}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    </c:if>
+                    <c:if test = "${!post.getPathSound().trim().isEmpty()}">
+                    <audio style="width: 100%" controls>
+                        <source src="/multimedia/${post.getPathSound()}" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    </c:if>
                     <c:choose>
                     <c:when test = "${prof.alreadyLiked(post.getPostId()) == false}">
                     <form action="/LinkedInClone/UserServlet/like" method="post">
@@ -182,95 +204,6 @@
                     </form>
                 </div>
 				</c:forEach>
-                <div class="w3-container w3-card w3-white w3-margin">
-                    <br>
-                    <a href="user_profile.html">
-                        <img src="images/avatar5.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
-                    </a>
-                    <h4><a href="user_profile.html" class="w3-link">Jane Doe</a></h4>
-                    <br>
-                    <hr class="w3-clear">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut
-                        aliquip ex ea commodo consequat.
-                    </p>
-                    <video style="width: 100%" controls>
-                        <source src="sample_video.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <button type="button" class="w3-button w3-theme-d2">
-                        <i class="fa fa-thumbs-up"></i> Like</button>
-                    <hr class="w3-clear">
-                    <table style="width:100%">
-                        <tr>
-                        </tr>
-                    </table>
-                    <form action="/LinkedInClone/UserJobs/comment" method="post">
-                    <table style="width:100%">
-                        <td style="width: 100%">
-                            <input type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom"
-                                style="width:100%;" />
-                        </td>
-                        <td style="width: 100%">
-                            <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
-                                <i class="fa fa-comment"></i> Comment</button>
-                        </td>
-                    </table>
-                    </form>
-                    
-                </div>
-
-                <div class="w3-container w3-card w3-white w3-margin">
-                    <br>
-                    <a href="user_profile.html">
-                        <img src="images/avatar6.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
-                    </a>
-                    <h4><a href="user_profile.html" class="w3-link">Angie Jane</a></h4>
-                    <br>
-                    <hr class="w3-clear">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut
-                        aliquip ex ea commodo consequat.
-                    </p>
-                    <audio style="width: 100%" controls>
-                        <source src="sample_audio.mp3" type="audio/mpeg">
-                        Your browser does not support the audio tag.
-                    </audio>
-                    <button type="button" class="w3-button w3-theme-d2">
-                        <i class="fa fa-thumbs-up"></i> Like</button>
-                    <hr class="w3-clear">
-                    <table style="width:100%">
-                        <tr>
-                            <td>
-                                <a href="user_profile.html">
-                                    <img src="images/avatar2.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right w3-margin-bottom"
-                                        style="width:60px">
-                                </a>
-                            </td>
-                            <td style="width: 100%">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation
-                                    ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </td>
-                        </tr>
-                    </table>
-                    <table style="width:100%">
-                        <td style="width: 100%">
-                            <input type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom"
-                                style="width:100%;" />
-                        </td>
-                        <td style="width: 100%">
-                            <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
-                                <i class="fa fa-comment"></i> Comment</button>
-                        </td>
-                    </table>
-                </div>
                 <!-- End Middle Column -->
             </div>
 
@@ -307,11 +240,29 @@
         }
 
         function image_upload() {
-            document.getElementById('upload_button').click();
+            document.getElementById('image_button').click();
+        }
+        
+        function video_upload() {
+            document.getElementById('video_button').click();
+        }
+        
+        function audio_upload() {
+            document.getElementById('audio_button').click();
         }
 
         function image_pick() {
-            var selected_file = document.getElementById('upload_button').files[0];
+            var selected_file = document.getElementById('image_button').files[0];
+            document.getElementById('img_picked').innerHTML = "Selected file: " + selected_file.name;
+        }
+        
+        function video_pick() {
+            var selected_file = document.getElementById('video_button').files[0];
+            document.getElementById('img_picked').innerHTML = "Selected file: " + selected_file.name;
+        }
+        
+        function audio_pick() {
+            var selected_file = document.getElementById('audio_button').files[0];
             document.getElementById('img_picked').innerHTML = "Selected file: " + selected_file.name;
         }
 

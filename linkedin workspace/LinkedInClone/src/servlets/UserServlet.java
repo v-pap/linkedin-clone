@@ -177,26 +177,74 @@ public class UserServlet extends HttpServlet {
 		
 		Part filePart;
 		try {
+			filePart = request.getPart("video");
+		} catch (ServletException e) {
+			return new ProfessionalInfo(null,"couldn't save the video");
+		}
+		
+        String VideoName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        String pathVid;
+        File fileVideo = null;
+        if (VideoName.trim().isEmpty())
+        {
+        	pathVid="";
+        }
+        else
+        {
+        	File multimedia = new File(folderPath);
+            fileVideo = File.createTempFile(VideoName, ".tmp", multimedia);
+    		try (InputStream input = filePart.getInputStream()) {
+                Files.copy(input, fileVideo.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+    		pathVid = fileVideo.getName();
+        }
+		
+		///
+        try {
+			filePart = request.getPart("audio");
+		} catch (ServletException e) {
+			return new ProfessionalInfo(null,"couldn't save the audio");
+		}
+        
+        String AudioName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        String pathSound;
+        File fileAudio = null;
+        if (AudioName.trim().isEmpty())
+        {
+        	pathSound="";
+        }
+        else
+        {
+        	File multimedia = new File(folderPath);
+            fileAudio = File.createTempFile(AudioName, ".tmp", multimedia);
+    		try (InputStream input = filePart.getInputStream()) {
+                Files.copy(input, fileAudio.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+    		pathSound = fileAudio.getName();
+        }
+		////
+		
+		try {
 			filePart = request.getPart("image");
 		} catch (ServletException e) {
 			return new ProfessionalInfo(null,"couldn't save the photo");
 		}
 		
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+		File filePhoto = null;
+        String PhotoName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
         String path;
-        File file = null;
-        if (fileName.trim().isEmpty())
+        if (PhotoName.trim().isEmpty())
         {
-        	path="lights.jpg";
+        	path="";
         }
         else
         {
         	File multimedia = new File(folderPath);
-            file = File.createTempFile(fileName, ".tmp", multimedia);
+            filePhoto = File.createTempFile(PhotoName, ".tmp", multimedia);
     		try (InputStream input = filePart.getInputStream()) {
-                Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(input, filePhoto.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
-    		path = file.getName();
+    		path = filePhoto.getName();
         }
 		
         ProfessionalInfo profInfo = dao.updatePosts(prof);
@@ -206,9 +254,16 @@ public class UserServlet extends HttpServlet {
         Post new_post = new Post();
         new_post.setText(text);
         new_post.setPathPic(path);
+        new_post.setPathVid(pathVid);
+        new_post.setPathSound(pathSound);
         prof.addPosts2(new_post);
         profInfo = dao.updatePosts(prof);
-        if(profInfo.getProf() == null && !fileName.trim().isEmpty() && !path.equals("lights.jpg"))	file.delete();
+        if(profInfo.getProf() == null)
+        {
+        	if(!PhotoName.trim().isEmpty()) filePhoto.delete();
+        	if(!VideoName.trim().isEmpty()) fileVideo.delete();
+        	if(!AudioName.trim().isEmpty()) fileAudio.delete();
+        }
         return profInfo;
     }
 	

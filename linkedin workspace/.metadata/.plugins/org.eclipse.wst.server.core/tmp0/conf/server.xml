@@ -124,7 +124,8 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="/home/bill/Desktop/linkedin workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/home/bill/Desktop/linkedin workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/LinkedInClone" path="/LinkedInClone" reloadable="true" source="org.eclipse.jst.jee.server:LinkedInClone"/></Host>
+      <Context docBase="/home/bill/Desktop/linkedin workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/home/bill/Desktop/linkedin workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/LinkedInClone" path="/LinkedInClone" reloadable="true" source="org.eclipse.jst.jee.server:LinkedInClone"/>
+      <Context docBase="/home/bill/Desktop/multimedia" path="/multimedia"/></Host>
     </Engine>
   </Service>
 </Server>

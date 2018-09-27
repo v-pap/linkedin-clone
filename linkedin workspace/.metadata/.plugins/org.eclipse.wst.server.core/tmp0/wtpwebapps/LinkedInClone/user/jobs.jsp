@@ -132,10 +132,16 @@
                 <div class="w3-container w3-card w3-white w3-margin">
                     <br>
                     <h4>${job.getJobTitle()}</h4>
-                    <p>Submitted by <a href="/LinkedInClone/ViewProfileServlet?id=${job.getProfessional().getId()}" class="w3-link">${job.getProfessional().getName()} ${job.getProfessional().getSurname()}</a> </p>
+                    <p>Submitted by <a href="/LinkedInClone/ViewProfileServlet?id=${job.getProfessional().getId()}" class="w3-link">${job.getProfessional().getName()} ${job.getProfessional().getSurname()}</a>
+                    <c:if test = "${prof.Connected(job.getProfessional().getId())}">
+                    <i class="fa fa-handshake-o" title="Connected"></i> 
+                    </c:if>
+                    </p>
                     <hr class="w3-clear">
                     <p>${job.getText()}</p>
+                    <c:if test = "${!job.getPath().trim().isEmpty()}">
                     <img src="/LinkedInClone/ImageServlet?id=${job.getPath()}" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+                    </c:if>
                     <c:choose>
                     <c:when test = "${prof.alreadyApplied(job.getJobId()) == false}">
                     <form action="/LinkedInClone/UserJobs/apply" method="post">

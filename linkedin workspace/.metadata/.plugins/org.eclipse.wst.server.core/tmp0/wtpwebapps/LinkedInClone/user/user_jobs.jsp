@@ -93,7 +93,9 @@
                     <h4>${job.getJobTitle()}</h4>
                     <hr class="w3-clear">
                     <p>${job.getText()}</p>
+                    <c:if test = "${!job.getPath().trim().isEmpty()}">
                     <img src="/LinkedInClone/ImageServlet?id=${job.getPath()}" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+                    </c:if>
                     <button id="hide_${loop.count}" type="button" onclick="hide_show_applicants(this.id);" class="w3-button w3-theme-d2 w3-margin-bottom">
                         <i class="fa fa-eye-slash"></i> Hide Applicants</button>
                     <div id="applicants_${loop.count}">

@@ -12,7 +12,8 @@ import javax.persistence.*;
 @Table(name="messages")
 @NamedQueries({
 @NamedQuery(name="Message.findAll", query="SELECT m FROM Message m"),
-@NamedQuery(name="Message.findAllMessages", query="SELECT m FROM Message m WHERE (m.professional1 = :prof1 AND m.professional2 = :prof2) OR (m.professional1 = :prof2 AND m.professional2 = :prof1) ORDER BY m.messageId")
+@NamedQuery(name="Message.findAllMessages", query="SELECT m FROM Message m WHERE (m.professional1 = :prof1 AND m.professional2 = :prof2) OR (m.professional1 = :prof2 AND m.professional2 = :prof1) ORDER BY m.messageId"),
+@NamedQuery(name="Message.findMax", query="SELECT m FROM Message m WHERE m.messageId = (SELECT MAX(m.messageId) FROM Message m WHERE (m.professional1 = :prof OR m.professional2 = :prof))")
 }) 
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;

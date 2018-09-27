@@ -138,56 +138,88 @@
                 </tr>
                 </c:forEach>
             </table>
-
+			<c:forEach items="${posts_list}" var="post">
             <div class="w3-container w3-card w3-white w3-margin">
                 <br>
-                <a href="user_profile.html">
-                    <img src="images/avatar5.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
-                </a>
-                <h4><a href="user_profile.html" class="w3-link">Jane Doe</a> has liked the following article:</h4>
-                <br>
+                <c:if test = "${post.getLikes().size() > 0}">
+                <h4>
+                </c:if>
+                <c:forEach items="${post.getLikes()}" var="like">
+       			<a href="/LinkedInClone/ViewProfileServlet?id=${like.getProfessional().getId()}" class="w3-link"><span class="w3-tag w3-large w3-theme">${like.getProfessional().getName()} ${like.getProfessional().getSurname()}</span></a>
+                </c:forEach>
+                <c:if test = "${post.getLikes().size() > 0}">
+                liked the following article:</h4>
                 <hr class="w3-clear">
+                </c:if>
                 <div class="w3-container w3-white">
                     <br>
-                    <a href="user_profile.html">
-                        <img src="images/avatar6.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
+                    <a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}">
+                        <img src="/LinkedInClone/ImageServlet?id=${post.getProfessional().getPath()}" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
                     </a>
-                    <h4><a href="user_profile.html" class="w3-link">Angie Jane</a></h4>
+                    <h4><a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}" class="w3-link">${post.getProfessional().getName()} ${post.getProfessional().getSurname()}</a></h4>
                     <br>
                     <hr class="w3-clear">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                        aliquip ex ea commodo consequat.
-                    </p>
-                    <img src="images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-                    <button type="button" class="w3-button w3-theme-d2">
+                    <p>${post.getText()}</p>
+                    <c:if test = "${!post.getPathPic().trim().isEmpty()}">
+                    <img src="/LinkedInClone/ImageServlet?id=${post.getPathPic()}" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+                    </c:if>
+                    <c:if test = "${!post.getPathVid().trim().isEmpty()}">
+                    <video style="width: 100%" controls>
+                        <source src="/multimedia/${post.getPathVid()}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    </c:if>
+                    <c:if test = "${!post.getPathSound().trim().isEmpty()}">
+                    <audio style="width: 100%" controls>
+                        <source src="/multimedia/${post.getPathSound()}" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    </c:if>
+                    <c:choose>
+                    <c:when test = "${prof.alreadyLiked(post.getPostId()) == false}">
+                    <form action="/LinkedInClone/UserServlet/like" method="post">
+                    <button type="submit" class="w3-button w3-theme-d2">
                         <i class="fa fa-thumbs-up"></i> Like</button>
+                        <input type="hidden" name="post_id" value="${post.getPostId()}">
+                    </form>
+                    </c:when>
+                    <c:otherwise>
+                    <button type="button" disabled="true" class="w3-button w3-theme-d2">
+                        <i class="fa fa-thumbs-up"></i> Liked</button>
+                    </c:otherwise>
+                    </c:choose>
                     <hr class="w3-clear">
                     <table style="width:100%">
+                        <c:forEach items="${post.getComments()}" var="comment">
                         <tr>
                             <td>
-                                <a href="user_profile.html">
-                                    <img src="images/avatar2.png" alt="Avatar" class="w3-left w3-round-large w3-margin-right w3-margin-bottom" style="width:60px">
+                                <a href="/LinkedInClone/ViewProfileServlet?id=${comment.getProfessional().getId()}">
+                                    <img src="/LinkedInClone/ImageServlet?id=${comment.getProfessional().getPath()}" alt="Avatar" class="w3-left w3-round-large w3-margin-right w3-margin-bottom"
+                                        style="width:60px">
                                 </a>
                             </td>
                             <td style="width: 100%">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                    ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <p>${comment.getText()}</p>
                             </td>
                         </tr>
+                        </c:forEach>
                     </table>
+                    <form action="/LinkedInClone/UserServlet/comment" method="post">
                     <table style="width:100%">
                         <td style="width: 100%">
-                            <input type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom" style="width:100%;" />
+                            <input name="comment" type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom"
+                                style="width:100%;" />
+                             <input type="hidden" name="post_id" value="${post.getPostId()}">
                         </td>
                         <td style="width: 100%">
-                            <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
+                            <button type="submit" class="w3-button w3-theme-d2 w3-margin-bottom">
                                 <i class="fa fa-comment"></i> Comment</button>
                         </td>
                     </table>
+                    </form>
                 </div>
             </div>
+            </c:forEach>
 
             <!-- End Middle Column -->
         </div>

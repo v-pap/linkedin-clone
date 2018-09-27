@@ -69,5 +69,9 @@ public interface ProfessionalDAO
 	public ProfessionalInfo updateComments(Professional prof);
 	
 	public ProfessionalInfo updateLikes(Professional prof);
+	
+	public List<Post> list_myposts(Professional prof);
+	
+	public Professional find_latest_prof(Professional prof);
 
 }

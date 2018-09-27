@@ -111,7 +111,11 @@ public class UserMessages extends HttpServlet {
 		ProfessionalDAO dao = new ProfessionalDAOImpl();
 		Professional prof2;
         if (id != null) prof2 = dao.find(Integer.parseInt(id));
-        else return null;
+        else
+        {
+        	prof2 = dao.find_latest_prof(prof1);
+        	if(prof2 == null) return null;
+        }
         request.setAttribute("prof_message", prof2);
 		List<Message> messages = dao.list_messages(prof1,prof2);
         return messages;
@@ -132,17 +136,6 @@ public class UserMessages extends HttpServlet {
 		ProfessionalInfo profInfo = dao.refreshMessages(prof_profile);
 		prof_profile = profInfo.getProf();
         return prof_profile;
-    }
-	
-	private Professional updateMessages(HttpServletRequest request,
-            HttpServletResponse response) throws IOException
-	{
-		HttpSession session = request.getSession(true);
-		Professional prof = (Professional) session.getAttribute("prof");
-        ProfessionalDAO dao = new ProfessionalDAOImpl();
-		ProfessionalInfo profInfo = dao.refreshMessages(prof);
-		Professional prof_updated = profInfo.getProf();
-        return prof_updated;
     }
 	
 	private ProfessionalInfo sendMessage(HttpServletRequest request,

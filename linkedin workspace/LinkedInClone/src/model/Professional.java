@@ -513,5 +513,30 @@ public class Professional implements Serializable {
 	    }
 	    return false;
 	}
+	 
+	 public boolean Connected(int id)
+	 {
+	    for(Relation rel : this.relations1)
+	    {
+	        if(rel.getProfessional2().getId() == id)
+	        {
+	        	if(rel.getStatus() == 0)
+	        		return true;
+	        	else
+	        		return false;
+	        }
+	    }
+	    for(Relation rel : this.relations2)
+	    {
+	        if(rel.getProfessional1().getId() == id)
+	        {
+	        	if(rel.getStatus() == 0)
+	        		return true;
+	        	else
+	        		return false;
+	        }
+	    }
+	    return false;
+	}
 
 }

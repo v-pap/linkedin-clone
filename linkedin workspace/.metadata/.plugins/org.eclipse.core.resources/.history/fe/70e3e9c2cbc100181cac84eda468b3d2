@@ -1,0 +1,259 @@
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<title>WorkConnect - Notifications</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/w3.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/w3-theme-blue-grey.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/open_sans.ttf" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+<style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Open Sans", sans-serif
+    }
+</style>
+
+<body class="w3-theme-l5">
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d3 w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-large" href="javascript:void(0);"
+                onclick="openNav()">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a href="/LinkedInClone/UserServlet" class="w3-bar-item w3-button w3-padding-large">
+
+                WorkConnect
+            </a>
+            <a href="/LinkedInClone/UserServlet/logout" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-sign-out"></i>
+                Log Out
+            </a>
+            <a href="/LinkedInClone/UserSettings" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-gear"></i>
+                Settings
+            </a>
+            <a href="/LinkedInClone/UserProfile" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-user"></i>
+                My Profile
+            </a>
+            <a href="/LinkedInClone/UserNotifications" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-bell"></i>
+                Notifications
+            </a>
+            <a href="/LinkedInClone/UserMessages" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-envelope"></i>
+                Messages
+            </a>
+            <a href="/LinkedInClone/UserJobs" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-list"></i>
+                Jobs
+            </a>
+            <a href="/LinkedInClone/UserNetwork" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-globe"></i>
+                Network
+            </a>
+            <a href="/LinkedInClone/UserServlet" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large">
+                <i class="fa fa-home"></i>
+                Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a href="/LinkedInClone/UserServlet" class="w3-bar-item w3-button w3-padding-large">Home</a>
+        <a href="/LinkedInClone/UserNetwork" class="w3-bar-item w3-button w3-padding-large">Network</a>
+        <a href="/LinkedInClone/UserJobs" class="w3-bar-item w3-button w3-padding-large">Jobs</a>
+        <a href="/LinkedInClone/UserMessages" class="w3-bar-item w3-button w3-padding-large">Messages</a>
+        <a href="/LinkedInClone/UserNotifications" class="w3-bar-item w3-button w3-padding-large">Notifications</a>
+        <a href="/LinkedInClone/UserProfile" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+        <a href="/LinkedInClone/UserSettings" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+        <a href="/LinkedInClone/UserServlet/logout" class="w3-bar-item w3-button w3-padding-large">Log Out</a>
+    </div>
+
+    <!-- Page Container -->
+    <div class="w3-container w3-content" style="max-width:66.%;margin-top:80px">
+        <!-- The Grid -->
+        <div class="w3-row">
+
+            <!-- Middle Column -->
+            <table style="width: 100%">
+            	<tr>
+	                <td></td>
+	                <td></td>
+	                <td></td>
+                </tr>
+                <c:forEach items="${list_rows}" var="row">
+                <tr style="width: 100%">
+                	<c:forEach items="${row}" var="prof_con">
+                    <td style="width: 50%;">
+                        <div class="w3-container w3-card w3-white w3-margin">
+                            <table style="width: 100%">
+                                <tr>
+                                    <h4 class="w3-center"><a href="/LinkedInClone/ViewProfileServlet?id=${prof_con.getId()}" class="w3-link">${prof_con.getName()} ${prof_con.getSurname()}</a> wants
+                                        to connect</h4>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="w3-center">
+                                            <a href="/LinkedInClone/ViewProfileServlet?id=${prof_con.getId()}">
+                                                <img src="/LinkedInClone/ImageServlet?id=${prof_con.getPath()}" class="w3-round-large" style="height:106px;width:106px" alt="Avatar">
+                                            </a>
+                                        </p>
+                                    </td>
+                                    <td style="width: 100%">
+
+                                        <p class="w3-center">
+                                            <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Title: ${prof_con.getJobTitle()}</p>
+                                        <p class="w3-center">
+                                            <i class="fa fa-envelope-open fa-fw w3-margin-right w3-text-theme"></i> Email: ${prof_con.getEmail()}</p>
+                     
+                                    </td>
+                                    <td class="w3-opacity-min">
+                                    	<form action="/LinkedInClone/UserNotifications/accept" method="post">
+                                    	 <input type="hidden" name="id" value="${prof_con.getId()}">
+                                        <button type="submit" class="w3-button w3-green  w3-margin-bottom" style="width: 100%">
+                                            <i class="fa fa-check"></i> Accept</button>
+                                        </form>
+                                        <form action="/LinkedInClone/UserNotifications/deny" method="post">
+                                    	 <input type="hidden" name="id" value="${prof_con.getId()}">
+                                        <button type="submit" class="w3-button w3-red w3-margin-bottom" style="width: 100%">
+                                            <i class="fa fa-remove"></i> Deny</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    </c:forEach>
+                </tr>
+                </c:forEach>
+            </table>
+			<c:forEach items="${posts_list}" var="post">
+            <div class="w3-container w3-card w3-white w3-margin">
+                <br>
+                <c:forEach items="${post.getLikes()}" var="like">
+                <h4><a href="/LinkedInClone/ViewProfileServlet?id=${like.getProfessional().getId()}" class="w3-link"><b>${like.getProfessional().getName()} ${like.getProfessional().getSurname()}</b></a>
+                </c:forEach>
+                <c:if test = "${post.getLikes().size() > 0}">
+                liked the following article:</h4>
+                </c:if>
+                <hr class="w3-clear">
+                <div class="w3-container w3-white">
+                    <br>
+                    <a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}">
+                        <img src="/LinkedInClone/ImageServlet?id=${post.getProfessional().getPath()}" alt="Avatar" class="w3-left w3-round-large w3-margin-right" style="width:60px">
+                    </a>
+                    <h4><a href="/LinkedInClone/ViewProfileServlet?id=${post.getProfessional().getId()}" class="w3-link">${post.getProfessional().getName()} ${post.getProfessional().getSurname()}</a></h4>
+                    <br>
+                    <hr class="w3-clear">
+                    <p>${post.getText()}</p>
+                    <c:if test = "${!post.getPathPic().trim().isEmpty()}">
+                    <img src="/LinkedInClone/ImageServlet?id=${post.getPathPic()}" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
+                    </c:if>
+                    <c:if test = "${!post.getPathVid().trim().isEmpty()}">
+                    <video style="width: 100%" controls>
+                        <source src="/multimedia/${post.getPathVid()}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    </c:if>
+                    <c:if test = "${!post.getPathSound().trim().isEmpty()}">
+                    <audio style="width: 100%" controls>
+                        <source src="/multimedia/${post.getPathSound()}" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    </c:if>
+                    <c:choose>
+                    <c:when test = "${prof.alreadyLiked(post.getPostId()) == false}">
+                    <form action="/LinkedInClone/UserServlet/like" method="post">
+                    <button type="submit" class="w3-button w3-theme-d2">
+                        <i class="fa fa-thumbs-up"></i> Like</button>
+                        <input type="hidden" name="post_id" value="${post.getPostId()}">
+                    </form>
+                    </c:when>
+                    <c:otherwise>
+                    <button type="button" disabled="true" class="w3-button w3-theme-d2">
+                        <i class="fa fa-thumbs-up"></i> Liked</button>
+                    </c:otherwise>
+                    </c:choose>
+                    <hr class="w3-clear">
+                    <table style="width:100%">
+                        <c:forEach items="${post.getComments()}" var="comment">
+                        <tr>
+                            <td>
+                                <a href="/LinkedInClone/ViewProfileServlet?id=${comment.getProfessional().getId()}">
+                                    <img src="/LinkedInClone/ImageServlet?id=${comment.getProfessional().getPath()}" alt="Avatar" class="w3-left w3-round-large w3-margin-right w3-margin-bottom"
+                                        style="width:60px">
+                                </a>
+                            </td>
+                            <td style="width: 100%">
+                                <p>${comment.getText()}</p>
+                            </td>
+                        </tr>
+                        </c:forEach>
+                    </table>
+                    <form action="/LinkedInClone/UserServlet/comment" method="post">
+                    <table style="width:100%">
+                        <td style="width: 100%">
+                            <input name="comment" type="text" placeholder="Leave a comment" class="w3-border w3-padding w3-margin-bottom"
+                                style="width:100%;" />
+                             <input type="hidden" name="post_id" value="${post.getPostId()}">
+                        </td>
+                        <td style="width: 100%">
+                            <button type="submit" class="w3-button w3-theme-d2 w3-margin-bottom">
+                                <i class="fa fa-comment"></i> Comment</button>
+                        </td>
+                    </table>
+                    </form>
+                </div>
+            </div>
+            </c:forEach>
+
+            <!-- End Middle Column -->
+        </div>
+
+    </div>
+    <!-- End Grid -->
+    </div>
+    <!-- End Page Container -->
+    </div>
+    <br>
+    <br>
+    <br>
+    <!-- Footer -->
+    <footer class="w3-container w3-theme-d5">
+        <table class="w3-opacity-min" style="width:100%">
+            <td>
+                <h5>WorkConnect</h5>
+            </td>
+            <td style="float:right">
+                <p>Made by Vasileios Papavasileiou & Vasileios Sakkas - Powered by
+                    <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+                </p>
+            </td>
+        </table>
+    </footer>
+
+    <script>
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -188,7 +188,7 @@ public class UserJobs extends HttpServlet {
         File file = null;
         if (fileName.trim().isEmpty())
         {
-        	path="lights.jpg";
+        	path="";
         }
         else
         {
@@ -212,7 +212,7 @@ public class UserJobs extends HttpServlet {
         job.setProfessional(prof);
         prof.addJobOffers2(job);
         profInfo = dao.updateJobOffers(prof);
-        if(profInfo.getProf() == null && !fileName.trim().isEmpty() && !path.equals("lights.jpg"))	file.delete();
+        if(profInfo.getProf() == null && !fileName.trim().isEmpty())	file.delete();
         return profInfo;
     }
 	

@@ -14,6 +14,7 @@ import java.util.List;
 @NamedQueries({
 @NamedQuery(name="Post.findAll", query="SELECT p FROM Post p"),
 @NamedQuery(name="Post.findPost", query="SELECT p FROM Post p WHERE (p.postId = :id)"),
+@NamedQuery(name="Post.findMyPosts", query="SELECT p FROM Post p WHERE (p.professional = :prof)"),
 @NamedQuery(name="Post.findConnectedPosts", query="SELECT p FROM Post p WHERE ((p.professional = :prof) OR (p.professional in "
 		+ "(SELECT r.professional1 FROM Relation r WHERE (r.status = 0 AND r.professional2 = :prof)) "
 		+ "OR p.professional in (SELECT r.professional2 FROM Relation r WHERE (r.status = 0 AND r.professional1 = :prof))))ORDER BY p.postId DESC")

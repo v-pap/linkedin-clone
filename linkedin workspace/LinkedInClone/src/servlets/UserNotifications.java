@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import dao.ProfessionalDAO;
 import dao.ProfessionalDAOImpl;
 import helper.ProfessionalInfo;
+import model.Post;
 import model.Professional;
 import model.Relation;
 import model.RelationPK;
@@ -60,6 +61,8 @@ public class UserNotifications extends HttpServlet {
         		index += 3;
         	}
             request.setAttribute("list_rows", list_rows);
+            List<Post> posts_list = getMyPosts(request,response);
+            request.setAttribute("posts_list", posts_list);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/user/notifications.jsp");  
             rd.forward(request, response);
         }
@@ -142,6 +145,16 @@ public class UserNotifications extends HttpServlet {
         prof1.addRelations2(rel);
         profInfo = dao.updateProfile(prof1);
         return dao.updateRelations(profInfo.getProf());
+    }
+	
+	private List<Post> getMyPosts(HttpServletRequest request,
+            HttpServletResponse response)
+	{
+		HttpSession session = request.getSession(true);
+		Professional prof = (Professional) session.getAttribute("prof");
+        ProfessionalDAO dao = new ProfessionalDAOImpl();
+		List<Post> posts_list = dao.list_myposts(prof);
+        return posts_list;
     }
 
 }

@@ -90,9 +90,9 @@
                 <div class="w3-container w3-card w3-white w3-margin" style="max-height: 720px; overflow-y: scroll">
                     <br>
                     <c:forEach items="${profs}" var="prof_con">
-                    <a href="/LinkedInClone/UserMessages?id=${prof_con.getId()}">
+                    <c:if test = "${prof_con.getId() == prof_message.getId()}"><span class="w3-tag w3-large w3-theme"></c:if><a href="/LinkedInClone/UserMessages?id=${prof_con.getId()}">
                     <img src="/LinkedInClone/ImageServlet?id=${prof_con.getPath()}" alt="Avatar" style="width:100%" class="w3-round-large">
-                    <h6>${prof_con.getName()} ${prof_con.getSurname()}</h6>
+                    <h6>${prof_con.getName()} ${prof_con.getSurname()}</h6><c:if test = "${prof_con.getId() == prof_message.getId()}"></span></c:if>
                     </a>
                     <hr>
                     </c:forEach>

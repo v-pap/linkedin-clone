@@ -44,9 +44,11 @@ public class nearest_neighbor {
 
         // Calculate vectors for current user
         for (int i = 0; i < network_ids.size(); i++) {
-            for (Relation relation : current_user.getRelations1()) {
-                if (relation.getProfessional2().getId() == network_ids.get(i)) {
-                    user_is_contact[i] = 1;
+            if (current_user.getRelations1() != null) {
+                for (Relation relation : current_user.getRelations1()) {
+                    if (relation.getProfessional2().getId() == network_ids.get(i)) {
+                        user_is_contact[i] = 1;
+                    }
                 }
             }
         }
@@ -85,9 +87,11 @@ public class nearest_neighbor {
             Arrays.fill(professional_has_commented, 0);
 
             for (int j = 0; j < network_ids.size(); j++) {
-                for (Relation relation : network_users.get(i).getRelations1()) {
-                    if (relation.getProfessional2().getId() == network_ids.get(j) || j == i) {
-                        professional_is_contact[j] = 1;
+                if (network_users.get(i).getRelations1() != null) {
+                    for (Relation relation : network_users.get(i).getRelations1()) {
+                        if (relation.getProfessional2().getId() == network_ids.get(j) || j == i) {
+                            professional_is_contact[j] = 1;
+                        }
                     }
                 }
             }
@@ -152,6 +156,8 @@ public class nearest_neighbor {
         ArrayList<Integer> network_ids = new ArrayList<Integer>();
         ArrayList<Integer> job_offer_ids = new ArrayList<Integer>();
 
+        ArrayList<Integer> job_poster_ids = new ArrayList<Integer>();
+
         for (Professional user : network_users) {
             network_ids.add(user.getId());
             //System.out.println(user.getId());
@@ -161,7 +167,11 @@ public class nearest_neighbor {
             //System.out.println(job_offer.getJobId());
         }
 
-        Integer[] user_is_contact = new Integer[network_users.size()],
+        for (JobOffer job_offer : recent_job_offers) {
+            job_offer_ids.add(job_offer.getProfessional().getId());
+        }
+
+        Integer[] user_is_contact = new Integer[recent_job_offers.size()],
                   user_has_liked = new Integer[recent_job_offers.size()],
                   user_has_commented = new Integer[recent_job_offers.size()];
 
@@ -170,10 +180,12 @@ public class nearest_neighbor {
         Arrays.fill(user_has_commented, 0);
 
         // Calculate vectors for current user
-        for (int i = 0; i < network_ids.size(); i++) {
-            for (Relation relation : current_user.getRelations1()) {
-                if (relation.getProfessional2().getId() == network_ids.get(i)) {
-                    user_is_contact[i] = 1;
+        for (int i = 0; i < recent_job_offers.size(); i++) {
+            if (current_user.getRelations1() != null) {
+                for (Relation relation : current_user.getRelations1()) {
+                    if (relation.getProfessional2().getId() == recent_job_offers.get(i).getProfessional().getId()) {
+                        user_is_contact[i] = 1;
+                    }
                 }
             }
         }
@@ -212,9 +224,11 @@ public class nearest_neighbor {
             Arrays.fill(professional_has_commented, 0);
 
             for (int j = 0; j < network_ids.size(); j++) {
-                for (Relation relation : network_users.get(i).getRelations1()) {
-                    if (relation.getProfessional2().getId() == network_ids.get(j) || j == i) {
-                        professional_is_contact[j] = 1;
+                if (network_users.get(i).getRelations1() != null) {
+                    for (Relation relation : network_users.get(i).getRelations1()) {
+                        if (relation.getProfessional2().getId() == network_ids.get(j) || j == i) {
+                            professional_is_contact[j] = 1;
+                        }
                     }
                 }
             }

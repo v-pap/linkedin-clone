@@ -3,6 +3,9 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * The persistent class for the experience database table.
@@ -34,6 +37,7 @@ public class Experience implements Serializable {
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
 	@JoinColumn(name="id")
+	@JsonIgnore 
 	private Professional professional;
 
 	public Experience() {

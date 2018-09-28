@@ -49,4 +49,6 @@
 <fullyQualifiedTypeName name="model.Professional"/>
 <fullyQualifiedTypeName name="helper.XMLBuilder"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.dataformat.xml.XmlMapper"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnoreProperties"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
 </qualifiedTypeNameHistroy>

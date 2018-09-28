@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the skills database table.
@@ -21,6 +23,7 @@ public class Skill implements Serializable {
 	@ManyToOne
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JoinColumn(name="id")
+	@JsonIgnore
 	private Professional professional;
 
 	public Skill() {

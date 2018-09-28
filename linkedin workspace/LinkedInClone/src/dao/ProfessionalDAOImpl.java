@@ -27,7 +27,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	public Professional find(int id) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		Professional prof = em.find(Professional.class, id);
-		EntityManagerHelper.closeEntityManager();
+		 
         return prof;
 	}
 	
@@ -43,8 +43,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	if(prof == null) return false;
         } catch (Exception e) {
             return false;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return true;
 	}
@@ -59,8 +57,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			profs = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return profs;
 	}
@@ -70,7 +66,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		em.persist(prof);
-		EntityManagerHelper.closeEntityManager();
+		 
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -86,8 +82,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	results = q.getResultList();
         } catch (Exception e) {
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         if(results.isEmpty())	return new ProfessionalInfo(null,"Wrong email or password");
         return new ProfessionalInfo(results.get(0),"");
@@ -106,7 +100,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	results = q.getResultList();
         } catch (Exception e) {
-        	EntityManagerHelper.closeEntityManager();
+        	 
         	return new ProfessionalInfo(null,"DB error");
         }
         if(!results.isEmpty()) return new ProfessionalInfo(null,"The email is already in use");
@@ -119,15 +113,13 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         prof.setJobTitle(job_title);
         prof.setPath(path);
         try {
-        	EntityManagerHelper.beginTransaction();
+        	 
             em.persist(prof); //em.merge(u); for updates
             em.flush();
             em.refresh(prof);
-            em.getTransaction().commit();
+             
         } catch (Exception e) {
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -149,13 +141,11 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         if(!results.isEmpty()) return new ProfessionalInfo(null,"The email is already in use");
         prof.setEmail(newEmail);
         try {
-        	em.getTransaction().begin();
+        	
             prof = em.merge(prof);
-            em.getTransaction().commit();
+             
         } catch (Exception e) {
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -166,13 +156,11 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		EntityManager em = EntityManagerHelper.getEntityManager();
         prof.setPassword(newPassword);
         try {
-        	em.getTransaction().begin();
+        	
             prof = em.merge(prof);
-            em.getTransaction().commit();
+             
         } catch (Exception e) {
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -182,19 +170,17 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	em.refresh(prof);
         	prof.getEducations().size();
         	prof.getExperiences().size();
         	prof.getSkills().size();
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -204,17 +190,15 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	prof.getMessages1().size();
         	prof.getMessages2().size();
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -224,16 +208,14 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	em.flush();
-            em.getTransaction().commit();
+             
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -256,8 +238,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			profs.addAll(query2.getResultList());
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return profs;
 	}
@@ -273,8 +253,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			profs = query2.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return profs;
 	}
@@ -290,8 +268,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			profs = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return profs;
 	}
@@ -308,8 +284,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			status_list = query.getResultList();
 		} catch (Exception e) {
         	return -1;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
 		int status;
 		if(status_list.isEmpty()) status = 3;
@@ -321,17 +295,15 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	prof.getRelations1().size();
         	prof.getRelations2().size();
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -340,17 +312,15 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	prof.getJobApplies().size();
         	prof.getJobOffers1().size();
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -359,17 +329,15 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	prof.getJobOffers1().size();
         	prof.getJobOffers2().size();
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -378,17 +346,15 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	prof.getRelations1().size();
         	prof.getRelations2().size();
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return refreshProfile(prof);
 	}
@@ -405,8 +371,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			rel_list = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
 		return rel_list.get(0);
 	}
@@ -422,8 +386,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			job_list = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
 		return job_list.get(0);
 	}
@@ -440,8 +402,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			message_list = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return message_list;
 	}
@@ -459,8 +419,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			offers_list = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return offers_list;
 	}
@@ -469,20 +427,18 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	em.refresh(prof);
         	prof.getJobApplies().size();
         	prof.getJobOffers1().size();
         	prof.getRelations1().size();
         	prof.getRelations2().size();
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -498,8 +454,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			offers_list = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return offers_list;
 	}
@@ -557,7 +511,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			curr_post = em.merge(curr_post);
 	        em.refresh(curr_post);
 	    }
-		EntityManagerHelper.closeEntityManager();
+		 //EntityManagerHelper.commit();
         return posts_list;
 	}
 	
@@ -574,15 +528,13 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -598,8 +550,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			post_list = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
 		return post_list.get(0);
 	}
@@ -608,15 +558,13 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -625,17 +573,15 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
-        	em.getTransaction().begin();
+        	
         	prof = em.merge(prof);
         	prof.getLikes().size();
         	em.refresh(prof);
-        	em.getTransaction().commit();
+        	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         return new ProfessionalInfo(prof,"");
 	}
@@ -662,7 +608,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	        //curr_post.getLikes().size();
 	        //curr_post.getComments().size();
 	    }
-		EntityManagerHelper.closeEntityManager();
+		 
         return posts_list;
 	}
 	
@@ -677,8 +623,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			message_list = query.getResultList();
 		} catch (Exception e) {
         	return null;
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
 		if(message_list.size() == 0)
 			return null;

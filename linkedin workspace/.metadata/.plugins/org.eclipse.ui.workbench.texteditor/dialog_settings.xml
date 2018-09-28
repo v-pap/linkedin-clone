@@ -2,29 +2,31 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="user_prof" key="selection"/>
+		<item value="commit" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="prof_profile"/>
-			<item value="system"/>
-			<item value="mESS"/>
-			<item value="message"/>
-			<item value="sound"/>
-			<item value="path"/>
-			<item value="context"/>
-			<item value="applies"/>
+			<item value="commit"/>
+			<item value="begin"/>
+			<item value="em.getTransaction().begin();"/>
+			<item value="em.getTransaction().commit();"/>
+			<item value="EntityManagerHelper.beginTransaction();"/>
+			<item value="finally"/>
+			<item value="EntityManagerHelper.closeEntityManager();"/>
+			<item value="E"/>
+			<item value="admin"/>
 			<item value="refresh"/>
-			<item value="findJ"/>
-			<item value="find"/>
+			<item value="messag"/>
 			<item value="update"/>
-			<item value="getSu"/>
-			<item value="applicants_1"/>
-			<item value="applicants_2"/>
+			<item value="location.href"/>
+			<item value="href"/>
+			<item value="html"/>
 		</list>
 		<list key="replacehistory">
+			<item value=" "/>
+			<item value=""/>
 			<item value="user_prof"/>
 			<item value="education"/>
 			<item value="_${loop.count}"/>

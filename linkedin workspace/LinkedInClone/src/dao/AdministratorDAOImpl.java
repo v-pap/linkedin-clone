@@ -20,7 +20,6 @@ public class AdministratorDAOImpl implements AdministratorDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		Administrator admin = em.find(Administrator.class, id);
-		EntityManagerHelper.closeEntityManager();
         return admin;
 	}
 
@@ -31,7 +30,6 @@ public class AdministratorDAOImpl implements AdministratorDAO
 		Query query = em.createNamedQuery("admin.findAll");
 		@SuppressWarnings("unchecked")
 		List<Administrator> admins = query.getResultList();  
-		EntityManagerHelper.closeEntityManager();
         return admins;
 	}
 
@@ -40,7 +38,6 @@ public class AdministratorDAOImpl implements AdministratorDAO
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
 		em.persist(admin);
-		EntityManagerHelper.closeEntityManager();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -57,8 +54,6 @@ public class AdministratorDAOImpl implements AdministratorDAO
         	results = q.getResultList();
         } catch (Exception e) {
         	return new AdministratorInfo(null,"DB error");
-        } finally {
-        	EntityManagerHelper.closeEntityManager();
         }
         if(results.isEmpty())	return new AdministratorInfo(null,"Wrong email or password");
         return new AdministratorInfo(results.get(0),"");

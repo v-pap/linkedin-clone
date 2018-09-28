@@ -77,9 +77,7 @@ public class ViewProfileServlet extends HttpServlet {
 			ProfessionalInfo profInfo = connectRequest(request, response);
 			if(profInfo.getProf() != null)
         	{
-        		session.setAttribute("prof",profInfo.getProf());
-        		//response.sendRedirect("/LinkedInClone/UserNetwork");
-        		doGet(request,response);
+        		response.sendRedirect("/LinkedInClone/UserNetwork");
         	}
         	else
         	{

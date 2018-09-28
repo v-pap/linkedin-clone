@@ -121,13 +121,15 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	EntityManagerHelper.beginTransaction();
             em.persist(prof); //em.merge(u); for updates
+            em.flush();
+            em.refresh(prof);
             em.getTransaction().commit();
         } catch (Exception e) {
         	return new ProfessionalInfo(null,"DB error");
         } finally {
         	EntityManagerHelper.closeEntityManager();
         }
-        return login(email,password);
+        return new ProfessionalInfo(prof,"");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -182,6 +184,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	em.getTransaction().begin();
         	prof = em.merge(prof);
+        	em.refresh(prof);
         	prof.getEducations().size();
         	prof.getExperiences().size();
         	prof.getSkills().size();
@@ -223,6 +226,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	em.getTransaction().begin();
         	prof = em.merge(prof);
+        	em.flush();
             em.getTransaction().commit();
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -231,7 +235,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         } finally {
         	EntityManagerHelper.closeEntityManager();
         }
-        return refreshProfile(prof);
+        return new ProfessionalInfo(prof,"");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -329,7 +333,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         } finally {
         	EntityManagerHelper.closeEntityManager();
         }
-        return refreshProfile(prof);
+        return new ProfessionalInfo(prof,"");
 	}
 	
 	public ProfessionalInfo updateJobApplications(Professional prof)

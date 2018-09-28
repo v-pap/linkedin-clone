@@ -42,8 +42,8 @@
 
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-        <a href="admin.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
-        <a href="login.html" class="w3-bar-item w3-button w3-padding-large">Log Out</a>
+        <a href="/LinkedInClone/AdministratorServlet" class="w3-bar-item w3-button w3-padding-large">Home</a>
+        <a href="/LinkedInClone/AdministratorServlet/logout" class="w3-bar-item w3-button w3-padding-large">Log Out</a>
     </div>
 
     <!-- Page Container -->
@@ -78,30 +78,23 @@
                     <table style="width: 100%">
                         <td>
                             <p class="w3-center">
-                                <a href="profile_admin.html">
+                                <a href="/LinkedInClone/AdministratorProfile?id=${prof.getId()}">
                                     <img src= "ImageServlet?id=${prof.getPath()}" style="height:116px;width:116px" alt="Avatar">
                                 </a>
                             </p>
                         </td>
                         <td class="w3-padding">
-                            <h4 class="w3-center"><a href="user_profile.html" class="w3-link"><c:out value="${prof.getName()}"/> <c:out value="${prof.getSurname()}"/></a></h4>
+                            <h4 class="w3-center"><a href="/LinkedInClone/AdministratorProfile?id=${prof.getId()}" class="w3-link"><c:out value="${prof.getName()}"/> <c:out value="${prof.getSurname()}"/></a></h4>
                         </td>
                         <td>
                             <p>
                                 <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> <c:out value="${prof.getJobTitle()}"/></p>
-                            <p>
-                                <i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-                            <p>
-                                <i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
                         </td>
                         <td>
                             <p>
                                 <i class="fa fa-envelope-open"></i> Email: <c:out value="${prof.getEmail()}"/></p>
                             <p>
                                 <i class="fa fa-phone"></i> Phone: <c:out value="${prof.getTelephone()}"/></p>
-                            <p>
-                                <i class="fa fa-link"></i> Website: website.com</p>
-                            </p>
                         </td>
                         <td>
                             <div style="width:100%">
@@ -114,7 +107,7 @@
                                     </td>
                                 </table>
                             </div>
-                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
+                            <button type="button" onclick="location.href='/LinkedInClone/AdministratorProfile?id=${prof.getId()}'" class="w3-button w3-theme-d2" style="width:100%">
                                 <i class="fa fa-user"></i> View Profile</button>
                             <br>
                             <br>

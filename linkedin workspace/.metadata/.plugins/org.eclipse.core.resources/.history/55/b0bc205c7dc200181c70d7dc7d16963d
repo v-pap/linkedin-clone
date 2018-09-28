@@ -1,0 +1,249 @@
+package servlets;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+import dao.ProfessionalDAO;
+import dao.ProfessionalDAOImpl;
+import helper.ProfessionalInfo;
+import model.Administrator;
+import model.Education;
+import model.Experience;
+import model.Professional;
+import model.Skill;
+import model.SkillPK;
+
+/**
+ * Servlet implementation class AdministratorProfile
+ */
+@WebServlet(name = "AdministratorProfile", urlPatterns = { "/AdministratorProfile" })
+public class AdministratorProfile extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	String folderPath = "/home/bill/Desktop/multimedia";
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AdministratorProfile() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{	
+		HttpSession session = request.getSession(true);
+		String requestURI = request.getRequestURI();
+		Administrator admin = (Administrator) session.getAttribute("admin");
+        if (admin != null)
+        {   
+        	Professional user_prof = getProfessional(request,response);
+        	if(user_prof != null)
+        	{
+        		request.setAttribute("user_prof", user_prof);
+        		if(requestURI.endsWith("edit"))
+        		{
+        			request.setAttribute("num_of_experience", user_prof.getExperiences().size());
+        			request.setAttribute("num_of_education", user_prof.getEducations().size());
+        			List<String> skillList = new ArrayList<String>();
+        			for (Skill skill : user_prof.getSkills())
+        			{
+        				skillList.add(skill.getId().getDescription());
+        			}
+        			request.setAttribute("skill_commas",String.join(",", skillList));
+        			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/profile_admin_edit.jsp");  
+                    rd.forward(request, response);
+        		}
+        		else
+        		{
+        			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/profile_admin.jsp");  
+                    rd.forward(request, response);
+        		}
+        	}
+        	else
+        	{
+        		response.sendRedirect("/LinkedInClone/AdministratorServlet");
+        	}
+        }
+        else
+        {
+        	response.sendRedirect("/LinkedInClone/UserServlet");
+        }
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		HttpSession session = request.getSession(true);
+		Administrator admin = (Administrator) session.getAttribute("admin");
+        
+		if(admin != null)
+		{   //be careful empty values mean either null or ""
+			ProfessionalInfo profInfo = modifyProfile(request, response);
+			if(profInfo.getProf() != null)
+        	{
+        		response.sendRedirect("/LinkedInClone/AdministratorProfile?id=" + Integer.toString(profInfo.getProf().getId()));
+        	}
+        	else
+        	{
+        		response.sendRedirect("/LinkedInClone/AdministratorServlet");
+        	}
+		}
+        else
+        {
+        	response.sendRedirect("/LinkedInClone/AdministratorServlet");
+        }
+	}
+	
+	private Professional getProfessional(HttpServletRequest request,
+            HttpServletResponse response) throws IOException
+	{
+		String profId = request.getParameter("id");
+        ProfessionalDAO dao = new ProfessionalDAOImpl();
+		Professional user_prof = dao.find(Integer.parseInt(profId));
+		ProfessionalInfo profInfo = dao.refreshProfile(user_prof);
+		user_prof = profInfo.getProf();
+        return user_prof;
+    }
+	
+	private ProfessionalInfo modifyProfile(HttpServletRequest request,
+            HttpServletResponse response) throws IOException
+	{
+		HttpSession session = request.getSession(true);
+		Professional user_prof = (Professional) session.getAttribute("user_prof");
+		if(user_prof == null) return new ProfessionalInfo(null,"");
+		user_prof.setName(request.getParameter("name"));
+		user_prof.setSurname(request.getParameter("surname"));
+		user_prof.setTelephone(request.getParameter("telephone"));
+		user_prof.setJobTitle(request.getParameter("description"));
+		String choice1 = request.getParameter("w_visibility");
+		if("Public".equals(choice1))	user_prof.setExperiencePrivate(false);
+		else	user_prof.setExperiencePrivate(true);
+		String choice2 = request.getParameter("e_visibility");
+		if("Public".equals(choice2))	user_prof.setEducationPrivate(false);
+		else	user_prof.setEducationPrivate(true);
+		String choice3 = request.getParameter("s_visibility");
+		if("Public".equals(choice3))	user_prof.setSkillsPrivate(false);
+		else	user_prof.setSkillsPrivate(true);
+		String skillsString = request.getParameter("skills");
+        List<String> skillList = new ArrayList<>(Arrays.asList(skillsString.split(",")));
+		skillList.replaceAll(String::trim);
+		if(String.join(", ", skillList).trim().length() > 0)
+		{
+			List<String> skillListNoDuplicates = new ArrayList<>(new LinkedHashSet<String>(skillList));
+			List<Skill> skills = new ArrayList<Skill>();
+			for (String skill : skillListNoDuplicates)
+			{
+	            Skill sk = new Skill();
+	            SkillPK skPK = new SkillPK();
+	            skPK.setDescription(skill);
+	            skPK.setId(user_prof.getId());
+	            sk.setId(skPK);
+	            sk.setProfessional(user_prof);
+	            skills.add(sk);
+			}
+			user_prof.setSkills(skills);
+		}
+		else
+		{
+			user_prof.setSkills(null);
+		}
+		int numberOfExperience = Integer.parseInt(request.getParameter("return_experience"));
+		List<Experience> experiences = new ArrayList<Experience>();
+		for(int i = 1; i <= numberOfExperience; i++)
+		{
+			if(request.getParameter("work_title_" + Integer.toString(i)) != null)
+			{
+				Experience exp = new Experience();
+				exp.setDescription(request.getParameter("work_description_" + Integer.toString(i)));
+				exp.setFrom(request.getParameter("work_from_" + Integer.toString(i)));
+				exp.setTitle(request.getParameter("work_title_" + Integer.toString(i)));
+				if(request.getParameter("work_to_" + Integer.toString(i)).equals(""))
+					exp.setTo(null);
+				else
+					exp.setTo(request.getParameter("work_to_" + Integer.toString(i)));
+				exp.setProfessional(user_prof);
+				experiences.add(exp);
+			}
+		}
+		user_prof.setExperiences(experiences);
+		int numberOfEducation = Integer.parseInt(request.getParameter("return_education"));
+		List<Education> educations = new ArrayList<Education>();
+		for(int i = 1; i <= numberOfEducation; i++)
+		{
+			if(request.getParameter("education_title_" + Integer.toString(i)) != null)
+			{
+				Education edu = new Education();
+				edu.setDescription(request.getParameter("education_description_" + Integer.toString(i)));
+				edu.setFrom(request.getParameter("education_from_" + Integer.toString(i)));
+				edu.setTitle(request.getParameter("education_title_" + Integer.toString(i)));
+				if(request.getParameter("education_to_" + Integer.toString(i)).equals(""))
+					edu.setTo(null);
+				else
+					edu.setTo(request.getParameter("education_to_" + Integer.toString(i)));
+				edu.setProfessional(user_prof);
+				educations.add(edu);
+			}
+		}
+		user_prof.setEducations(educations);
+		ProfessionalDAO dao = new ProfessionalDAOImpl();
+		
+		String oldPath = user_prof.getPath();
+		Part filePart;
+		try {
+			filePart = request.getPart("image");
+		} catch (ServletException e) {
+			return new ProfessionalInfo(null,"couldn't save the photo");
+		}
+		
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+        if(!fileName.equals(""))
+        {
+        	File multimedia = new File(folderPath);
+            File file = File.createTempFile(fileName, ".tmp", multimedia);
+    		try (InputStream input = filePart.getInputStream()) {
+                Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+    		user_prof.setPath(file.getName());
+    		ProfessionalInfo profInfo = dao.updateProfile(user_prof);
+    		if(!oldPath.equals("avatar3.png"))
+    		{
+    			if(profInfo.getProf() == null)
+        		{
+        			file.delete();
+        		}
+        		else
+        		{
+        			File oldfile = new File(folderPath + "/" + oldPath);
+        			oldfile.delete();
+        		}
+    		}
+    		return profInfo;
+        }
+        else
+        {
+        	return dao.updateProfile(user_prof);
+        }
+    }
+}

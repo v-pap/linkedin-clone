@@ -46,4 +46,7 @@
 <fullyQualifiedTypeName name="model.PostPicture"/>
 <fullyQualifiedTypeName name="model.Like"/>
 <fullyQualifiedTypeName name="model.Administrator"/>
+<fullyQualifiedTypeName name="model.Professional"/>
+<fullyQualifiedTypeName name="helper.XMLBuilder"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.dataformat.xml.XmlMapper"/>
 </qualifiedTypeNameHistroy>

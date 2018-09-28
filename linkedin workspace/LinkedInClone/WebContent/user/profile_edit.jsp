@@ -448,7 +448,6 @@
             }
             if (error == false) {
                 document.getElementById('error_message').value = "";
-                location.href = "profile.html";
             }
         }
     </script>

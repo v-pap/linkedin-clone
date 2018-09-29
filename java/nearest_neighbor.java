@@ -220,9 +220,13 @@ public class nearest_neighbor {
             }
         }
         for (int i = 0; i < recent_job_offers.size(); i++) {
-            HashSet<String> job_description_tokens = new HashSet<String>(Arrays.asList(recent_job_offers.get(i).getText().toLowerCase().split(" ")));
+            HashSet<String> job_description_tokens = new HashSet<String>(Arrays.asList(recent_job_offers.get(i).getText().toLowerCase().split(" "))),
+                            job_title_tokens = new  HashSet<String>(Arrays.asList(recent_job_offers.get(i).getJobTitle().toLowerCase().split(" ")));
             for (Skill skill : current_user.getSkills()) {
                 if (job_description_tokens.contains(skill.getId().getDescription().toLowerCase())) {
+                    user_has_skills[i] += 1;
+                }
+                if (job_title_tokens.contains(skill.getId().getDescription().toLowerCase())) {
                     user_has_skills[i] += 1;
                 }
             }

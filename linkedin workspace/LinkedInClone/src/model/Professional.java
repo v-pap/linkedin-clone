@@ -2,6 +2,10 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 
@@ -51,59 +55,73 @@ public class Professional implements Serializable {
 	private String telephone;
 
 	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL) 
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Comment> comments;
 
 	//bi-directional many-to-one association to Education
 	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Education> educations;
 
 	//bi-directional many-to-one association to Experience
 	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Experience> experiences;
 
 	//bi-directional many-to-one association to JobApply
 	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<JobApply> jobApplies;
 
 	//bi-directional many-to-many association to JobOffer
 	@ManyToMany(mappedBy="professionals", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<JobOffer> jobOffers1;
 
 	//bi-directional many-to-one association to JobOffer
 	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<JobOffer> jobOffers2;
 
 	//bi-directional many-to-one association to Like
 	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Like> likes;
 
 	//bi-directional many-to-one association to Message
 	@OneToMany(mappedBy="professional1", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Message> messages1;
 
 	//bi-directional many-to-one association to Message
 	@OneToMany(mappedBy="professional2", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Message> messages2;
 
 	//bi-directional many-to-many association to Post
 	@ManyToMany(mappedBy="professionals", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Post> posts1;
 
 	//bi-directional many-to-one association to Post
 	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Post> posts2;
 
 	//bi-directional many-to-one association to Relation
 	@OneToMany(mappedBy="professional1", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Relation> relations1;
 
 	//bi-directional many-to-one association to Relation
 	@OneToMany(mappedBy="professional2", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Relation> relations2;
 
 	//bi-directional many-to-one association to Skill
 	@OneToMany(mappedBy="professional", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
 	private List<Skill> skills;
 
 	public Professional() {

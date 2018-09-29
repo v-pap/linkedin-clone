@@ -173,9 +173,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	
         	prof = em.merge(prof);
         	em.refresh(prof);
-        	prof.getEducations().size();
-        	prof.getExperiences().size();
-        	prof.getSkills().size();
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -192,8 +189,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
-        	prof.getMessages1().size();
-        	prof.getMessages2().size();
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -297,8 +292,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
-        	prof.getRelations1().size();
-        	prof.getRelations2().size();
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -314,8 +307,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
-        	prof.getJobApplies().size();
-        	prof.getJobOffers1().size();
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -331,8 +322,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
-        	prof.getJobOffers1().size();
-        	prof.getJobOffers2().size();
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -348,8 +337,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
-        	prof.getRelations1().size();
-        	prof.getRelations2().size();
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -430,10 +417,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	
         	prof = em.merge(prof);
         	em.refresh(prof);
-        	prof.getJobApplies().size();
-        	prof.getJobOffers1().size();
-        	prof.getRelations1().size();
-        	prof.getRelations2().size();
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -497,7 +480,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		for(Professional con_prof : connected_list)
 	    {
 			em.merge(con_prof);
-			con_prof.getLikes().size();
 			em.refresh(con_prof);
 	        for(Like con_like :con_prof.getLikes())
 	        {
@@ -511,7 +493,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 			curr_post = em.merge(curr_post);
 	        em.refresh(curr_post);
 	    }
-		 //EntityManagerHelper.commit();
         return posts_list;
 	}
 	
@@ -575,7 +556,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
-        	prof.getLikes().size();
         	em.refresh(prof);
         	 
         } catch (Exception e) {
@@ -605,8 +585,6 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	    {
 			curr_post = em.merge(curr_post);
 	        em.refresh(curr_post);
-	        //curr_post.getLikes().size();
-	        //curr_post.getComments().size();
 	    }
 		 
         return posts_list;

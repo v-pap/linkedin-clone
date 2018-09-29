@@ -2,6 +2,10 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -39,10 +43,12 @@ public class JobOffer implements Serializable {
 
 	//bi-directional many-to-one association to JobApply
 	@OneToMany(mappedBy="jobOffer")
+	@JsonIgnoreProperties(value = "jobOffer") 
 	private List<JobApply> jobApplies;
 
 	//bi-directional many-to-many association to Professional
 	@ManyToMany
+	@JsonIgnore
 	@JoinTable(
 		name="job_applies"
 		, joinColumns={
@@ -57,6 +63,7 @@ public class JobOffer implements Serializable {
 	//bi-directional many-to-one association to Professional
 	@ManyToOne
 	@JoinColumn(name="id")
+	@JsonIgnore
 	private Professional professional;
 
 	public JobOffer() {

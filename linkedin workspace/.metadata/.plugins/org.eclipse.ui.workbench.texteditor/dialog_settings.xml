@@ -2,12 +2,14 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="commit" key="selection"/>
+		<item value="&quot;professional&quot;,&quot;professional1&quot;,&quot;professional2&quot;,&quot;relations1&quot;,&quot;relations2&quot;" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="&quot;professional&quot;,&quot;professional1&quot;,&quot;professional2&quot;"/>
+			<item value=".size()"/>
 			<item value="commit"/>
 			<item value="begin"/>
 			<item value="em.getTransaction().begin();"/>
@@ -21,10 +23,10 @@
 			<item value="messag"/>
 			<item value="update"/>
 			<item value="location.href"/>
-			<item value="href"/>
-			<item value="html"/>
 		</list>
 		<list key="replacehistory">
+			<item value="&quot;professional&quot;,&quot;professional1&quot;,&quot;professional2&quot;,&quot;relations1&quot;,&quot;relations2&quot;"/>
+			<item value="&quot;professional&quot;,&quot;professional1&quot;,&quot;professional2&quot;,&quot;relations"/>
 			<item value=" "/>
 			<item value=""/>
 			<item value="user_prof"/>
@@ -40,10 +42,10 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="335" key="DIALOG_WIDTH"/>
+		<item value="1016" key="DIALOG_WIDTH"/>
 		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
-		<item value="444" key="DIALOG_HEIGHT"/>
-		<item value="1302" key="DIALOG_X_ORIGIN"/>
-		<item value="311" key="DIALOG_Y_ORIGIN"/>
+		<item value="491" key="DIALOG_HEIGHT"/>
+		<item value="695" key="DIALOG_X_ORIGIN"/>
+		<item value="439" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

@@ -66,7 +66,7 @@
                                 <td style="width: 200%">
                                     <div class="w3-row w3-padding" style="width: 200%">
                                         Don't have an account?
-                                        <a href="RegisterServlet">Register here.</a>
+                                        <a href="/LinkedInClone/RegisterServlet">Register here.</a>
                                     </div>
                                 </td>
                             </tr>
@@ -91,7 +91,7 @@
                 <h5>WorkConnect</h5>
             </td>
             <td style="text-align: left;">
-                <a href="AdministratorServlet" class="w3-link">Login as Admin</a>
+                <a href="/LinkedInClone/AdministratorServlet" class="w3-link">Login as Admin</a>
             </td>
             <td style="width:85%; text-align: right;">
                 <p>Made by Vasileios Papavasileiou & Vasileios Sakkas - Powered by
@@ -154,7 +154,6 @@
             }
             if (error == false) {
                 document.getElementById('error_message').value = "";
-                location.href = "home.html";
             }
         }
     </script>

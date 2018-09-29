@@ -95,7 +95,7 @@
                                 <form action="/LinkedInClone/UserNetwork" method="post">
                                     <table style="width:100%">
                                         <td style="width: 100%">
-                                            <input name ="search" id="search" type="text" placeholder="Search" class="w3-border w3-padding" style="width:100%;" />
+                                            <input name ="search" id="search" type="text" placeholder="Search" class="w3-border w3-padding" style="width:100%;" required/>
                                         </td>
                                         <td style="width: 100%">
                                             <button type="submit" onclick="check_search();" class="w3-button w3-theme-d2">

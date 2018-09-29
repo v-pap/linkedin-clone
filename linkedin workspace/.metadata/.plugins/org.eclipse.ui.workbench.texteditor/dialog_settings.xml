@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="&quot;professional&quot;,&quot;professional1&quot;,&quot;professional2&quot;,&quot;relations1&quot;,&quot;relations2&quot;" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="@JsonBackReference"/>
 			<item value="&quot;professional&quot;,&quot;professional1&quot;,&quot;professional2&quot;"/>
 			<item value=".size()"/>
 			<item value="commit"/>
@@ -22,12 +23,12 @@
 			<item value="refresh"/>
 			<item value="messag"/>
 			<item value="update"/>
-			<item value="location.href"/>
 		</list>
 		<list key="replacehistory">
+			<item value="  "/>
+			<item value=" "/>
 			<item value="&quot;professional&quot;,&quot;professional1&quot;,&quot;professional2&quot;,&quot;relations1&quot;,&quot;relations2&quot;"/>
 			<item value="&quot;professional&quot;,&quot;professional1&quot;,&quot;professional2&quot;,&quot;relations"/>
-			<item value=" "/>
 			<item value=""/>
 			<item value="user_prof"/>
 			<item value="education"/>

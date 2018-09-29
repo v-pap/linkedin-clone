@@ -1,7 +1,18 @@
 package servlets;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,15 +29,16 @@ import dao.AdministratorDAO;
 import dao.ProfessionalDAOImpl;
 import dao.ProfessionalDAO;
 import helper.AdministratorInfo;
+import helper.XMLBuilder;
 
 /**
  * Servlet implementation class AdministratorServlet
  */
-@WebServlet(urlPatterns = {"/AdministratorServlet", "/AdministratorServlet/logout"})
+@WebServlet(urlPatterns = {"/AdministratorServlet", "/AdministratorServlet/logout", "/AdministratorServlet/xml", "/AdministratorServlet/xmlall"})
 public class AdministratorServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-       
+	String folderPath = "/home/bill/Desktop/multimedia";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -59,10 +71,17 @@ public class AdministratorServlet extends HttpServlet
 		Administrator admin = (Administrator) session.getAttribute("admin");
         if (admin != null)
         {
-             List<Professional> profs = getAllProfessionals(request, response);
-             request.setAttribute("profs", profs);
-             RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/admin_page.jsp");  
-             rd.forward(request, response);
+        	 List<Professional> profs = getAllProfessionals(request, response);
+        	 if(requestURI.endsWith("xmlall"))
+        	 {
+        		 downloadAllXML(request,response, profs); 
+        	 }
+        	 else
+        	 {
+        		 request.setAttribute("profs", profs);
+                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/admin_page.jsp");  
+                 rd.forward(request, response); 
+        	 }
         }
         else
         {
@@ -77,23 +96,53 @@ public class AdministratorServlet extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-        AdministratorInfo adminInfo = login(request, response);
-        Administrator admin = adminInfo.getAdmin();
-        if (admin != null)
-        {
-             HttpSession session = request.getSession(true);       
-             session.setAttribute("admin",admin);
-             List<Professional> profs = getAllProfessionals(request, response);
-             request.setAttribute("profs", profs);
-             RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/admin_page.jsp");  
-             rd.forward(request, response);
-        }
-        else
-        {
-        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/login.jsp");
-        	request.setAttribute("error_message", adminInfo.getError());
-            rd.forward(request, response);
-        }
+		 String requestURI = request.getRequestURI();
+		 if(requestURI.endsWith("xml"))
+    	 {
+			 HttpSession session = request.getSession(true);     
+			 Administrator admin = (Administrator) session.getAttribute("admin");
+			 if(admin != null)
+			 {
+				 List<Professional> profs = getAllProfessionals(request, response);
+	    		 List<Professional> xml_profs = new ArrayList<Professional>();
+	    		 for(int i = 0; i < profs.size(); i++)
+	    		 {
+	    			 if(request.getParameter("prof_" + Integer.toString(profs.get(i).getId())) != null)
+	    			 {
+	    				 String loop_iter = request.getParameter("iter_" + Integer.toString(profs.get(i).getId()));
+	    				 if(request.getParameter("check_" + loop_iter) != null)
+	    				 {
+	    					 xml_profs.add(profs.get(i));
+	    				 }
+	    			 }
+	    		 }
+	    		 downloadAllXML(request,response, xml_profs);       
+			 }
+			 else
+			 {
+				 response.sendRedirect("/LinkedInClone/AdministratorServlet");
+			 }
+    	 }
+		 else
+		 {
+			AdministratorInfo adminInfo = login(request, response);
+	        Administrator admin = adminInfo.getAdmin();
+	        if (admin != null)
+	        {
+	        	 List<Professional> profs = getAllProfessionals(request, response);
+	             HttpSession session = request.getSession(true);       
+	             session.setAttribute("admin",admin);
+	             request.setAttribute("profs", profs);
+	             RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/admin_page.jsp");  
+	             rd.forward(request, response);
+	        }
+	        else
+	        {
+	        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/login.jsp");
+	        	request.setAttribute("error_message", adminInfo.getError());
+	            rd.forward(request, response);
+	        }
+		 }
 	}
 	
 	private AdministratorInfo login(HttpServletRequest request,
@@ -113,5 +162,24 @@ public class AdministratorServlet extends HttpServlet
 		List<Professional> profs = dao.list();
         return profs;
     }
-
+	
+	private void downloadAllXML(HttpServletRequest request, HttpServletResponse response, List<Professional> profs) throws IOException
+	{
+        
+		response.setContentType("application/zip");
+		response.setHeader("Content-Disposition", "attachment; filename=\"xmlfiles.zip\"");
+        
+        XMLBuilder xml = new XMLBuilder();
+        ZipOutputStream out = null;
+        out = new ZipOutputStream(response.getOutputStream());
+        for (Professional prof : profs)
+        {
+        	byte[] array = xml.createXML(prof).getBytes();
+            out.putNextEntry(new ZipEntry("user" + Integer.toString(prof.getId()) + ".xml"));
+            out.write(array);
+            out.closeEntry();   
+        }
+        out.close();
+        
+	}
 }

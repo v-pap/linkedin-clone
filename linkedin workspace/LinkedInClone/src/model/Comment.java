@@ -28,6 +28,7 @@ public class Comment implements Serializable {
 	//bi-directional many-to-one association to Post
 	@ManyToOne
 	@JoinColumn(name="post_id")
+	@JsonIgnoreProperties({"likes","comments"})
 	private Post post;
 
 	//bi-directional many-to-one association to Professional

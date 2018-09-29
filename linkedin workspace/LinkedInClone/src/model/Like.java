@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 /**
@@ -23,6 +24,7 @@ public class Like implements Serializable {
 	//bi-directional many-to-one association to Post
 	@ManyToOne
 	@JoinColumn(name="post_id")
+	@JsonIgnoreProperties({"likes","comments"})
 	private Post post;
 
 	//bi-directional many-to-one association to Professional

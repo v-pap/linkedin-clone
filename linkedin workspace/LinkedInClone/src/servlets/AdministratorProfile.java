@@ -37,7 +37,7 @@ import model.SkillPK;
  */
 @MultipartConfig(location="/home/bill/Desktop/tomcat/temp", fileSizeThreshold=1024*1024, 
 maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
-@WebServlet(name = "AdministratorProfile", urlPatterns = { "/AdministratorProfile", "/AdministratorProfile/edit", "/AdministratorProfile/xml"})
+@WebServlet(name = "AdministratorProfile", urlPatterns = { "/AdministratorProfile", "/AdministratorProfile/edit"})
 public class AdministratorProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String folderPath = "/home/bill/Desktop/multimedia";
@@ -79,11 +79,6 @@ public class AdministratorProfile extends HttpServlet {
         		}
         		else
         		{
-        			if(requestURI.endsWith("xml"))
-        			{
-        				XMLBuilder xml = new XMLBuilder();
-        				xml.createXML(user_prof);
-        			}
         			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/profile_admin.jsp");  
                     rd.forward(request, response);
         		}

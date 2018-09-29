@@ -66,7 +66,7 @@
                             <i class="fa fa-edit"></i> Edit</button>
                     </td>
                     <td>
-                        <button type="button" onclick="location.href='/LinkedInClone/AdministratorProfile/xml?id=${user_prof.getId()}'" class="w3-button w3-theme-d2">
+                        <button type="button" onclick="location.href='/LinkedInClone/DownloadXML?id=${user_prof.getId()}'" class="w3-button w3-theme-d2">
                             <i class="fa fa-download"></i> Download (XML)</button>
                     </td>
                 </table>

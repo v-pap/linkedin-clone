@@ -94,7 +94,7 @@
                             <form action="/LinkedInClone/UserServlet/post" method="post" enctype='multipart/form-data'>
                                 <div class="w3-padding-8">
                                     <input name="post_text" id="post" type="text" placeholder="Status: Feeling great!" class="w3-border w3-padding"
-                                        style="width:100%;" />
+                                        style="width:100%;" required/>
                                 </div>
                                 <table>
                                     <td>

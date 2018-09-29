@@ -101,7 +101,7 @@ public class Professional implements Serializable {
 
 	//bi-directional many-to-many association to Post
 	@ManyToMany(mappedBy="professionals", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({"professional","professional1","professional2","relations1","relations2"})
+	@JsonIgnore
 	private List<Post> posts1;
 
 	//bi-directional many-to-one association to Post

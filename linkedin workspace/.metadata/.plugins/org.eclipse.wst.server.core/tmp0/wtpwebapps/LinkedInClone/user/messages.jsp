@@ -90,7 +90,7 @@
                 <div class="w3-container w3-card w3-white w3-margin" style="max-height: 720px; overflow-y: scroll">
                     <br>
                     <c:forEach items="${profs}" var="prof_con">
-                    <c:if test = "${prof_con.getId() == prof_message.getId()}"><span class="w3-tag w3-large w3-theme"></c:if><a href="/LinkedInClone/UserMessages?id=${prof_con.getId()}">
+                    <c:if test = "${prof_con.getId() == prof_message.getId()}"><span class="w3-tag w3-round-large w3-theme-d1"><br></c:if><a href="/LinkedInClone/UserMessages?id=${prof_con.getId()}">
                     <img src="/LinkedInClone/ImageServlet?id=${prof_con.getPath()}" alt="Avatar" style="width:100%" class="w3-round-large">
                     <h6>${prof_con.getName()} ${prof_con.getSurname()}</h6><c:if test = "${prof_con.getId() == prof_message.getId()}"></span></c:if>
                     </a>
@@ -143,11 +143,11 @@
                         <table style="width:100%">
                             <td style="width: 100%">
                                 <input name = "message" id="message" type="text" placeholder="Type your message." class="w3-border w3-padding"
-                                    style="width:100%;" />
+                                    style="width:100%;" required/>
                                 <input type="hidden" name="id" value="${prof_message.getId()}">
                             </td>
                             <td style="width: 50%">
-                                <button type="button" onclick="check_message();" class="w3-button w3-theme-d2">
+                                <button type="submit" onclick="check_message();" class="w3-button w3-theme-d2">
                                     <i class="fa fa-send"></i> Send</button>
                             </td>
                             <td style="width: 50%">
@@ -200,11 +200,8 @@
         }
 
         function check_message() {
-            if (document.getElementById('message').value == "") {
-                ;
-            }
-            else {
-                ;
+            if (document.getElementById('message').value != "") {
+                location.href = '/LinkedInClone/UserMessages?id=${prof_message.getId()}';
             }
         }
     </script>

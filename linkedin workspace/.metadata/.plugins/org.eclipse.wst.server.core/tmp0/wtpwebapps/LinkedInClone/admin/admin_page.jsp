@@ -50,7 +50,7 @@
     <div class="w3-container w3-content" style="max-width:66.%;margin-top:80px">
         <!-- The Grid -->
         <div class="w3-row">
-
+			<form action="/LinkedInClone/AdministratorServlet/xml" method="post">
             <!-- Middle Column -->
             <div class="w3-col">
                 <div class="w3-container w3-card w3-white w3-margin">
@@ -64,18 +64,20 @@
                                 <i class="fa fa-remove"></i> Unselect All</button>
                         </td>
                         <td style="width: 23%">
-                            <button type="button" class="w3-button w3-theme-d2 w3-margin-right">
+                            <button type="submit" class="w3-button w3-theme-d2 w3-margin-right">
                                 <i class="fa fa-download"></i> Download Selected (XML)</button>
                         </td>
                         <td style="width: 23%">
-                            <button type="button" class="w3-button w3-theme-d2" style="width: 100%">
+                            <button type="button" onclick="location.href='/LinkedInClone/AdministratorServlet/xmlall';" class="w3-button w3-theme-d2" style="width: 100%">
                                 <i class="fa fa-download"></i> Download All (XML)</button>
                         </td>
                     </table>
                 </div>
-                <c:forEach items="${profs}" var="prof">
+                <c:forEach items="${profs}" var="prof" varStatus="loop">
 			        <div class="w3-container w3-card w3-white w3-margin">
                     <table style="width: 100%">
+                    	<input type="hidden" name="prof_${prof.getId()}" value="${prof.getId()}">
+                    	<input type="hidden" name="iter_${prof.getId()}" value="${loop.count}">
                         <td>
                             <p class="w3-center">
                                 <a href="/LinkedInClone/AdministratorProfile?id=${prof.getId()}">
@@ -103,7 +105,7 @@
                                         <label class="w3-opacity-min">Select User (XML) </label>
                                     </td>
                                     <td>
-                                        <input id="check_1" class="w3-check" type="checkbox">
+                                        <input id="check_${loop.count}" name="check_${loop.count}" class="w3-check" type="checkbox">
                                     </td>
                                 </table>
                             </div>
@@ -111,7 +113,7 @@
                                 <i class="fa fa-user"></i> View Profile</button>
                             <br>
                             <br>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+                            <button type="button" onclick="location.href='/LinkedInClone/DownloadXML?id=${prof.getId()}'" class="w3-button w3-theme-d2" style="width:100%">
                                 <i class="fa fa-download"></i> Download (XML)</button>
                         </td>
                     </table>
@@ -119,7 +121,7 @@
 				</c:forEach>
                 <!-- End Middle Column -->
             </div>
-
+			</form>
         </div>
         <!-- End Grid -->
     </div>
@@ -143,7 +145,7 @@
     </footer>
 
     <script>
-        var user_count = 4;
+        var user_count = ${profs.size()};
         // Used to toggle the menu on smaller screens when clicking on the menu button
         function openNav() {
             var x = document.getElementById("navDemo");

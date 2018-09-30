@@ -257,7 +257,7 @@ public class UserServlet extends HttpServlet {
         new_post.setPathVid(pathVid);
         new_post.setPathSound(pathSound);
         prof.addPosts2(new_post);
-        profInfo = dao.updatePosts(prof);
+        //profInfo = dao.updatePosts(prof);
         if(profInfo.getProf() == null)
         {
         	if(!PhotoName.trim().isEmpty()) filePhoto.delete();
@@ -293,10 +293,10 @@ public class UserServlet extends HttpServlet {
         comment.setText(text);
         comment.setPost(post);
         comment.setProfessional(prof);
-        post.addComment(comment);
+        //post.addComment(comment);
         prof.addComment(comment);
         
-        return dao.updateComments(prof);
+        return new ProfessionalInfo(prof,"");
     }
 	
 	private ProfessionalInfo likePost(HttpServletRequest request,
@@ -315,7 +315,7 @@ public class UserServlet extends HttpServlet {
         like.setProfessional(prof);
         prof.addLike(like);
         
-        return dao.updateLikes(prof);
+        return new ProfessionalInfo(prof,"");
     }
 
 }

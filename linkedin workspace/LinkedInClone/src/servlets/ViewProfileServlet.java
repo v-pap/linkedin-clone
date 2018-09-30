@@ -128,7 +128,7 @@ public class ViewProfileServlet extends HttpServlet {
         rel.setProfessional2(prof2);
         rel.setStatus(1);
         prof1.addRelations1(rel);
-        return dao.updateProfile(prof1);
+        return new ProfessionalInfo(prof1,"");
     }
 
 }

@@ -288,19 +288,22 @@
 
         var education_counter = <%=numOfEducation%>, work_counter = <%=numOfExperience%>;
         function add_work() {
-            var work_title_list = [], work_from_list = [], work_description_list = [];
+            var work_title_list = [], work_from_list = [], work_description_list = [], work_to_list = [];
             for (var i = 1; i <= work_counter; i++) {
                 var work_title = 'work_title_%num%'.replace('%num%', i),
                     work_from = 'work_from_%num%'.replace('%num%', i),
+                    work_to = 'work_to_%num%'.replace('%num%', i),
                     work_description = 'work_description_%num%'.replace('%num%', i);
 
                 if (document.getElementById(work_title)) {
                     work_title_list.push(document.getElementById(work_title).value);
                     work_from_list.push(document.getElementById(work_from).value);
+                    work_to_list.push(document.getElementById(work_to).value);
                     work_description_list.push(document.getElementById(work_description).value);
                 }
                 else {
                     work_title_list.push('');
+                    work_to_list.push('');
                     work_from_list.push('');
                     work_description_list.push('');
                 }
@@ -313,11 +316,13 @@
             for (var i = 1; i < work_counter; i++) {
                 var work_title = 'work_title_%num%'.replace('%num%', i),
                     work_from = 'work_from_%num%'.replace('%num%', i),
+                    work_to = 'work_to_%num%'.replace('%num%', i),
                     work_description = 'work_description_%num%'.replace('%num%', i);
 
                 if (document.getElementById(work_title)) {
                     document.getElementById(work_title).value = work_title_list[i - 1];
                     document.getElementById(work_from).value = work_from_list[i - 1];
+                    document.getElementById(work_to).value = work_to_list[i - 1];
                     document.getElementById(work_description).value = work_description_list[i - 1];
                 }
             }        
@@ -334,36 +339,41 @@
         }
 
         function add_education() {
-            var education_title_list = [], education_from_list = [], education_description_list = [];
+            var education_title_list = [], education_from_list = [], education_description_list = [], education_to_list = [];
             for (var i = 1; i <= education_counter; i++) {
                 var education_title = 'education_title_%num%'.replace('%num%', i),
                     education_from = 'education_from_%num%'.replace('%num%', i),
+                    education_to = 'education_to_%num%'.replace('%num%', i),
                     education_description = 'education_description_%num%'.replace('%num%', i);
 
                 if (document.getElementById(education_title)) {
                     education_title_list.push(document.getElementById(education_title).value);
                     education_from_list.push(document.getElementById(education_from).value);
+                    education_to_list.push(document.getElementById(education_to).value);
                     education_description_list.push(document.getElementById(education_description).value);
                 }
                 else {
                     education_title_list.push('');
                     education_from_list.push('');
+                    education_to_list.push('');
                     education_description_list.push('');
                 }
             }
 
             education_counter += 1;
-            var field_to_add = '<div name="education_title_wrapper_%num%" id="education_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input name="education_title_%num%" id="education_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40.5%;" />\n<input name="education_from_%num%" id="education_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input name="education_to_%num%" id="education_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div name="education_description_wrapper_%num%" id="education_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input name="education_description_%num%" id="education_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div><div name="education_remove_wrapper_%num%" id="education_remove_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;"><button name="education_remove_%num%" id="education_remove_%num%" type="button" onclick="remove_education(this.id);" class="w3-button w3-theme-d2"><i class="fa fa-minus"></i> Remove Entry</button></div>'.replace(/%num%/g, education_counter);
+            var field_to_add = '<div name="education_title_wrapper_%num%" id="education_title_wrapper_%num%" class="w3-row" style="width:100%;">\n<hr class="w3-clear">\n<input name="education_title_%num%" id="education_title_%num%" type="text" placeholder="Title" class="w3-border w3-padding" style="width:40%;" />\n<input name="education_from_%num%" id="education_from_%num%" placeholder="From" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n<input name="education_to_%num%" id="education_to_%num%" placeholder="To" type="text" class="w3-border w3-padding" style="width: 29%" onfocus="(this.type=\'date\')"onblur="(this.type=\'text\')">\n</div>\n<div name="education_description_wrapper_%num%" id="education_description_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;">\n<input name="education_description_%num%" id="education_description_%num%" type="text" placeholder="Description" class="w3-border w3-padding" style="width:100%;" />\n</div><div name="education_remove_wrapper_%num%" id="education_remove_wrapper_%num%" class="w3-row w3-padding-8" style="width:100%;"><button name="education_remove_%num%" id="education_remove_%num%" type="button" onclick="remove_education(this.id);" class="w3-button w3-theme-d2"><i class="fa fa-minus"></i> Remove Entry</button></div>'.replace(/%num%/g, education_counter);
             document.getElementById('education_wrapper').innerHTML += field_to_add;
 
             for (var i = 1; i < education_counter; i++) {
                 var education_title = 'education_title_%num%'.replace('%num%', i),
                     education_from = 'education_from_%num%'.replace('%num%', i),
+                    education_to = 'education_to_%num%'.replace('%num%', i),
                     education_description = 'education_description_%num%'.replace('%num%', i);
 
                 if (document.getElementById(education_title)) {
                     document.getElementById(education_title).value = education_title_list[i - 1];
                     document.getElementById(education_from).value = education_from_list[i - 1];
+                    document.getElementById(education_to).value = education_to_list[i - 1];
                     document.getElementById(education_description).value = education_description_list[i - 1];
                 }
             }        

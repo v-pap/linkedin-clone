@@ -166,7 +166,7 @@ public class UserJobs extends HttpServlet {
         jobapp.setJobOffer(job);
         jobapp.setProfessional(prof);
         prof.addJobApply(jobapp);
-        return dao.updateJobApplications(prof);
+        return new ProfessionalInfo(prof,"");
     }
 	
 	private ProfessionalInfo createJobOffer(HttpServletRequest request,
@@ -211,7 +211,7 @@ public class UserJobs extends HttpServlet {
         job.setPath(path);
         job.setProfessional(prof);
         prof.addJobOffers2(job);
-        profInfo = dao.updateJobOffers(prof);
+        //profInfo = dao.updateJobOffers(prof);
         if(profInfo.getProf() == null && !fileName.trim().isEmpty())	file.delete();
         return profInfo;
     }

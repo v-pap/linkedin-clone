@@ -20,7 +20,7 @@ import java.util.List;
 @NamedQueries({
 @NamedQuery(name="Post.findAll", query="SELECT p FROM Post p"),
 @NamedQuery(name="Post.findPost", query="SELECT p FROM Post p WHERE (p.postId = :id)"),
-@NamedQuery(name="Post.findMyPosts", query="SELECT p FROM Post p WHERE (p.professional = :prof)"),
+@NamedQuery(name="Post.findMyPosts", query="SELECT p FROM Post p WHERE (p.professional = :prof) ORDER BY p.postId DESC"),
 @NamedQuery(name="Post.findNewPosts", query="SELECT p FROM Post p WHERE p.postTime >= :time_threshold")
 })
 public class Post implements Serializable {

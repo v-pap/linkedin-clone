@@ -154,7 +154,7 @@ public class UserMessages extends HttpServlet {
         msg.setProfessional1(prof1);
         msg.setProfessional2(prof2);
         prof1.addMessages1(msg);
-        return dao.updateProfile(prof1);
+        return new ProfessionalInfo(prof1,"");
     }
 
 }

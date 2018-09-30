@@ -146,10 +146,10 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         	return new ProfessionalInfo(null,"DB error");
         }
         if(!results.isEmpty()) return new ProfessionalInfo(null,"The email is already in use");
-        prof.setEmail(newEmail);
         try {
         	
             prof = em.merge(prof);
+            prof.setEmail(newEmail);
              
         } catch (Exception e) {
         	return new ProfessionalInfo(null,"DB error");
@@ -161,10 +161,10 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	public ProfessionalInfo changePassword(String newPassword, Professional prof)
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
-        prof.setPassword(newPassword);
         try {
         	
             prof = em.merge(prof);
+            prof.setPassword(newPassword);
              
         } catch (Exception e) {
         	return new ProfessionalInfo(null,"DB error");
@@ -196,6 +196,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
+        	em.refresh(prof);
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -308,7 +309,8 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
     				break;
     			}
     	    }
-        	prof1 = em.merge(prof1); 
+        	em.flush();
+        	//prof1 = em.merge(prof1); 
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -533,6 +535,11 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		
 		posts_to_display = NN.NearestNeighborPosts(prof, network_users, recent_posts);
 		
+		for(Post post : posts_to_display)
+	    {
+			post = em.merge(post);
+			em.refresh(post);
+	    }
 		return posts_to_display;
 	}
 	
@@ -581,6 +588,8 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
+        	em.flush();
+        	em.refresh(prof);
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
@@ -596,6 +605,7 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         try {
         	
         	prof = em.merge(prof);
+        	em.flush();
         	em.refresh(prof);
         	 
         } catch (Exception e) {

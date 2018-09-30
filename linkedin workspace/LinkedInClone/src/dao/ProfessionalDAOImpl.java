@@ -3,7 +3,12 @@ package dao;
 import java.io.File;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +17,7 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 import jpautils.EntityManagerHelper;
+import model.Comment;
 import model.Experience;
 import model.JobOffer;
 import model.Like;
@@ -19,6 +25,7 @@ import model.Message;
 import model.Post;
 import model.Professional;
 import model.Relation;
+import helper.NearestNeighbor;
 import helper.ProfessionalInfo;
 
 public class ProfessionalDAOImpl implements ProfessionalDAO 
@@ -286,19 +293,29 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
         return status;
 	}
 	
-	public ProfessionalInfo updateRelations(Professional prof)
+	public ProfessionalInfo updateRelations(Professional prof1, Professional prof2, int status)
 	{
 		EntityManager em = EntityManagerHelper.getEntityManager();
         try {
         	
-        	prof = em.merge(prof);
+        	prof1 = em.merge(prof1);
+        	em.refresh(prof1);
+        	for(Relation rel : prof1.getRelations2())
+    	    {
+    			if(rel.getProfessional2().getId() == prof1.getId() && rel.getProfessional1().getId() == prof2.getId())
+    			{
+    				rel.setStatus(status);
+    				break;
+    			}
+    	    }
+        	prof1 = em.merge(prof1); 
         	 
         } catch (Exception e) {
         	e.printStackTrace(); 
             System.out.println(e); 
         	return new ProfessionalInfo(null,"DB error");
         }
-        return new ProfessionalInfo(prof,"");
+        return new ProfessionalInfo(prof1,"");
 	}
 	
 	public ProfessionalInfo updateJobApplications(Professional prof)
@@ -407,7 +424,12 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		} catch (Exception e) {
         	return null;
         }
-        return offers_list;
+		
+		prof = em.merge(prof);
+		em.refresh(prof);
+		
+		NearestNeighbor NN = new NearestNeighbor();
+		return NN.NearestNeighborJobOffers(prof, offers_list);
 	}
 	
 	public ProfessionalInfo refreshJobApplications(Professional prof)
@@ -445,22 +467,26 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 	@Override
 	public List<Post> list_posts(Professional prof) {
 		EntityManager em = EntityManagerHelper.getEntityManager();
-		Query query = em.createNamedQuery("Post.findConnectedPosts");
-		query.setParameter("prof",prof);
-		List<Post> posts_list;
+		Query query = em.createNamedQuery("Post.findNewPosts");
+		Date now =  Date.from(Instant.now().minus(Duration.ofDays(60)));
+		query.setParameter("time_threshold",now,TemporalType.TIMESTAMP);
+		List<Post> recent_posts;
+		List<Post> posts_to_display;
 		try {
-			posts_list = query.getResultList();
+			recent_posts = query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace(); 
             System.out.println(e); 
         	return null;
         }
 		
+		HashMap<Integer, Professional> map = new HashMap<Integer, Professional>();
+		
 		Query query2 = em.createNamedQuery("Relation.findConnected1");
 		query2.setParameter("prof",prof);
-		List<Professional> connected_list;
+		List<Professional> contact_users;
 		try {
-			connected_list = query2.getResultList();
+			contact_users = query2.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace(); 
             System.out.println(e); 
@@ -470,30 +496,44 @@ public class ProfessionalDAOImpl implements ProfessionalDAO
 		Query query3 = em.createNamedQuery("Relation.findConnected2");
 		query3.setParameter("prof",prof);
 		try {
-			connected_list.addAll(query3.getResultList());
+			contact_users.addAll(query3.getResultList());
 		} catch (Exception e) {
 			e.printStackTrace(); 
             System.out.println(e); 
         	return null;
         }
 		
-		for(Professional con_prof : connected_list)
+		for(Professional con_prof : contact_users)
 	    {
-			em.merge(con_prof);
+			map.put(con_prof.getId(), con_prof);
+	    }
+		
+		for(Professional con_prof : contact_users)
+	    {
+			con_prof = em.merge(con_prof);
 			em.refresh(con_prof);
 	        for(Like con_like :con_prof.getLikes())
 	        {
-	        	if(!contains(con_like.getPost(),posts_list))
-	        		posts_list.add(con_like.getPost());
+	        	map.put(con_like.getPost().getProfessional().getId(),con_like.getPost().getProfessional());
+	        }
+	        for(Comment con_comment :con_prof.getComments())
+	        {
+	        	map.put(con_comment.getPost().getProfessional().getId(),con_comment.getPost().getProfessional());
 	        }
 	    }
 		
-		for(Post curr_post : posts_list)
-	    {
-			curr_post = em.merge(curr_post);
-	        em.refresh(curr_post);
-	    }
-        return posts_list;
+		prof = em.merge(prof);
+		em.refresh(prof);
+		
+		map.remove(prof.getId());
+		
+		List<Professional> network_users = new ArrayList<Professional>(map.values());
+		
+		NearestNeighbor NN = new NearestNeighbor();
+		
+		posts_to_display = NN.NearestNeighborPosts(prof, network_users, recent_posts);
+		
+		return posts_to_display;
 	}
 	
 	private boolean contains(Post new_post, List<Post> posts_list) {

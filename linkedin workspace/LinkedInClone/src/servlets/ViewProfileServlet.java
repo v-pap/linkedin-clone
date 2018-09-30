@@ -114,7 +114,7 @@ public class ViewProfileServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Professional prof1 = (Professional) session.getAttribute("prof");
 		ProfessionalDAO dao = new ProfessionalDAOImpl();
-		ProfessionalInfo profInfo = dao.updateRelations(prof1);
+		ProfessionalInfo profInfo = dao.refreshProfile(prof1);
 		if(profInfo.getProf() == null) return profInfo;
 		prof1 = profInfo.getProf();
         String id = request.getParameter("id");

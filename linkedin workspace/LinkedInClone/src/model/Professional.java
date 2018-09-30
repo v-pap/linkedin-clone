@@ -557,4 +557,161 @@ public class Professional implements Serializable {
 	    return false;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
+		result = prime * result + (educationPrivate ? 1231 : 1237);
+		result = prime * result + ((educations == null) ? 0 : educations.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + (experiencePrivate ? 1231 : 1237);
+		result = prime * result + ((experiences == null) ? 0 : experiences.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((jobApplies == null) ? 0 : jobApplies.hashCode());
+		result = prime * result + ((jobOffers1 == null) ? 0 : jobOffers1.hashCode());
+		result = prime * result + ((jobOffers2 == null) ? 0 : jobOffers2.hashCode());
+		result = prime * result + ((jobTitle == null) ? 0 : jobTitle.hashCode());
+		result = prime * result + ((likes == null) ? 0 : likes.hashCode());
+		result = prime * result + ((messages1 == null) ? 0 : messages1.hashCode());
+		result = prime * result + ((messages2 == null) ? 0 : messages2.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((path == null) ? 0 : path.hashCode());
+		result = prime * result + ((posts1 == null) ? 0 : posts1.hashCode());
+		result = prime * result + ((posts2 == null) ? 0 : posts2.hashCode());
+		result = prime * result + ((relations1 == null) ? 0 : relations1.hashCode());
+		result = prime * result + ((relations2 == null) ? 0 : relations2.hashCode());
+		result = prime * result + ((skills == null) ? 0 : skills.hashCode());
+		result = prime * result + (skillsPrivate ? 1231 : 1237);
+		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
+		result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Professional other = (Professional) obj;
+		if (comments == null) {
+			if (other.comments != null)
+				return false;
+		} else if (!comments.equals(other.comments))
+			return false;
+		if (educationPrivate != other.educationPrivate)
+			return false;
+		if (educations == null) {
+			if (other.educations != null)
+				return false;
+		} else if (!educations.equals(other.educations))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (experiencePrivate != other.experiencePrivate)
+			return false;
+		if (experiences == null) {
+			if (other.experiences != null)
+				return false;
+		} else if (!experiences.equals(other.experiences))
+			return false;
+		if (id != other.id)
+			return false;
+		if (jobApplies == null) {
+			if (other.jobApplies != null)
+				return false;
+		} else if (!jobApplies.equals(other.jobApplies))
+			return false;
+		if (jobOffers1 == null) {
+			if (other.jobOffers1 != null)
+				return false;
+		} else if (!jobOffers1.equals(other.jobOffers1))
+			return false;
+		if (jobOffers2 == null) {
+			if (other.jobOffers2 != null)
+				return false;
+		} else if (!jobOffers2.equals(other.jobOffers2))
+			return false;
+		if (jobTitle == null) {
+			if (other.jobTitle != null)
+				return false;
+		} else if (!jobTitle.equals(other.jobTitle))
+			return false;
+		if (likes == null) {
+			if (other.likes != null)
+				return false;
+		} else if (!likes.equals(other.likes))
+			return false;
+		if (messages1 == null) {
+			if (other.messages1 != null)
+				return false;
+		} else if (!messages1.equals(other.messages1))
+			return false;
+		if (messages2 == null) {
+			if (other.messages2 != null)
+				return false;
+		} else if (!messages2.equals(other.messages2))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (path == null) {
+			if (other.path != null)
+				return false;
+		} else if (!path.equals(other.path))
+			return false;
+		if (posts1 == null) {
+			if (other.posts1 != null)
+				return false;
+		} else if (!posts1.equals(other.posts1))
+			return false;
+		if (posts2 == null) {
+			if (other.posts2 != null)
+				return false;
+		} else if (!posts2.equals(other.posts2))
+			return false;
+		if (relations1 == null) {
+			if (other.relations1 != null)
+				return false;
+		} else if (!relations1.equals(other.relations1))
+			return false;
+		if (relations2 == null) {
+			if (other.relations2 != null)
+				return false;
+		} else if (!relations2.equals(other.relations2))
+			return false;
+		if (skills == null) {
+			if (other.skills != null)
+				return false;
+		} else if (!skills.equals(other.skills))
+			return false;
+		if (skillsPrivate != other.skillsPrivate)
+			return false;
+		if (surname == null) {
+			if (other.surname != null)
+				return false;
+		} else if (!surname.equals(other.surname))
+			return false;
+		if (telephone == null) {
+			if (other.telephone != null)
+				return false;
+		} else if (!telephone.equals(other.telephone))
+			return false;
+		return true;
+	}
+
 }

@@ -134,17 +134,10 @@ public class UserNotifications extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Professional prof1 = (Professional) session.getAttribute("prof");
 		ProfessionalDAO dao = new ProfessionalDAOImpl();
-		ProfessionalInfo profInfo = dao.updateRelations(prof1);
-		if(profInfo.getProf() == null) return profInfo;
-		prof1 = profInfo.getProf();
         String id = request.getParameter("id");
         Professional prof2 = dao.find(Integer.parseInt(id));
         Relation rel = dao.find_relation(prof1, prof2);
-        rel.setStatus(status);
-        prof1.removeRelations2(rel);
-        prof1.addRelations2(rel);
-        profInfo = dao.updateProfile(prof1);
-        return dao.updateRelations(profInfo.getProf());
+        return dao.updateRelations(prof1, prof2, status);
     }
 	
 	private List<Post> getMyPosts(HttpServletRequest request,

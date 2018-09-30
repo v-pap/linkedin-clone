@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,9 +21,7 @@ import java.util.List;
 @NamedQuery(name="Post.findAll", query="SELECT p FROM Post p"),
 @NamedQuery(name="Post.findPost", query="SELECT p FROM Post p WHERE (p.postId = :id)"),
 @NamedQuery(name="Post.findMyPosts", query="SELECT p FROM Post p WHERE (p.professional = :prof)"),
-@NamedQuery(name="Post.findConnectedPosts", query="SELECT p FROM Post p WHERE ((p.professional = :prof) OR (p.professional in "
-		+ "(SELECT r.professional1 FROM Relation r WHERE (r.status = 0 AND r.professional2 = :prof)) "
-		+ "OR p.professional in (SELECT r.professional2 FROM Relation r WHERE (r.status = 0 AND r.professional1 = :prof))))ORDER BY p.postId DESC")
+@NamedQuery(name="Post.findNewPosts", query="SELECT p FROM Post p WHERE p.postTime >= :time_threshold")
 })
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -42,6 +42,9 @@ public class Post implements Serializable {
 
 	@Lob
 	private String text;
+	
+	@Column(name="post_time")
+	private Timestamp postTime;
 
 	//bi-directional many-to-one association to Comment
 	@OneToMany(mappedBy="post", cascade = CascadeType.ALL)
@@ -82,6 +85,14 @@ public class Post implements Serializable {
 
 	public void setPostId(int postId) {
 		this.postId = postId;
+	}
+	
+	public Timestamp getPostTime() {
+		return this.postTime;
+	}
+
+	public void setPostTime(Timestamp postTime) {
+		this.postTime = postTime;
 	}
 	
 	public String getPathPic() {

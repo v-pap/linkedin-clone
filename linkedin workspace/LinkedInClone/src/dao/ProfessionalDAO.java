@@ -42,7 +42,7 @@ public interface ProfessionalDAO
 	
 	public int check_status(Professional prof1, Professional prof2);
 	
-	public ProfessionalInfo updateRelations(Professional prof);
+	public ProfessionalInfo updateRelations(Professional prof1, Professional prof2, int status);
 	
 	public ProfessionalInfo updateJobApplications(Professional prof);
 	

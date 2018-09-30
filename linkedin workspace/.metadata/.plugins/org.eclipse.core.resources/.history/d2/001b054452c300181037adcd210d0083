@@ -1,0 +1,176 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.List;
+
+
+/**
+ * The persistent class for the posts database table.
+ * 
+ */
+@Entity
+@Table(name="posts")
+@NamedQueries({
+@NamedQuery(name="Post.findAll", query="SELECT p FROM Post p"),
+@NamedQuery(name="Post.findPost", query="SELECT p FROM Post p WHERE (p.postId = :id)"),
+@NamedQuery(name="Post.findMyPosts", query="SELECT p FROM Post p WHERE (p.professional = :prof)"),
+@NamedQuery(name="Post.findConnectedPosts", query="SELECT p FROM Post p WHERE ((p.professional = :prof) OR (p.professional in "
+		+ "(SELECT r.professional1 FROM Relation r WHERE (r.status = 0 AND r.professional2 = :prof)) "
+		+ "OR p.professional in (SELECT r.professional2 FROM Relation r WHERE (r.status = 0 AND r.professional1 = :prof))))ORDER BY p.postId DESC")
+})
+public class Post implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="post_id")
+	private int postId;
+	
+	@Column(name="path_pic")
+	private String pathPic;
+	
+	@Column(name="path_vid")
+	private String pathVid;
+	
+	@Column(name="path_sound")
+	private String pathSound;
+
+	@Lob
+	private String text;
+
+	//bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy="post", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"post","posts1","posts2"})
+	private List<Comment> comments;
+
+	//bi-directional many-to-one association to Like
+	@OneToMany(mappedBy="post", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"post","posts1","posts2"})
+	private List<Like> likes;
+
+	//bi-directional many-to-many association to Professional
+	@ManyToMany
+	@JoinTable(
+		name="likes"
+		, joinColumns={
+			@JoinColumn(name="post_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="id")
+			}
+		)
+	private List<Professional> professionals;
+
+	//bi-directional many-to-one association to Professional
+	@ManyToOne
+	@JoinColumn(name="id")
+	private Professional professional;
+
+	public Post() {
+	}
+
+	public int getPostId() {
+		return this.postId;
+	}
+
+	public void setPostId(int postId) {
+		this.postId = postId;
+	}
+	
+	public String getPathPic() {
+		return this.pathPic;
+	}
+
+	public void setPathPic(String path) {
+		this.pathPic = path;
+	}
+	
+	public String getPathVid() {
+		return this.pathVid;
+	}
+
+	public void setPathVid(String path) {
+		this.pathVid = path;
+	}
+	
+	public String getPathSound() {
+		return this.pathSound;
+	}
+
+	public void setPathSound(String path) {
+		this.pathSound = path;
+	}
+
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Comment addComment(Comment comment) {
+		getComments().add(comment);
+		comment.setPost(this);
+
+		return comment;
+	}
+
+	public Comment removeComment(Comment comment) {
+		getComments().remove(comment);
+		comment.setPost(null);
+
+		return comment;
+	}
+
+	public List<Like> getLikes() {
+		return this.likes;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
+	}
+
+	public Like addLike(Like like) {
+		getLikes().add(like);
+		like.setPost(this);
+
+		return like;
+	}
+
+	public Like removeLike(Like like) {
+		getLikes().remove(like);
+		like.setPost(null);
+
+		return like;
+	}
+
+	public List<Professional> getProfessionals() {
+		return this.professionals;
+	}
+
+	public void setProfessionals(List<Professional> professionals) {
+		this.professionals = professionals;
+	}
+
+	public Professional getProfessional() {
+		return this.professional;
+	}
+
+	public void setProfessional(Professional professional) {
+		this.professional = professional;
+	}
+
+}

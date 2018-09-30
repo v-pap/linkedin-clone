@@ -1,0 +1,58 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+
+/**
+ * The persistent class for the job_applies database table.
+ * 
+ */
+@Entity
+@Table(name="job_applies")
+@NamedQuery(name="JobApply.findAll", query="SELECT j FROM JobApply j")
+public class JobApply implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@EmbeddedId
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private JobApplyPK id;
+
+	//bi-directional many-to-one association to JobOffer
+	@ManyToOne
+	@JoinColumn(name="job_id")
+	private JobOffer jobOffer;
+
+	//bi-directional many-to-one association to Professional
+	@ManyToOne
+	@JoinColumn(name="id")
+	private Professional professional;
+
+	public JobApply() {
+	}
+
+	public JobApplyPK getId() {
+		return this.id;
+	}
+
+	public void setId(JobApplyPK id) {
+		this.id = id;
+	}
+
+	public JobOffer getJobOffer() {
+		return this.jobOffer;
+	}
+
+	public void setJobOffer(JobOffer jobOffer) {
+		this.jobOffer = jobOffer;
+	}
+
+	public Professional getProfessional() {
+		return this.professional;
+	}
+
+	public void setProfessional(Professional professional) {
+		this.professional = professional;
+	}
+
+}

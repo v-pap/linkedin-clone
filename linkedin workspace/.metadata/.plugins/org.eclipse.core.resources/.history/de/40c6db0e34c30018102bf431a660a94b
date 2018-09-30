@@ -1,0 +1,18 @@
+package helper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.dataformat.xml.*;
+
+import model.Professional;
+public class XMLBuilder {
+
+	public void createXML(Professional prof) throws JsonProcessingException
+	{
+		  XmlMapper xmlMapper = new XmlMapper();
+		  String xml = xmlMapper.writeValueAsString(prof);
+	}
+	
+	public void XMLToString()
+	{
+		
+	}
+}

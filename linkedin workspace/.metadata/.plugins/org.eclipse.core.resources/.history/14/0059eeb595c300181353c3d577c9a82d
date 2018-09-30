@@ -1,0 +1,164 @@
+package model;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+
+/**
+ * The persistent class for the job_offers database table.
+ * 
+ */
+@Entity
+@Table(name="job_offers")
+@NamedQueries({
+@NamedQuery(name="JobOffer.findAll", query="SELECT j FROM JobOffer j"),
+@NamedQuery(name="JobOffer.findAvailableJobs", query="SELECT j FROM JobOffer j WHERE (j.professional != :prof AND j.jobTime >= :today) ORDER BY j.jobTime DESC"),
+@NamedQuery(name="JobOffer.findCreatedJobs", query="SELECT j FROM JobOffer j WHERE (j.professional = :prof) ORDER BY j.jobId DESC"),
+@NamedQuery(name="JobOffer.findJob", query="SELECT j FROM JobOffer j WHERE (j.jobId = :job)")
+}) 
+public class JobOffer implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="job_id")
+	private int jobId;
+
+	@Column(name="job_time")
+	private Timestamp jobTime;
+	
+	@Column(name="job_title")
+	private String jobTitle;
+
+	private String path;
+
+	@Lob
+	private String text;
+
+	//bi-directional many-to-one association to JobApply
+	@OneToMany(mappedBy="jobOffer")
+	@JsonBackReference
+	private List<JobApply> jobApplies;
+
+	//bi-directional many-to-many association to Professional
+	@ManyToMany
+	@JsonIgnore
+	@JoinTable(
+		name="job_applies"
+		, joinColumns={
+			@JoinColumn(name="job_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="id")
+			}
+		)
+	private List<Professional> professionals;
+
+	//bi-directional many-to-one association to Professional
+	@ManyToOne
+	@JoinColumn(name="id")
+	@JsonManagedReference
+	private Professional professional;
+
+	public JobOffer() {
+	}
+
+	public int getJobId() {
+		return this.jobId;
+	}
+
+	public void setJobId(int jobId) {
+		this.jobId = jobId;
+	}
+
+	public Timestamp getJobTime() {
+		return this.jobTime;
+	}
+
+	public void setJobTime(Timestamp jobTime) {
+		this.jobTime = jobTime;
+	}
+
+	public String getPath() {
+		return this.path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+	
+	public String getJobTitle() {
+		return this.jobTitle;
+	}
+
+	public void setJobTitle(String title) {
+		this.jobTitle = title;
+	}
+
+	public List<JobApply> getJobApplies() {
+		return this.jobApplies;
+	}
+
+	public void setJobApplies(List<JobApply> jobApplies) {
+		this.jobApplies = jobApplies;
+	}
+
+	public JobApply addJobApply(JobApply jobApply) {
+		getJobApplies().add(jobApply);
+		jobApply.setJobOffer(this);
+
+		return jobApply;
+	}
+
+	public JobApply removeJobApply(JobApply jobApply) {
+		getJobApplies().remove(jobApply);
+		jobApply.setJobOffer(null);
+
+		return jobApply;
+	}
+
+	public List<Professional> getProfessionals() {
+		return this.professionals;
+	}
+
+	public void setProfessionals(List<Professional> professionals) {
+		this.professionals = professionals;
+	}
+
+	public Professional getProfessional() {
+		return this.professional;
+	}
+
+	public void setProfessional(Professional professional) {
+		this.professional = professional;
+	}
+	
+	public boolean alreadyApplied(int id)
+	{
+	    for(Professional prof : professionals)
+	    {
+	        if(prof.getId() == id)
+	        {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
+}

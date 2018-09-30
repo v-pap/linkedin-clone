@@ -1,0 +1,14 @@
+package helper;
+import com.fasterxml.jackson.core.*;
+public class XMLBuilder {
+
+	public void createXML()
+	{
+		XmlMapper mapper = new XmlMapper();
+	}
+	
+	public void XMLToString()
+	{
+		
+	}
+}

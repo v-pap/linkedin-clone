@@ -62,7 +62,8 @@
                                 <i class="fa fa-remove"></i> Unselect All</button>
                         </td>
                         <td style="width: 23%">
-                            <button type="button" class="w3-button w3-theme-d2 w3-margin-right">
+                            <button id="download_selected" type="button" class="w3-button w3-theme-d2 w3-margin-right"
+                                disabled>
                                 <i class="fa fa-download"></i> Download Selected (XML)</button>
                         </td>
                         <td style="width: 23%">
@@ -103,175 +104,175 @@
                         <td>
                             <div style="width:100%">
                                 <table style="width:100%">
-                                    <td style="width:100%">
-                                        <label class="w3-opacity-min">Select User (XML) </label>
-                                    </td>
-                                    <td>
-                                        <input id="check_1" class="w3-check" type="checkbox">
-                                    </td>
-                                </table>
-                            </div>
-                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-user"></i> View Profile</button>
-                            <br>
-                            <br>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-download"></i> Download (XML)</button>
+                        <td style="width:100%">
+                            <label class="w3-opacity-min">Select User (XML) </label>
+                        </td>
+                        <td>
+                            <input id="check_1" class="w3-check" type="checkbox" onchange="check_selected(this.id);">
                         </td>
                     </table>
                 </div>
-                <div class="w3-container w3-card w3-white w3-margin">
-                    <table style="width: 100%">
-                        <td>
-                            <p class="w3-center">
-                                <a href="profile_admin.html">
-                                    <img src="images/avatar3.png" style="height:116px;width:116px" alt="Avatar">
-                                </a>
-                            </p>
-                        </td>
-                        <td class="w3-padding">
-                            <h4 class="w3-center"><a href="user_profile.html" class="w3-link">Profile #2</a></h4>
-                        </td>
-                        <td>
-                            <p>
-                                <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-                            <p>
-                                <i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-                            <p>
-                                <i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
-                        </td>
-                        <td>
-                            <p>
-                                <i class="fa fa-envelope-open"></i> Email: email@gmail.com</p>
-                            <p>
-                                <i class="fa fa-phone"></i> Phone: +123456789</p>
-                            <p>
-                                <i class="fa fa-link"></i> Website: website.com</p>
-                            </p>
-                        </td>
-                        <td>
-                            <div style="width:100%">
-                                <table style="width:100%">
-                                    <td style="width:100%">
-                                        <label class="w3-opacity-min">Select User (XML) </label>
-                                    </td>
-                                    <td>
-                                        <input id="check_2" class="w3-check" type="checkbox">
-                                    </td>
-                                </table>
-                            </div>
-                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-user"></i> View Profile</button>
-                            <br>
-                            <br>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-download"></i> Download (XML)</button>
-                        </td>
-                    </table>
-                </div>
-                <div class="w3-container w3-card w3-white w3-margin">
-                    <table style="width: 100%">
-                        <td>
-                            <p class="w3-center">
-                                <a href="profile_admin.html">
-                                    <img src="images/avatar5.png" style="height:116px;width:116px" alt="Avatar">
-                                </a>
-                            </p>
-                        </td>
-                        <td class="w3-padding">
-                            <h4 class="w3-center"><a href="user_profile.html" class="w3-link">Profile #3</a></h4>
-                        </td>
-                        <td>
-                            <p>
-                                <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-                            <p>
-                                <i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-                            <p>
-                                <i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
-                        </td>
-                        <td>
-                            <p>
-                                <i class="fa fa-envelope-open"></i> Email: email@gmail.com</p>
-                            <p>
-                                <i class="fa fa-phone"></i> Phone: +123456789</p>
-                            <p>
-                                <i class="fa fa-link"></i> Website: website.com</p>
-                            </p>
-                        </td>
-                        <td>
-                            <div style="width:100%">
-                                <table style="width:100%">
-                                    <td style="width:100%">
-                                        <label class="w3-opacity-min">Select User (XML) </label>
-                                    </td>
-                                    <td>
-                                        <input id="check_3" class="w3-check" type="checkbox">
-                                    </td>
-                                </table>
-                            </div>
-                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-user"></i> View Profile</button>
-                            <br>
-                            <br>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-download"></i> Download (XML)</button>
-                        </td>
-                    </table>
-                </div>
-                <div class="w3-container w3-card w3-white w3-margin">
-                    <table style="width: 100%">
-                        <td>
-                            <p class="w3-center">
-                                <a href="profile_admin.html">
-                                    <img src="images/avatar6.png" style="height:116px;width:116px" alt="Avatar">
-                                </a>
-                            </p>
-                        </td>
-                        <td class="w3-padding">
-                            <h4 class="w3-center"><a href="user_profile.html" class="w3-link">Profile #4</a></h4>
-                        </td>
-                        <td>
-                            <p>
-                                <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-                            <p>
-                                <i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-                            <p>
-                                <i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
-                        </td>
-                        <td>
-                            <p>
-                                <i class="fa fa-envelope-open"></i> Email: email@gmail.com</p>
-                            <p>
-                                <i class="fa fa-phone"></i> Phone: +123456789</p>
-                            <p>
-                                <i class="fa fa-link"></i> Website: website.com</p>
-                            </p>
-                        </td>
-                        <td>
-                            <div style="width:100%">
-                                <table style="width:100%">
-                                    <td style="width:100%">
-                                        <label class="w3-opacity-min">Select User (XML) </label>
-                                    </td>
-                                    <td>
-                                        <input id="check_4" class="w3-check" type="checkbox">
-                                    </td>
-                                </table>
-                            </div>
-                            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-user"></i> View Profile</button>
-                            <br>
-                            <br>
-                            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-download"></i> Download (XML)</button>
-                        </td>
-                    </table>
-                </div>
-                <!-- End Middle Column -->
+                <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
+                    <i class="fa fa-user"></i> View Profile</button>
+                <br>
+                <br>
+                <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+                    <i class="fa fa-download"></i> Download (XML)</button>
+                </td>
+                </table>
             </div>
-
+            <div class="w3-container w3-card w3-white w3-margin">
+                <table style="width: 100%">
+                    <td>
+                        <p class="w3-center">
+                            <a href="profile_admin.html">
+                                <img src="images/avatar3.png" style="height:116px;width:116px" alt="Avatar">
+                            </a>
+                        </p>
+                    </td>
+                    <td class="w3-padding">
+                        <h4 class="w3-center"><a href="user_profile.html" class="w3-link">Profile #2</a></h4>
+                    </td>
+                    <td>
+                        <p>
+                            <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+                        <p>
+                            <i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+                        <p>
+                            <i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+                    </td>
+                    <td>
+                        <p>
+                            <i class="fa fa-envelope-open"></i> Email: email@gmail.com</p>
+                        <p>
+                            <i class="fa fa-phone"></i> Phone: +123456789</p>
+                        <p>
+                            <i class="fa fa-link"></i> Website: website.com</p>
+                        </p>
+                    </td>
+                    <td>
+                        <div style="width:100%">
+                            <table style="width:100%">
+                    <td style="width:100%">
+                        <label class="w3-opacity-min">Select User (XML) </label>
+                    </td>
+                    <td>
+                        <input id="check_2" class="w3-check" type="checkbox" onchange="check_selected(this.id);">
+                    </td>
+                </table>
+            </div>
+            <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
+                <i class="fa fa-user"></i> View Profile</button>
+            <br>
+            <br>
+            <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+                <i class="fa fa-download"></i> Download (XML)</button>
+            </td>
+            </table>
         </div>
-        <!-- End Grid -->
+        <div class="w3-container w3-card w3-white w3-margin">
+            <table style="width: 100%">
+                <td>
+                    <p class="w3-center">
+                        <a href="profile_admin.html">
+                            <img src="images/avatar5.png" style="height:116px;width:116px" alt="Avatar">
+                        </a>
+                    </p>
+                </td>
+                <td class="w3-padding">
+                    <h4 class="w3-center"><a href="user_profile.html" class="w3-link">Profile #3</a></h4>
+                </td>
+                <td>
+                    <p>
+                        <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+                    <p>
+                        <i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+                    <p>
+                        <i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+                </td>
+                <td>
+                    <p>
+                        <i class="fa fa-envelope-open"></i> Email: email@gmail.com</p>
+                    <p>
+                        <i class="fa fa-phone"></i> Phone: +123456789</p>
+                    <p>
+                        <i class="fa fa-link"></i> Website: website.com</p>
+                    </p>
+                </td>
+                <td>
+                    <div style="width:100%">
+                        <table style="width:100%">
+                <td style="width:100%">
+                    <label class="w3-opacity-min">Select User (XML) </label>
+                </td>
+                <td>
+                    <input id="check_3" class="w3-check" type="checkbox" onchange="check_selected(this.id);">
+                </td>
+            </table>
+        </div>
+        <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
+            <i class="fa fa-user"></i> View Profile</button>
+        <br>
+        <br>
+        <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+            <i class="fa fa-download"></i> Download (XML)</button>
+        </td>
+        </table>
+    </div>
+    <div class="w3-container w3-card w3-white w3-margin">
+        <table style="width: 100%">
+            <td>
+                <p class="w3-center">
+                    <a href="profile_admin.html">
+                        <img src="images/avatar6.png" style="height:116px;width:116px" alt="Avatar">
+                    </a>
+                </p>
+            </td>
+            <td class="w3-padding">
+                <h4 class="w3-center"><a href="user_profile.html" class="w3-link">Profile #4</a></h4>
+            </td>
+            <td>
+                <p>
+                    <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+                <p>
+                    <i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+                <p>
+                    <i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+            </td>
+            <td>
+                <p>
+                    <i class="fa fa-envelope-open"></i> Email: email@gmail.com</p>
+                <p>
+                    <i class="fa fa-phone"></i> Phone: +123456789</p>
+                <p>
+                    <i class="fa fa-link"></i> Website: website.com</p>
+                </p>
+            </td>
+            <td>
+                <div style="width:100%">
+                    <table style="width:100%">
+            <td style="width:100%">
+                <label class="w3-opacity-min">Select User (XML) </label>
+            </td>
+            <td>
+                <input id="check_4" class="w3-check" type="checkbox" onchange="check_selected(this.id);">
+            </td>
+        </table>
+    </div>
+    <button type="button" onclick="location.href='profile_admin.html'" class="w3-button w3-theme-d2" style="width:100%">
+        <i class="fa fa-user"></i> View Profile</button>
+    <br>
+    <br>
+    <button type="button" class="w3-button w3-theme-d2" style="width:100%">
+        <i class="fa fa-download"></i> Download (XML)</button>
+    </td>
+    </table>
+    </div>
+    <!-- End Middle Column -->
+    </div>
+
+    </div>
+    <!-- End Grid -->
     </div>
     <!-- End Page Container -->
     </div>
@@ -294,6 +295,7 @@
 
     <script>
         var user_count = 4;
+        var selected_users = 0;
         // Used to toggle the menu on smaller screens when clicking on the menu button
         function openNav() {
             var x = document.getElementById("navDemo");
@@ -307,6 +309,24 @@
         function unselect_all() {
             for (var i = 1; i <= user_count; i++) {
                 document.getElementById("check_" + i).checked = false;
+            }
+            selected_users = 0;
+            document.getElementById("download_selected").disabled = true;
+        }
+
+        function check_selected(id) {
+            if (document.getElementById(id).checked == true) {
+                selected_users += 1;
+            }
+            else {
+                selected_users -= 1;
+            }
+            if (selected_users > 0) {
+                document.getElementById("download_selected").disabled = false;
+            }
+            else {
+                document.getElementById("download_selected").disabled = true;
+
             }
         }
     </script>

@@ -64,7 +64,7 @@
                                     <i class="fa fa-remove"></i> Unselect All</button>
                             </td>
                             <td style="width: 23%">
-                                <button type="submit" class="w3-button w3-theme-d2 w3-margin-right" disabled>
+                                <button id="download_selected" type="submit" class="w3-button w3-theme-d2 w3-margin-right" disabled>
                                     <i class="fa fa-download"></i> Download Selected (XML)</button>
                             </td>
                             <td style="width: 23%">
@@ -175,6 +175,8 @@
             for (var i = 1; i <= user_count; i++) {
                 document.getElementById("check_" + i).checked = false;
             }
+            selected_users = 0;
+            document.getElementById("download_selected").disabled = true;
         }
 
         function check_download() {

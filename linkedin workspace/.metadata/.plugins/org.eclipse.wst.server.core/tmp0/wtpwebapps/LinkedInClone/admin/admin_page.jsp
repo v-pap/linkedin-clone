@@ -50,80 +50,94 @@
     <div class="w3-container w3-content" style="max-width:66.%;margin-top:80px">
         <!-- The Grid -->
         <div class="w3-row">
-			<form action="/LinkedInClone/AdministratorServlet/xml" method="post">
-            <!-- Middle Column -->
-            <div class="w3-col">
-                <div class="w3-container w3-card w3-white w3-margin">
-                    <table style="width: 100%">
-                        <td style="width: 37%">
-                            <h4>
-                                <i class="fa fa-user"></i> Users</h4>
+            <form action="/LinkedInClone/AdministratorServlet/xml" method="post">
+                <!-- Middle Column -->
+                <div class="w3-col">
+                    <div class="w3-container w3-card w3-white w3-margin">
+                        <table style="width: 100%">
+                            <td style="width: 37%">
+                                <h4>
+                                    <i class="fa fa-user"></i> Users</h4>
+                            </td>
+                            <td style="width: 17%">
+                                <button type="button" onclick="unselect_all();" class="w3-button w3-theme-d2 w3-margin-right">
+                                    <i class="fa fa-remove"></i> Unselect All</button>
+                            </td>
+                            <td style="width: 23%">
+                                <button id="download_selected" type="submit" class="w3-button w3-theme-d2 w3-margin-right" disabled>
+                                    <i class="fa fa-download"></i> Download Selected (XML)</button>
+                            </td>
+                            <td style="width: 23%">
+                                <button type="button" onclick="location.href='/LinkedInClone/AdministratorServlet/xmlall';"
+                                    class="w3-button w3-theme-d2" style="width: 100%">
+                                    <i class="fa fa-download"></i> Download All (XML)</button>
+                            </td>
+                        </table>
+                    </div>
+                    <c:forEach items="${profs}" var="prof" varStatus="loop">
+                        <div class="w3-container w3-card w3-white w3-margin">
+                            <table style="width: 100%">
+                                <input type="hidden" name="prof_${prof.getId()}" value="${prof.getId()}">
+                                <input type="hidden" name="iter_${prof.getId()}" value="${loop.count}">
+                                <td>
+                                    <p class="w3-center">
+                                        <a href="/LinkedInClone/AdministratorProfile?id=${prof.getId()}">
+                                            <img src="ImageServlet?id=${prof.getPath()}" style="height:116px;width:116px"
+                                                alt="Avatar">
+                                        </a>
+                                    </p>
+                                </td>
+                                <td class="w3-padding">
+                                    <h4 class="w3-center"><a href="/LinkedInClone/AdministratorProfile?id=${prof.getId()}"
+                                            class="w3-link">
+                                            <c:out value="${prof.getName()}" />
+                                            <c:out value="${prof.getSurname()}" /></a></h4>
+                                </td>
+                                <td>
+                                    <p>
+                                        <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
+                                        <c:out value="${prof.getJobTitle()}" />
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <i class="fa fa-envelope-open"></i> Email:
+                                        <c:out value="${prof.getEmail()}" />
+                                    </p>
+                                    <p>
+                                        <i class="fa fa-phone"></i> Phone:
+                                        <c:out value="${prof.getTelephone()}" />
+                                    </p>
+                                </td>
+                                <td>
+                                    <div style="width:100%">
+                                        <table style="width:100%">
+                                <td style="width:100%">
+                                    <label class="w3-opacity-min">Select User (XML) </label>
+                                </td>
+                                <td>
+                                    <input id="check_${loop.count}" name="check_${loop.count}" class="w3-check" type="checkbox"
+                                        onchange="check_selected(this.id);">
+                                </td>
+                            </table>
+                        </div>
+                        <button type="button" onclick="location.href='/LinkedInClone/AdministratorProfile?id=${prof.getId()}'"
+                            class="w3-button w3-theme-d2" style="width:100%">
+                            <i class="fa fa-user"></i> View Profile</button>
+                        <br>
+                        <br>
+                        <button type="button" onclick="location.href='/LinkedInClone/DownloadXML?id=${prof.getId()}'"
+                            class="w3-button w3-theme-d2" style="width:100%">
+                            <i class="fa fa-download"></i> Download (XML)</button>
                         </td>
-                        <td style="width: 17%">
-                            <button type="button" onclick="unselect_all();" class="w3-button w3-theme-d2 w3-margin-right">
-                                <i class="fa fa-remove"></i> Unselect All</button>
-                        </td>
-                        <td style="width: 23%">
-                            <button type="submit" class="w3-button w3-theme-d2 w3-margin-right">
-                                <i class="fa fa-download"></i> Download Selected (XML)</button>
-                        </td>
-                        <td style="width: 23%">
-                            <button type="button" onclick="location.href='/LinkedInClone/AdministratorServlet/xmlall';" class="w3-button w3-theme-d2" style="width: 100%">
-                                <i class="fa fa-download"></i> Download All (XML)</button>
-                        </td>
-                    </table>
+                        </table>
                 </div>
-                <c:forEach items="${profs}" var="prof" varStatus="loop">
-			        <div class="w3-container w3-card w3-white w3-margin">
-                    <table style="width: 100%">
-                    	<input type="hidden" name="prof_${prof.getId()}" value="${prof.getId()}">
-                    	<input type="hidden" name="iter_${prof.getId()}" value="${loop.count}">
-                        <td>
-                            <p class="w3-center">
-                                <a href="/LinkedInClone/AdministratorProfile?id=${prof.getId()}">
-                                    <img src= "ImageServlet?id=${prof.getPath()}" style="height:116px;width:116px" alt="Avatar">
-                                </a>
-                            </p>
-                        </td>
-                        <td class="w3-padding">
-                            <h4 class="w3-center"><a href="/LinkedInClone/AdministratorProfile?id=${prof.getId()}" class="w3-link"><c:out value="${prof.getName()}"/> <c:out value="${prof.getSurname()}"/></a></h4>
-                        </td>
-                        <td>
-                            <p>
-                                <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> <c:out value="${prof.getJobTitle()}"/></p>
-                        </td>
-                        <td>
-                            <p>
-                                <i class="fa fa-envelope-open"></i> Email: <c:out value="${prof.getEmail()}"/></p>
-                            <p>
-                                <i class="fa fa-phone"></i> Phone: <c:out value="${prof.getTelephone()}"/></p>
-                        </td>
-                        <td>
-                            <div style="width:100%">
-                                <table style="width:100%">
-                                    <td style="width:100%">
-                                        <label class="w3-opacity-min">Select User (XML) </label>
-                                    </td>
-                                    <td>
-                                        <input id="check_${loop.count}" name="check_${loop.count}" class="w3-check" type="checkbox">
-                                    </td>
-                                </table>
-                            </div>
-                            <button type="button" onclick="location.href='/LinkedInClone/AdministratorProfile?id=${prof.getId()}'" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-user"></i> View Profile</button>
-                            <br>
-                            <br>
-                            <button type="button" onclick="location.href='/LinkedInClone/DownloadXML?id=${prof.getId()}'" class="w3-button w3-theme-d2" style="width:100%">
-                                <i class="fa fa-download"></i> Download (XML)</button>
-                        </td>
-                    </table>
-                </div>
-				</c:forEach>
+                </c:forEach>
                 <!-- End Middle Column -->
-            </div>
-			</form>
         </div>
-        <!-- End Grid -->
+        </form>
+    </div>
+    <!-- End Grid -->
     </div>
     <!-- End Page Container -->
     </div>
@@ -145,7 +159,8 @@
     </footer>
 
     <script>
-        var user_count = ${profs.size()};
+        var user_count = ${ profs.size()};
+        var selected_users = 0;
         // Used to toggle the menu on smaller screens when clicking on the menu button
         function openNav() {
             var x = document.getElementById("navDemo");
@@ -159,6 +174,32 @@
         function unselect_all() {
             for (var i = 1; i <= user_count; i++) {
                 document.getElementById("check_" + i).checked = false;
+            }
+            selected_users = 0;
+            document.getElementById("download_selected").disabled = true;
+        }
+
+        function check_download() {
+            for (var i = 1; i <= user_count; i++) {
+                if (document.getElementById("check_" + i).checked == true) {
+                    return;
+                }
+            }
+        }
+
+        function check_selected(id) {
+            if (document.getElementById(id).checked == true) {
+                selected_users += 1;
+            }
+            else {
+                selected_users -= 1;
+            }
+            if (selected_users > 0) {
+                document.getElementById("download_selected").disabled = false;
+            }
+            else {
+                document.getElementById("download_selected").disabled = true;
+
             }
         }
     </script>
